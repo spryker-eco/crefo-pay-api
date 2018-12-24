@@ -12,4 +12,5 @@ namespace SprykerEco\Shared\CrefoPayApi;
  */
 interface CrefoPayApiConstants
 {
+    public const AUTO_CAPTURE = 'CREFO_PAY_API:AUTO_CAPTURE'; //false, true
 }
