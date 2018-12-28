@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Zed\CrefoPayApi\Communication\Console;
 
+use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use Spryker\Zed\Kernel\Communication\Console\Console;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -15,10 +16,10 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @method \SprykerEco\Zed\CrefoPayApi\Business\CrefoPayApiFacadeInterface getFacade()
  * @method \SprykerEco\Zed\CrefoPayApi\Communication\CrefoPayApiCommunicationFactory getFactory()
  */
-class RequestConsole extends Console
+class FinishCallConsole extends Console
 {
-    public const COMMAND_NAME = 'crefo-pay-api:api-request:request';
-    public const COMMAND_DESCRIPTION = 'Make Request to CrefoPay API.';
+    public const COMMAND_NAME = 'crefo-pay-api:finish';
+    public const COMMAND_DESCRIPTION = 'Perform Finish API call to CrefoPay';
 
     /**
      * @return void
@@ -40,10 +41,14 @@ class RequestConsole extends Console
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $facade = $this->getFacade();
-        $messenger = $this->getMessenger();
+        $response = $this->getFacade()->performFinishApiCall($this->createRequestTransfer());
+        echo json_encode($response->toArray(true, true), JSON_PRETTY_PRINT);
+    }
 
-        //$response = $app->performAuthorizeApiCall($this->createRequestTransfer());
-        //echo json_encode($response->toArray(true, true), JSON_PRETTY_PRINT);
+    protected function createRequestTransfer(): CrefoPayApiRequestTransfer
+    {
+        $request = new CrefoPayApiRequestTransfer();
+
+        return $request;
     }
 }
