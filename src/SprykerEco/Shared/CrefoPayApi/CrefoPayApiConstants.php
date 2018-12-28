@@ -12,5 +12,12 @@ namespace SprykerEco\Shared\CrefoPayApi;
  */
 interface CrefoPayApiConstants
 {
-    public const AUTO_CAPTURE = 'CREFO_PAY_API:AUTO_CAPTURE'; //false, true
+    public const CREATE_TRANSACTION_ACTION_URL = 'CREFOPAYAPI:CREATE_TRANSACTION_ACTION_URL';
+    public const RESERVE_ACTION_URL = 'CREFOPAYAPI:RESERVE_ACTION_URL';
+    public const CAPTURE_ACTION_URL = 'CREFOPAYAPI:CAPTURE_ACTION_URL';
+    public const CANCEL_ACTION_URL = 'CREFOPAYAPI:CANCEL_ACTION_URL';
+    public const REFUND_ACTION_URL = 'CREFOPAYAPI:REFUND_ACTION_URL';
+    public const FINISH_ACTION_URL = 'CREFOPAYAPI:FINISH_ACTION_URL';
+
+    public const AUTO_CAPTURE = 'CREFOPAYAPI:AUTO_CAPTURE'; //false, true
 }
