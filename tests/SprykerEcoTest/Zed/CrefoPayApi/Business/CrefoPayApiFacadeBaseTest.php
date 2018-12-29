@@ -10,9 +10,6 @@ namespace SprykerEcoTest\Zed\CrefoPayApi\Business;
 use Codeception\TestCase\Test;
 use SprykerEco\Zed\CrefoPayApi\Business\CrefoPayApiBusinessFactory;
 use SprykerEco\Zed\CrefoPayApi\Business\CrefoPayApiFacade;
-use SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig;
-use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceBridge;
-use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface;
 
 class CrefoPayApiFacadeBaseTest extends Test
 {
@@ -52,26 +49,10 @@ class CrefoPayApiFacadeBaseTest extends Test
 
         $stub = $builder->getMock();
         $stub->method('getConfig')
-            ->willReturn($this->createConfig());
+            ->willReturn($this->tester->createConfig());
         $stub->method('getUtilEncodingService')
-            ->willReturn($this->createUtilEncodingService());
+            ->willReturn($this->tester->createUtilEncodingService());
 
         return $stub;
-    }
-
-    /**
-     * @return \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig
-     */
-    protected function createConfig(): CrefoPayApiConfig
-    {
-        return new CrefoPayApiConfig();
-    }
-
-    /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface
-     */
-    protected function createUtilEncodingService(): CrefoPayApiToUtilEncodingServiceInterface
-    {
-        return new CrefoPayApiToUtilEncodingServiceBridge($this->tester->getLocator()->utilEncoding()->service());
     }
 }

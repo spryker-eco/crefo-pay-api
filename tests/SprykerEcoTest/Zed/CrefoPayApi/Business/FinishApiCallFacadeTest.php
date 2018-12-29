@@ -18,13 +18,21 @@ use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
  */
 class FinishApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
 {
+    /**
+     * @return void
+     */
     public function testPerformFinishApiCall():void
     {
-        $requestTransfer = $this->createRequestTransfer();
+        $requestTransfer = $this->tester->createRequestTransfer();
         $responseTransfer = $this->facade->performFinishApiCall($requestTransfer);
         $this->doTest($responseTransfer);
     }
 
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayApiResponseTransfer $responseTransfer
+     *
+     * @return void
+     */
     public function doTest(CrefoPayApiResponseTransfer $responseTransfer): void
     {
     }
