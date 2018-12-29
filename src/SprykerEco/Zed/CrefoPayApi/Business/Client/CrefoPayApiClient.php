@@ -9,6 +9,7 @@ namespace SprykerEco\Zed\CrefoPayApi\Business\Client;
 
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 use Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException;
 
@@ -29,6 +30,17 @@ class CrefoPayApiClient implements CrefoPayApiClientInterface
      */
     protected $converter;
 
+    public function __construct(
+        ClientInterface $client
+    ) {
+        $this->client = $client;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayApiRequestTransfer $requestTransfer
+     *
+     * @return \Generated\Shared\Transfer\CrefoPayApiResponseTransfer
+     */
     public function performRequest(CrefoPayApiRequestTransfer $requestTransfer): CrefoPayApiResponseTransfer
     {
         $method = $this->getMethod();

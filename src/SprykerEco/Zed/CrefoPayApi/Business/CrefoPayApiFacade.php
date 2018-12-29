@@ -27,7 +27,9 @@ class CrefoPayApiFacade extends AbstractFacade implements CrefoPayApiFacadeInter
      */
     public function performCreateTransactionApiCall(CrefoPayApiRequestTransfer $requestTransfer): CrefoPayApiResponseTransfer
     {
-        // TODO: Implement performCreateTransactionApiCall() method.
+        return $this->getFactory()
+            ->createCreateTransactionClient()
+            ->performRequest($requestTransfer);
     }
 
     /**
@@ -41,7 +43,9 @@ class CrefoPayApiFacade extends AbstractFacade implements CrefoPayApiFacadeInter
      */
     public function performReserveApiCall(CrefoPayApiRequestTransfer $requestTransfer): CrefoPayApiResponseTransfer
     {
-        // TODO: Implement performReserveApiCall() method.
+        return $this->getFactory()
+            ->createReserveClient()
+            ->performRequest($requestTransfer);
     }
 
     /**
@@ -55,7 +59,9 @@ class CrefoPayApiFacade extends AbstractFacade implements CrefoPayApiFacadeInter
      */
     public function performCaptureApiCall(CrefoPayApiRequestTransfer $requestTransfer): CrefoPayApiResponseTransfer
     {
-        // TODO: Implement performCaptureApiCall() method.
+        return $this->getFactory()
+            ->createCaptureClient()
+            ->performRequest($requestTransfer);
     }
 
     /**
@@ -69,7 +75,9 @@ class CrefoPayApiFacade extends AbstractFacade implements CrefoPayApiFacadeInter
      */
     public function performCancelApiCall(CrefoPayApiRequestTransfer $requestTransfer): CrefoPayApiResponseTransfer
     {
-        // TODO: Implement performCancelApiCall() method.
+        return $this->getFactory()
+            ->createCancelClient()
+            ->performRequest($requestTransfer);
     }
 
     /**
@@ -83,7 +91,9 @@ class CrefoPayApiFacade extends AbstractFacade implements CrefoPayApiFacadeInter
      */
     public function performRefundApiCall(CrefoPayApiRequestTransfer $requestTransfer): CrefoPayApiResponseTransfer
     {
-        // TODO: Implement performRefundApiCall() method.
+        return $this->getFactory()
+            ->createRefundClient()
+            ->performRequest($requestTransfer);
     }
 
     /**
@@ -97,6 +107,8 @@ class CrefoPayApiFacade extends AbstractFacade implements CrefoPayApiFacadeInter
      */
     public function performFinishApiCall(CrefoPayApiRequestTransfer $requestTransfer): CrefoPayApiResponseTransfer
     {
-        // TODO: Implement performFinishApiCall() method.
+        return $this->getFactory()
+            ->createFinishClient()
+            ->performRequest($requestTransfer);
     }
 }
