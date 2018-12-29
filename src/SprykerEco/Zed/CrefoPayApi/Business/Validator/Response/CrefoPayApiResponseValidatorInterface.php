@@ -14,8 +14,6 @@ interface CrefoPayApiResponseValidatorInterface
     /**
      * @param \Generated\Shared\Transfer\CrefoPayApiResponseTransfer $responseTransfer
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
-     *
      * @return void
      */
     public function validate(CrefoPayApiResponseTransfer $responseTransfer): void;
