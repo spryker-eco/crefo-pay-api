@@ -19,5 +19,7 @@ interface CrefoPayApiConstants
     public const REFUND_ACTION_URL = 'CREFOPAYAPI:REFUND_ACTION_URL';
     public const FINISH_ACTION_URL = 'CREFOPAYAPI:FINISH_ACTION_URL';
 
+    public const PRIVATE_KEY = 'CREFOPAYAPI:PRIVATE_KEY';
+
     public const AUTO_CAPTURE = 'CREFOPAYAPI:AUTO_CAPTURE'; //false, true
 }
