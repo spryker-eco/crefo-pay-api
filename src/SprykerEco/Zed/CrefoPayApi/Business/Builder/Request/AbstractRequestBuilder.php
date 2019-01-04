@@ -9,7 +9,9 @@ namespace SprykerEco\Zed\CrefoPayApi\Business\Builder\Request;
 
 use ArrayObject;
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
+use SprykerEco\Service\CrefoPayApi\CrefoPayApiServiceInterface;
 use SprykerEco\Zed\CrefoPayApi\Business\Validator\Request\CrefoPayApiRequestValidatorInterface;
+use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface;
 
 abstract class AbstractRequestBuilder implements CrefoPayApiRequestBuilderInterface
 {
@@ -17,6 +19,16 @@ abstract class AbstractRequestBuilder implements CrefoPayApiRequestBuilderInterf
      * @var \SprykerEco\Zed\CrefoPayApi\Business\Validator\Request\CrefoPayApiRequestValidatorInterface
      */
     protected $validator;
+
+    /**
+     * @var \SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface
+     */
+    protected $encodingService;
+
+    /**
+     * @var \SprykerEco\Service\CrefoPayApi\CrefoPayApiServiceInterface
+     */
+    protected $service;
 
     /**
      * @param \Generated\Shared\Transfer\CrefoPayApiRequestTransfer $requestTransfer
@@ -27,10 +39,17 @@ abstract class AbstractRequestBuilder implements CrefoPayApiRequestBuilderInterf
 
     /**
      * @param \SprykerEco\Zed\CrefoPayApi\Business\Validator\Request\CrefoPayApiRequestValidatorInterface $validator
+     * @param \SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface $encodingService
+     * @param \SprykerEco\Service\CrefoPayApi\CrefoPayApiServiceInterface $service
      */
-    public function __construct(CrefoPayApiRequestValidatorInterface $validator)
-    {
+    public function __construct(
+        CrefoPayApiRequestValidatorInterface $validator,
+        CrefoPayApiToUtilEncodingServiceInterface $encodingService,
+        CrefoPayApiServiceInterface $service
+    ) {
         $this->validator = $validator;
+        $this->encodingService = $encodingService;
+        $this->service = $service;
     }
 
     /**
@@ -42,8 +61,11 @@ abstract class AbstractRequestBuilder implements CrefoPayApiRequestBuilderInterf
     {
         $this->validator->validate($requestTransfer);
         $requestPayload = $this->convertRequestTransferToArray($requestTransfer);
+        $requestPayload = $this->removeRedundantParams($requestPayload);
+        $requestPayload = $this->convertNestedArrayToJson($requestPayload);
+        $requestPayload['mac'] = $this->service->calculateMac($requestPayload);
 
-        return $this->removeRedundantParams($requestPayload);
+        return $requestPayload;
     }
 
     /**
@@ -57,12 +79,28 @@ abstract class AbstractRequestBuilder implements CrefoPayApiRequestBuilderInterf
             if ($item instanceof ArrayObject) {
                 return $item->count() !== 0;
             }
-            return !empty($item);
+            return $item !== null;
         });
 
         foreach ($data as $key => $value) {
             if (is_array($value) || $value instanceof ArrayObject) {
                 $data[$key] = $this->removeRedundantParams($value);
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return array
+     */
+    protected function convertNestedArrayToJson(array $data): array
+    {
+        foreach ($data as $key => $value) {
+            if (is_array($value) || $value instanceof ArrayObject) {
+                $data[$key] = $this->encodingService->encodeJson($value);
             }
         }
 

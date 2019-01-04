@@ -20,7 +20,7 @@
         <property name="orderID" type="string" />
         <property name="userID" type="string" />
         <property name="integrationType" type="string" />
-        <property name="autoCapture" type="bool" />
+        <property name="autoCapture" type="string" />
         <property name="merchantReference" type="string" />
         <property name="context" type="string" />
         <property name="userType" type="string" />
@@ -89,6 +89,7 @@
     <!--- Response Transfers -->
 
     <transfer name="CrefoPayApiResponse">
+        <property name="isSuccess" type="bool" />
         <property name="createTransactionResponse" type="CrefoPayApiCreateTransactionResponse" />
         <property name="reserveResponse" type="CrefoPayApiReserveResponse" />
         <property name="captureResponse" type="CrefoPayApiCaptureResponse" />

@@ -69,9 +69,9 @@ class CrefoPayApiClient implements CrefoPayApiClientInterface
 
         } catch (RequestException $requestException) {
             $response = $requestException->getResponse();
-            return;
+            return new CrefoPayApiResponseTransfer();
         } catch (RequiredTransferPropertyException $requiredTransferPropertyException) {
-            return;
+            return new CrefoPayApiResponseTransfer();
         }
     }
 

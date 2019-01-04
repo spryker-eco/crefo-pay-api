@@ -11,5 +11,10 @@ use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 
 interface CrefoPayApiRequestBuilderInterface
 {
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayApiRequestTransfer $requestTransfer
+     *
+     * @return array
+     */
     public function buildRequestPayload(CrefoPayApiRequestTransfer $requestTransfer): array;
 }

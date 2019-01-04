@@ -14,6 +14,7 @@ use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServi
 class CrefoPayApiDependencyProvider extends AbstractBundleDependencyProvider
 {
     public const SERVICE_UTIL_ENCODING = 'SERVICE_UTIL_ENCODING';
+    public const SERVICE_CREFO_PAY_API = 'SERVICE_CREFO_PAY_API';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -24,6 +25,7 @@ class CrefoPayApiDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container = parent::provideBusinessLayerDependencies($container);
         $container = $this->addUtilEncodingService($container);
+        $container = $this->addCrefoPayApiService($container);
 
         return $container;
     }
@@ -37,6 +39,20 @@ class CrefoPayApiDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container[static::SERVICE_UTIL_ENCODING] = function (Container $container) {
             return new CrefoPayApiToUtilEncodingServiceBridge($container->getLocator()->utilEncoding()->service());
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addCrefoPayApiService(Container $container): Container
+    {
+        $container[static::SERVICE_CREFO_PAY_API] = function (Container $container) {
+            return $container->getLocator()->crefoPayApi()->service();
         };
 
         return $container;

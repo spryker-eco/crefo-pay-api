@@ -20,6 +20,7 @@ interface CrefoPayApiConstants
     public const FINISH_ACTION_URL = 'CREFOPAYAPI:FINISH_ACTION_URL';
 
     public const PRIVATE_KEY = 'CREFOPAYAPI:PRIVATE_KEY';
+    public const PUBLIC_KEY = 'CREFOPAYAPI:PUBLIC_KEY';
 
     public const AUTO_CAPTURE = 'CREFOPAYAPI:AUTO_CAPTURE'; //false, true
 }
