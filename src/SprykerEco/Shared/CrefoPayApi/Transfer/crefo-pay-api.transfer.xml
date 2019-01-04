@@ -36,7 +36,6 @@
         <property name="basketItems" type="CrefoPayApiBasketItem[]" singular="basketItem" />
         <property name="basketValidity" type="string" /> <!--- Example: one hour: 1h, ten minutes: 10m, two days: 2d - only one unit of time can be provided -->
         <property name="locale" type="string" />
-        <property name="mac" type="string" />
     </transfer>
 
     <transfer name="CrefoPayApiReserveRequest">
@@ -49,7 +48,6 @@
         <property name="amount" type="CrefoPayApiAmount" />
         <property name="basketItems" type="CrefoPayApiBasketItem[]" singular="basketItem" />
         <property name="cvv" type="string" />
-        <property name="mac" type="string" />
     </transfer>
 
     <transfer name="CrefoPayApiReserveInformationRequest">
@@ -63,14 +61,12 @@
         <property name="orderID" type="string" />
         <property name="captureID" type="string" />
         <property name="amount" type="CrefoPayApiAmount" />
-        <property name="mac" type="string" />
     </transfer>
 
     <transfer name="CrefoPayApiCancelRequest">
         <property name="merchantID" type="int" />
         <property name="storeID" type="string" />
         <property name="orderID" type="string" />
-        <property name="mac" type="string" />
     </transfer>
 
     <transfer name="CrefoPayApiRefundRequest">
@@ -80,14 +76,12 @@
         <property name="captureID" type="string" />
         <property name="refundDescription" type="string" />
         <property name="amount" type="CrefoPayApiAmount" />
-        <property name="mac" type="string" />
     </transfer>
 
     <transfer name="CrefoPayApiFinishRequest">
         <property name="merchantID" type="int" />
         <property name="storeID" type="string" />
         <property name="orderID" type="string" />
-        <property name="mac" type="string" />
     </transfer>
 
     <!--- End of Request Transfers -->
