@@ -11,7 +11,6 @@ use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
-use Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException;
 use SprykerEco\Zed\CrefoPayApi\Business\Converter\CrefoPayApiConverterInterface;
 use SprykerEco\Zed\CrefoPayApi\Business\Request\CrefoPayApiRequestInterface;
 
@@ -55,6 +54,7 @@ class CrefoPayApiClient implements CrefoPayApiClientInterface
     public function performRequest(CrefoPayApiRequestTransfer $requestTransfer): CrefoPayApiResponseTransfer
     {
         $method = $this->getMethod();
+        $isSuccess = true;
 
         try {
             /** @var \Psr\Http\Message\ResponseInterface $response */
@@ -63,16 +63,12 @@ class CrefoPayApiClient implements CrefoPayApiClientInterface
                 $this->request->getRequestOptions($requestTransfer)
             );
 
-            $responseTransfer = $this->converter->convertToResponseTransfer($response);
-
-            return $responseTransfer;
-
         } catch (RequestException $requestException) {
+            $isSuccess = false;
             $response = $requestException->getResponse();
-            return new CrefoPayApiResponseTransfer();
-        } catch (RequiredTransferPropertyException $requiredTransferPropertyException) {
-            return new CrefoPayApiResponseTransfer();
         }
+
+        return $this->converter->convertToResponseTransfer($response, $isSuccess);
     }
 
     /**

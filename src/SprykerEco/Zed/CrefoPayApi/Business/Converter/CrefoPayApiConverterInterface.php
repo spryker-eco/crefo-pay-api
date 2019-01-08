@@ -14,8 +14,12 @@ interface CrefoPayApiConverterInterface
 {
     /**
      * @param \Psr\Http\Message\ResponseInterface $response
+     * @param bool $isSuccess
      *
      * @return \Generated\Shared\Transfer\CrefoPayApiResponseTransfer
      */
-    public function convertToResponseTransfer(ResponseInterface $response): CrefoPayApiResponseTransfer;
+    public function convertToResponseTransfer(
+        ResponseInterface $response,
+        bool $isSuccess = true
+    ): CrefoPayApiResponseTransfer;
 }

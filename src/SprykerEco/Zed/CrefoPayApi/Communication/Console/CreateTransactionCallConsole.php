@@ -30,7 +30,7 @@ class CreateTransactionCallConsole extends Console
     /**
      * @return void
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -45,7 +45,7 @@ class CreateTransactionCallConsole extends Console
      *
      * @return void
      */
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): void
     {
         $response = $this->getFacade()->performCreateTransactionApiCall($this->createRequestTransfer());
         echo json_encode($response->toArray(true, true), JSON_PRETTY_PRINT);
@@ -62,7 +62,10 @@ class CreateTransactionCallConsole extends Console
         return $request;
     }
 
-    protected function createRequestCallTransfer()
+    /**
+     * @return \Generated\Shared\Transfer\CrefoPayApiCreateTransactionRequestTransfer
+     */
+    protected function createRequestCallTransfer(): CrefoPayApiCreateTransactionRequestTransfer
     {
         return (new CrefoPayApiCreateTransactionRequestTransfer())
             ->setMerchantID(265)
@@ -103,7 +106,10 @@ class CreateTransactionCallConsole extends Console
             ->setLocale('EN');
     }
 
-    protected function createBasket()
+    /**
+     * @return \ArrayObject
+     */
+    protected function createBasket(): ArrayObject
     {
         $basket = new ArrayObject();
         $basket->append(

@@ -17,7 +17,7 @@ class CaptureConverter extends AbstractConverter
      *
      * @return \Generated\Shared\Transfer\CrefoPayApiResponseTransfer
      */
-    protected function updateResponseTransferWithApiCallResponse(
+    protected function createResponseTransferWithApiCallResponse(
         CrefoPayApiResponseTransfer $responseTransfer,
         array $responseData
     ): CrefoPayApiResponseTransfer {

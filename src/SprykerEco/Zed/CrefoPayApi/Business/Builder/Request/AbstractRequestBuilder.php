@@ -10,6 +10,7 @@ namespace SprykerEco\Zed\CrefoPayApi\Business\Builder\Request;
 use ArrayObject;
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use SprykerEco\Service\CrefoPayApi\CrefoPayApiServiceInterface;
+use SprykerEco\Shared\CrefoPayApi\CrefoPayApiConfig;
 use SprykerEco\Zed\CrefoPayApi\Business\Validator\Request\CrefoPayApiRequestValidatorInterface;
 use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface;
 
@@ -63,7 +64,7 @@ abstract class AbstractRequestBuilder implements CrefoPayApiRequestBuilderInterf
         $requestPayload = $this->convertRequestTransferToArray($requestTransfer);
         $requestPayload = $this->removeRedundantParams($requestPayload);
         $requestPayload = $this->convertNestedArrayToJson($requestPayload);
-        $requestPayload['mac'] = $this->service->calculateMac($requestPayload);
+        $requestPayload[CrefoPayApiConfig::API_FIELD_MAC] = $this->service->calculateMac($requestPayload);
 
         return $requestPayload;
     }

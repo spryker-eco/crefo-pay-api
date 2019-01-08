@@ -9,6 +9,7 @@ namespace SprykerEco\Zed\CrefoPayApi\Business\Converter;
 
 use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
 use Psr\Http\Message\ResponseInterface;
+use Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException;
 use SprykerEco\Zed\CrefoPayApi\Business\Validator\Response\CrefoPayApiResponseValidatorInterface;
 use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface;
 
@@ -30,7 +31,7 @@ abstract class AbstractConverter implements CrefoPayApiConverterInterface
      *
      * @return \Generated\Shared\Transfer\CrefoPayApiResponseTransfer
      */
-    abstract protected function updateResponseTransferWithApiCallResponse(
+    abstract protected function createResponseTransferWithApiCallResponse(
         CrefoPayApiResponseTransfer $responseTransfer,
         array $responseData
     ): CrefoPayApiResponseTransfer;
@@ -49,15 +50,26 @@ abstract class AbstractConverter implements CrefoPayApiConverterInterface
 
     /**
      * @param \Psr\Http\Message\ResponseInterface $response
+     * @param bool $isSuccess
      *
      * @return \Generated\Shared\Transfer\CrefoPayApiResponseTransfer
      */
-    public function convertToResponseTransfer(ResponseInterface $response): CrefoPayApiResponseTransfer
-    {
+    public function convertToResponseTransfer(
+        ResponseInterface $response,
+        bool $isSuccess = true
+    ): CrefoPayApiResponseTransfer {
         $responseData = $this->encodingService->decodeJson($response->getBody(), true);
-        $responseTransfer = new CrefoPayApiResponseTransfer();
-        $responseTransfer = $this->updateResponseTransferWithApiCallResponse($responseTransfer, $responseData);
-        $this->validator->validate($responseTransfer);
+        $responseTransfer = $this->createResponseTransferWithApiCallResponse(
+            new CrefoPayApiResponseTransfer(),
+            $responseData
+        );
+
+        try {
+            $this->validator->validate($responseTransfer);
+        } catch (RequiredTransferPropertyException $requiredTransferPropertyException) {
+
+        }
+
 
         return $responseTransfer;
     }
