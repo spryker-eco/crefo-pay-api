@@ -18,6 +18,16 @@ class CreateTransactionRequestValidator implements CrefoPayApiRequestValidatorIn
      */
     public function validate(CrefoPayApiRequestTransfer $requestTransfer): void
     {
-        $requestTransfer->requireCreateTransactionRequest();
+        $requestTransfer->requireCreateTransactionRequest()
+            ->getCreateTransactionRequest()
+                ->requireMerchantID()
+                ->requireStoreID()
+                ->requireOrderID()
+                ->requireUserID()
+                ->requireContext()
+                ->requireUserType()
+                ->requireAmount()
+                ->requireBasketItems()
+                ->requireLocale();
     }
 }

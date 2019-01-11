@@ -18,6 +18,13 @@ class RefundRequestValidator implements CrefoPayApiRequestValidatorInterface
      */
     public function validate(CrefoPayApiRequestTransfer $requestTransfer): void
     {
-        $requestTransfer->requireRefundRequest();
+        $requestTransfer->requireRefundRequest()
+            ->getRefundRequest()
+                ->requireMerchantID()
+                ->requireStoreID()
+                ->requireOrderID()
+                ->requireCaptureID()
+                ->requireRefundDescription()
+                ->requireAmount();
     }
 }

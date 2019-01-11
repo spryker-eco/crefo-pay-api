@@ -18,6 +18,10 @@ class FinishRequestValidator implements CrefoPayApiRequestValidatorInterface
      */
     public function validate(CrefoPayApiRequestTransfer $requestTransfer): void
     {
-        $requestTransfer->requireFinishRequest();
+        $requestTransfer->requireFinishRequest()
+            ->getFinishRequest()
+                ->requireMerchantID()
+                ->requireStoreID()
+                ->requireOrderID();
     }
 }

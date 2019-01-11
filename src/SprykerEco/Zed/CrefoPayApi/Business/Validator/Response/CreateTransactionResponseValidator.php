@@ -18,6 +18,9 @@ class CreateTransactionResponseValidator implements CrefoPayApiResponseValidator
      */
     public function validate(CrefoPayApiResponseTransfer $responseTransfer): void
     {
-        $responseTransfer->requireCreateTransactionResponse();
+        $responseTransfer->requireCreateTransactionResponse()
+            ->getCreateTransactionResponse()
+                ->requireResultCode()
+                ->requireSalt();
     }
 }

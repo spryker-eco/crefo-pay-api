@@ -18,6 +18,9 @@ class RefundResponseValidator implements CrefoPayApiResponseValidatorInterface
      */
     public function validate(CrefoPayApiResponseTransfer $responseTransfer): void
     {
-        $responseTransfer->requireRefundResponse();
+        $responseTransfer->requireRefundResponse()
+            ->getRefundResponse()
+                ->requireResultCode()
+                ->requireSalt();
     }
 }

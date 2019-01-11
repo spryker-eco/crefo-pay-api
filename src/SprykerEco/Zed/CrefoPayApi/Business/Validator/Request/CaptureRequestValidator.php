@@ -18,6 +18,12 @@ class CaptureRequestValidator implements CrefoPayApiRequestValidatorInterface
      */
     public function validate(CrefoPayApiRequestTransfer $requestTransfer): void
     {
-        $requestTransfer->requireCaptureRequest();
+        $requestTransfer->requireCaptureRequest()
+            ->getCaptureRequest()
+                ->requireMerchantID()
+                ->requireStoreID()
+                ->requireOrderID()
+                ->requireCaptureID()
+                ->requireAmount();
     }
 }

@@ -18,6 +18,9 @@ class ReserveResponseValidator implements CrefoPayApiResponseValidatorInterface
      */
     public function validate(CrefoPayApiResponseTransfer $responseTransfer): void
     {
-        $responseTransfer->requireReserveResponse();
+        $responseTransfer->requireReserveResponse()
+            ->getReserveResponse()
+                ->requireResultCode()
+                ->requireSalt();
     }
 }

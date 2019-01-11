@@ -18,6 +18,11 @@ class ReserveRequestValidator implements CrefoPayApiRequestValidatorInterface
      */
     public function validate(CrefoPayApiRequestTransfer $requestTransfer): void
     {
-        $requestTransfer->requireReserveRequest();
+        $requestTransfer->requireReserveRequest()
+            ->getReserveRequest()
+                ->requireMerchantID()
+                ->requireStoreID()
+                ->requireOrderID()
+                ->requirePaymentMethod();
     }
 }

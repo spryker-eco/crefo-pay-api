@@ -18,6 +18,9 @@ class CaptureResponseValidator implements CrefoPayApiResponseValidatorInterface
      */
     public function validate(CrefoPayApiResponseTransfer $responseTransfer): void
     {
-        $responseTransfer->requireCaptureResponse();
+        $responseTransfer->requireCaptureResponse()
+            ->getCaptureResponse()
+                ->requireResultCode()
+                ->requireSalt();
     }
 }

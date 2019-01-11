@@ -18,6 +18,9 @@ class CancelResponseValidator implements CrefoPayApiResponseValidatorInterface
      */
     public function validate(CrefoPayApiResponseTransfer $responseTransfer): void
     {
-        $responseTransfer->requireCancelResponse();
+        $responseTransfer->requireCancelResponse()
+            ->getCancelResponse()
+                ->requireResultCode()
+                ->requireSalt();
     }
 }

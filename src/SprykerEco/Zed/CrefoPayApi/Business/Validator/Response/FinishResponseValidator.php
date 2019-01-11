@@ -18,6 +18,9 @@ class FinishResponseValidator implements CrefoPayApiResponseValidatorInterface
      */
     public function validate(CrefoPayApiResponseTransfer $responseTransfer): void
     {
-        $responseTransfer->requireFinishResponse();
+        $responseTransfer->requireFinishResponse()
+            ->getFinishResponse()
+                ->requireResultCode()
+                ->requireSalt();
     }
 }

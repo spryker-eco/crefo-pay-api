@@ -18,6 +18,10 @@ class CancelRequestValidator implements CrefoPayApiRequestValidatorInterface
      */
     public function validate(CrefoPayApiRequestTransfer $requestTransfer): void
     {
-        $requestTransfer->requireCancelRequest();
+        $requestTransfer->requireCancelRequest()
+            ->getCancelRequest()
+                ->requireMerchantID()
+                ->requireStoreID()
+                ->requireOrderID();
     }
 }
