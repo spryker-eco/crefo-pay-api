@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Zed\CrefoPayApi\Business\Converter;
 
+use Generated\Shared\Transfer\CrefoPayApiCreateTransactionResponseTransfer;
 use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
 
 class CreateTransactionConverter extends AbstractConverter
@@ -17,10 +18,14 @@ class CreateTransactionConverter extends AbstractConverter
      *
      * @return \Generated\Shared\Transfer\CrefoPayApiResponseTransfer
      */
-    protected function createResponseTransferWithApiCallResponse(
+    protected function updateResponseTransferWithApiCallResponse(
         CrefoPayApiResponseTransfer $responseTransfer,
         array $responseData
     ): CrefoPayApiResponseTransfer {
+        $responseTransfer->setCreateTransactionResponse(
+            (new CrefoPayApiCreateTransactionResponseTransfer())->fromArray($responseData, true)
+        );
+
         return $responseTransfer;
     }
 }
