@@ -22,9 +22,4 @@ interface CrefoPayApiRequestInterface
      * @return string
      */
     public function getUrl(): string;
-
-    /**
-     * @return string
-     */
-    public function getHttpMethod(): string;
 }

@@ -16,12 +16,4 @@ class ReserveRequest extends AbstractRequest implements CrefoPayApiRequestInterf
     {
         return $this->config->getReserveActionUrl();
     }
-
-    /**
-     * @return string
-     */
-    public function getHttpMethod(): string
-    {
-        return static::METHOD_POST;
-    }
 }

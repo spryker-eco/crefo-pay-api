@@ -16,12 +16,4 @@ class FinishRequest extends AbstractRequest implements CrefoPayApiRequestInterfa
     {
         return $this->config->getFinishActionUrl();
     }
-
-    /**
-     * @return string
-     */
-    public function getHttpMethod(): string
-    {
-        return static::METHOD_POST;
-    }
 }

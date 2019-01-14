@@ -34,20 +34,6 @@ use SprykerEco\Zed\CrefoPayApi\Business\Request\CrefoPayApiRequestInterface;
 use SprykerEco\Zed\CrefoPayApi\Business\Request\FinishRequest;
 use SprykerEco\Zed\CrefoPayApi\Business\Request\RefundRequest;
 use SprykerEco\Zed\CrefoPayApi\Business\Request\ReserveRequest;
-use SprykerEco\Zed\CrefoPayApi\Business\Validator\Request\CancelRequestValidator;
-use SprykerEco\Zed\CrefoPayApi\Business\Validator\Request\CaptureRequestValidator;
-use SprykerEco\Zed\CrefoPayApi\Business\Validator\Request\CreateTransactionRequestValidator;
-use SprykerEco\Zed\CrefoPayApi\Business\Validator\Request\CrefoPayApiRequestValidatorInterface;
-use SprykerEco\Zed\CrefoPayApi\Business\Validator\Request\FinishRequestValidator;
-use SprykerEco\Zed\CrefoPayApi\Business\Validator\Request\RefundRequestValidator;
-use SprykerEco\Zed\CrefoPayApi\Business\Validator\Request\ReserveRequestValidator;
-use SprykerEco\Zed\CrefoPayApi\Business\Validator\Response\CancelResponseValidator;
-use SprykerEco\Zed\CrefoPayApi\Business\Validator\Response\CaptureResponseValidator;
-use SprykerEco\Zed\CrefoPayApi\Business\Validator\Response\CreateTransactionResponseValidator;
-use SprykerEco\Zed\CrefoPayApi\Business\Validator\Response\CrefoPayApiResponseValidatorInterface;
-use SprykerEco\Zed\CrefoPayApi\Business\Validator\Response\FinishResponseValidator;
-use SprykerEco\Zed\CrefoPayApi\Business\Validator\Response\RefundResponseValidator;
-use SprykerEco\Zed\CrefoPayApi\Business\Validator\Response\ReserveResponseValidator;
 use SprykerEco\Zed\CrefoPayApi\CrefoPayApiDependencyProvider;
 use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface;
 
@@ -208,7 +194,6 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     public function createCreateTransactionRequestBuilder(): CrefoPayApiRequestBuilderInterface
     {
         return new CreateTransactionRequestBuilder(
-            $this->createCreateTransactionRequestValidator(),
             $this->getUtilEncodingService(),
             $this->getCrefoPayApiService()
         );
@@ -220,7 +205,6 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     public function createReserveRequestBuilder(): CrefoPayApiRequestBuilderInterface
     {
         return new ReserveRequestBuilder(
-            $this->createReserveRequestValidator(),
             $this->getUtilEncodingService(),
             $this->getCrefoPayApiService()
         );
@@ -232,7 +216,6 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     public function createCaptureRequestBuilder(): CrefoPayApiRequestBuilderInterface
     {
         return new CaptureRequestBuilder(
-            $this->createCaptureRequestValidator(),
             $this->getUtilEncodingService(),
             $this->getCrefoPayApiService()
         );
@@ -244,7 +227,6 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     public function createCancelRequestBuilder(): CrefoPayApiRequestBuilderInterface
     {
         return new CancelRequestBuilder(
-            $this->createCancelRequestValidator(),
             $this->getUtilEncodingService(),
             $this->getCrefoPayApiService()
         );
@@ -256,7 +238,6 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     public function createRefundRequestBuilder(): CrefoPayApiRequestBuilderInterface
     {
         return new RefundRequestBuilder(
-            $this->createRefundRequestValidator(),
             $this->getUtilEncodingService(),
             $this->getCrefoPayApiService()
         );
@@ -268,58 +249,9 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     public function createFinishRequestBuilder(): CrefoPayApiRequestBuilderInterface
     {
         return new FinishRequestBuilder(
-            $this->createFinishRequestValidator(),
             $this->getUtilEncodingService(),
             $this->getCrefoPayApiService()
         );
-    }
-
-    /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Validator\Request\CrefoPayApiRequestValidatorInterface
-     */
-    public function createCreateTransactionRequestValidator(): CrefoPayApiRequestValidatorInterface
-    {
-        return new CreateTransactionRequestValidator();
-    }
-
-    /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Validator\Request\CrefoPayApiRequestValidatorInterface
-     */
-    public function createReserveRequestValidator(): CrefoPayApiRequestValidatorInterface
-    {
-        return new ReserveRequestValidator();
-    }
-
-    /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Validator\Request\CrefoPayApiRequestValidatorInterface
-     */
-    public function createCaptureRequestValidator(): CrefoPayApiRequestValidatorInterface
-    {
-        return new CaptureRequestValidator();
-    }
-
-    /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Validator\Request\CrefoPayApiRequestValidatorInterface
-     */
-    public function createCancelRequestValidator(): CrefoPayApiRequestValidatorInterface
-    {
-        return new CancelRequestValidator();
-    }
-
-    /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Validator\Request\CrefoPayApiRequestValidatorInterface
-     */
-    public function createRefundRequestValidator(): CrefoPayApiRequestValidatorInterface
-    {
-        return new RefundRequestValidator();
-    }
-
-    /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Validator\Request\CrefoPayApiRequestValidatorInterface
-     */
-    public function createFinishRequestValidator(): CrefoPayApiRequestValidatorInterface
-    {
-        return new FinishRequestValidator();
     }
 
     /**
@@ -327,10 +259,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createCreateTransactionConverter(): CrefoPayApiConverterInterface
     {
-        return new CreateTransactionConverter(
-            $this->createCreateTransactionResponseValidator(),
-            $this->getUtilEncodingService()
-        );
+        return new CreateTransactionConverter($this->getUtilEncodingService());
     }
 
     /**
@@ -338,10 +267,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createReserveConverter(): CrefoPayApiConverterInterface
     {
-        return new ReserveConverter(
-            $this->createReserveResponseValidator(),
-            $this->getUtilEncodingService()
-        );
+        return new ReserveConverter($this->getUtilEncodingService());
     }
 
     /**
@@ -349,10 +275,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createCaptureConverter(): CrefoPayApiConverterInterface
     {
-        return new CaptureConverter(
-            $this->createCaptureResponseValidator(),
-            $this->getUtilEncodingService()
-        );
+        return new CaptureConverter($this->getUtilEncodingService());
     }
 
     /**
@@ -360,10 +283,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createCancelConverter(): CrefoPayApiConverterInterface
     {
-        return new CancelConverter(
-            $this->createCancelResponseValidator(),
-            $this->getUtilEncodingService()
-        );
+        return new CancelConverter($this->getUtilEncodingService());
     }
 
     /**
@@ -371,10 +291,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createRefundConverter(): CrefoPayApiConverterInterface
     {
-        return new RefundConverter(
-            $this->createRefundResponseValidator(),
-            $this->getUtilEncodingService()
-        );
+        return new RefundConverter($this->getUtilEncodingService());
     }
 
     /**
@@ -382,58 +299,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createFinishConverter(): CrefoPayApiConverterInterface
     {
-        return new FinishConverter(
-            $this->createFinishResponseValidator(),
-            $this->getUtilEncodingService()
-        );
-    }
-
-    /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Validator\Response\CrefoPayApiResponseValidatorInterface
-     */
-    public function createCreateTransactionResponseValidator(): CrefoPayApiResponseValidatorInterface
-    {
-        return new CreateTransactionResponseValidator();
-    }
-
-    /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Validator\Response\CrefoPayApiResponseValidatorInterface
-     */
-    public function createReserveResponseValidator(): CrefoPayApiResponseValidatorInterface
-    {
-        return new ReserveResponseValidator();
-    }
-
-    /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Validator\Response\CrefoPayApiResponseValidatorInterface
-     */
-    public function createCaptureResponseValidator(): CrefoPayApiResponseValidatorInterface
-    {
-        return new CaptureResponseValidator();
-    }
-
-    /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Validator\Response\CrefoPayApiResponseValidatorInterface
-     */
-    public function createCancelResponseValidator(): CrefoPayApiResponseValidatorInterface
-    {
-        return new CancelResponseValidator();
-    }
-
-    /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Validator\Response\CrefoPayApiResponseValidatorInterface
-     */
-    public function createRefundResponseValidator(): CrefoPayApiResponseValidatorInterface
-    {
-        return new RefundResponseValidator();
-    }
-
-    /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Validator\Response\CrefoPayApiResponseValidatorInterface
-     */
-    public function createFinishResponseValidator(): CrefoPayApiResponseValidatorInterface
-    {
-        return new FinishResponseValidator();
+        return new FinishConverter($this->getUtilEncodingService());
     }
 
     /**

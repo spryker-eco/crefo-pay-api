@@ -16,12 +16,4 @@ class CreateTransactionRequest extends AbstractRequest implements CrefoPayApiReq
     {
         return $this->config->getCreateTransactionActionUrl();
     }
-
-    /**
-     * @return string
-     */
-    public function getHttpMethod(): string
-    {
-        return static::METHOD_POST;
-    }
 }

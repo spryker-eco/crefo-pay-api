@@ -17,7 +17,7 @@ use SprykerEco\Zed\CrefoPayApi\Business\Request\CrefoPayApiRequestInterface;
 class CrefoPayApiClient implements CrefoPayApiClientInterface
 {
     /**
-     * @var \GuzzleHttp\ClientInterface
+     * @var \GuzzleHttp\ClientInterface|\GuzzleHttp\Client
      */
     protected $client;
 
@@ -32,7 +32,7 @@ class CrefoPayApiClient implements CrefoPayApiClientInterface
     protected $converter;
 
     /**
-     * @param \GuzzleHttp\ClientInterface $client
+     * @param \GuzzleHttp\ClientInterface|\GuzzleHttp\Client $client
      * @param \SprykerEco\Zed\CrefoPayApi\Business\Request\CrefoPayApiRequestInterface $request
      * @param \SprykerEco\Zed\CrefoPayApi\Business\Converter\CrefoPayApiConverterInterface $converter
      */
@@ -53,12 +53,11 @@ class CrefoPayApiClient implements CrefoPayApiClientInterface
      */
     public function performRequest(CrefoPayApiRequestTransfer $requestTransfer): CrefoPayApiResponseTransfer
     {
-        $method = $this->getMethod();
         $isSuccess = true;
 
         try {
             /** @var \Psr\Http\Message\ResponseInterface $response */
-            $response = $this->client->$method(
+            $response = $this->client->post(
                 $this->request->getUrl(),
                 $this->request->getRequestOptions($requestTransfer)
             );
@@ -69,13 +68,5 @@ class CrefoPayApiClient implements CrefoPayApiClientInterface
         }
 
         return $this->converter->convertToResponseTransfer($response, $isSuccess);
-    }
-
-    /**
-     * @return string
-     */
-    protected function getMethod(): string
-    {
-        return strtolower($this->request->getHttpMethod());
     }
 }

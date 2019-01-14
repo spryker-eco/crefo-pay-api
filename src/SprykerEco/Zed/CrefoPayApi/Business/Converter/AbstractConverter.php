@@ -10,18 +10,11 @@ namespace SprykerEco\Zed\CrefoPayApi\Business\Converter;
 use Generated\Shared\Transfer\CrefoPayApiErrorResponseTransfer;
 use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
 use Psr\Http\Message\ResponseInterface;
-use Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException;
 use SprykerEco\Shared\CrefoPayApi\CrefoPayApiConfig;
-use SprykerEco\Zed\CrefoPayApi\Business\Validator\Response\CrefoPayApiResponseValidatorInterface;
 use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface;
 
 abstract class AbstractConverter implements CrefoPayApiConverterInterface
 {
-    /**
-     * @var \SprykerEco\Zed\CrefoPayApi\Business\Validator\Response\CrefoPayApiResponseValidatorInterface
-     */
-    protected $validator;
-
     /**
      * @var \SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface
      */
@@ -39,14 +32,11 @@ abstract class AbstractConverter implements CrefoPayApiConverterInterface
     ): CrefoPayApiResponseTransfer;
 
     /**
-     * @param \SprykerEco\Zed\CrefoPayApi\Business\Validator\Response\CrefoPayApiResponseValidatorInterface $validator
      * @param \SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface $encodingService
      */
     public function __construct(
-        CrefoPayApiResponseValidatorInterface $validator,
         CrefoPayApiToUtilEncodingServiceInterface $encodingService
     ) {
-        $this->validator = $validator;
         $this->encodingService = $encodingService;
     }
 
@@ -68,15 +58,6 @@ abstract class AbstractConverter implements CrefoPayApiConverterInterface
 
         $responseTransfer = $this->createSuccessResponseTransfer();
         $responseTransfer = $this->updateResponseTransferWithApiCallResponse($responseTransfer, $responseData);
-
-        try {
-            $this->validator->validate($responseTransfer);
-        } catch (RequiredTransferPropertyException $requiredTransferPropertyException) {
-            $responseTransfer = $this->updateResponseTransferWithValidationError(
-                $responseTransfer,
-                $requiredTransferPropertyException
-            );
-        }
 
         return $responseTransfer;
     }
@@ -116,24 +97,5 @@ abstract class AbstractConverter implements CrefoPayApiConverterInterface
     {
         return (new CrefoPayApiResponseTransfer())
             ->setIsSuccess(true);
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\CrefoPayApiResponseTransfer $responseTransfer
-     * @param $requiredTransferPropertyException
-     *
-     * @return \Generated\Shared\Transfer\CrefoPayApiResponseTransfer
-     */
-    protected function updateResponseTransferWithValidationError(
-        CrefoPayApiResponseTransfer $responseTransfer,
-        RequiredTransferPropertyException $requiredTransferPropertyException
-    ): CrefoPayApiResponseTransfer {
-        $error = (new CrefoPayApiErrorResponseTransfer())
-            ->setMessage($requiredTransferPropertyException->getMessage())
-            ->setErrorType(CrefoPayApiConfig::API_ERROR_TYPE_INTERNAL);
-
-        return $responseTransfer
-            ->setIsSuccess(false)
-            ->setError($error);
     }
 }

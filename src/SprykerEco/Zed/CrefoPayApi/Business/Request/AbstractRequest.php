@@ -14,8 +14,6 @@ use SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig;
 
 abstract class AbstractRequest implements CrefoPayApiRequestInterface
 {
-    protected const METHOD_POST = 'POST';
-    protected const METHOD_GET = 'GET';
     protected const DEFAULT_TIMEOUT = 45;
     protected const HEADER_CONTENT_TYPE_KEY = 'Content-Type';
     protected const HEADER_CONTENT_TYPE_VALUE = 'application/x-www-form-urlencoded';

@@ -11,16 +11,10 @@ use ArrayObject;
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use SprykerEco\Service\CrefoPayApi\CrefoPayApiServiceInterface;
 use SprykerEco\Shared\CrefoPayApi\CrefoPayApiConfig;
-use SprykerEco\Zed\CrefoPayApi\Business\Validator\Request\CrefoPayApiRequestValidatorInterface;
 use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface;
 
 abstract class AbstractRequestBuilder implements CrefoPayApiRequestBuilderInterface
 {
-    /**
-     * @var \SprykerEco\Zed\CrefoPayApi\Business\Validator\Request\CrefoPayApiRequestValidatorInterface
-     */
-    protected $validator;
-
     /**
      * @var \SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface
      */
@@ -39,16 +33,13 @@ abstract class AbstractRequestBuilder implements CrefoPayApiRequestBuilderInterf
     abstract protected function convertRequestTransferToArray(CrefoPayApiRequestTransfer $requestTransfer): array;
 
     /**
-     * @param \SprykerEco\Zed\CrefoPayApi\Business\Validator\Request\CrefoPayApiRequestValidatorInterface $validator
      * @param \SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface $encodingService
      * @param \SprykerEco\Service\CrefoPayApi\CrefoPayApiServiceInterface $service
      */
     public function __construct(
-        CrefoPayApiRequestValidatorInterface $validator,
         CrefoPayApiToUtilEncodingServiceInterface $encodingService,
         CrefoPayApiServiceInterface $service
     ) {
-        $this->validator = $validator;
         $this->encodingService = $encodingService;
         $this->service = $service;
     }
@@ -60,7 +51,6 @@ abstract class AbstractRequestBuilder implements CrefoPayApiRequestBuilderInterf
      */
     public function buildRequestPayload(CrefoPayApiRequestTransfer $requestTransfer): array
     {
-        $this->validator->validate($requestTransfer);
         $requestPayload = $this->convertRequestTransferToArray($requestTransfer);
         $requestPayload = $this->removeRedundantParams($requestPayload);
         $requestPayload = $this->convertNestedArrayToJson($requestPayload);

@@ -16,12 +16,4 @@ class CancelRequest extends AbstractRequest implements CrefoPayApiRequestInterfa
     {
         return $this->config->getCancelActionUrl();
     }
-
-    /**
-     * @return string
-     */
-    public function getHttpMethod(): string
-    {
-        return static::METHOD_POST;
-    }
 }

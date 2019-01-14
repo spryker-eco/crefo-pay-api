@@ -16,12 +16,4 @@ class RefundRequest extends AbstractRequest implements CrefoPayApiRequestInterfa
     {
         return $this->config->getRefundActionUrl();
     }
-
-    /**
-     * @return string
-     */
-    public function getHttpMethod(): string
-    {
-        return static::METHOD_POST;
-    }
 }

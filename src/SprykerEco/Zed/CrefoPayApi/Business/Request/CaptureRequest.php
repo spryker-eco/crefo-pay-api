@@ -16,12 +16,4 @@ class CaptureRequest extends AbstractRequest implements CrefoPayApiRequestInterf
     {
         return $this->config->getCaptureActionUrl();
     }
-
-    /**
-     * @return string
-     */
-    public function getHttpMethod(): string
-    {
-        return static::METHOD_POST;
-    }
 }
