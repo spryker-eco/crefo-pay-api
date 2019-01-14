@@ -9,7 +9,7 @@ namespace SprykerEco\Zed\CrefoPayApi\Business\Builder\Request;
 
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 
-class ReserveRequestBuilder extends AbstractRequestBuilder implements CrefoPayApiRequestBuilderInterface
+class ReserveRequestBuilder extends AbstractRequestBuilder
 {
     /**
      * @param \Generated\Shared\Transfer\CrefoPayApiRequestTransfer $requestTransfer

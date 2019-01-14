@@ -9,6 +9,16 @@ namespace SprykerEco\Zed\CrefoPayApi\Business\Request;
 
 class FinishRequest extends AbstractRequest implements CrefoPayApiRequestInterface
 {
+    protected const REQUEST_TYPE = 'finish';
+
+    /**
+     * @return string
+     */
+    public function getRequestType(): string
+    {
+        return static::REQUEST_TYPE;
+    }
+
     /**
      * @return string
      */

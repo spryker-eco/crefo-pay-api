@@ -217,4 +217,16 @@
         <property name="salt" type="string" />
     </transfer>
 
+    <transfer name="PaymentCrefoPayApiLog">
+        <property name="idPaymentCrefoPayApiLog" type="int" />
+        <property name="requestType" type="string" />
+        <property name="crefoPayOrderId" type="string" />
+        <property name="resultCode" type="int" />
+        <property name="message" type="string" />
+        <property name="salt" type="string" />
+        <property name="isSuccess" type="bool" />
+        <property name="request" type="string" />
+        <property name="response" type="string" />
+    </transfer>
+
 </transfers>

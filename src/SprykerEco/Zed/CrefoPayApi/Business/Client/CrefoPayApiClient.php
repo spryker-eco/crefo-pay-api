@@ -12,6 +12,7 @@ use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 use SprykerEco\Zed\CrefoPayApi\Business\Converter\CrefoPayApiConverterInterface;
+use SprykerEco\Zed\CrefoPayApi\Business\Logger\CrefoPayApiLoggerInterface;
 use SprykerEco\Zed\CrefoPayApi\Business\Request\CrefoPayApiRequestInterface;
 
 class CrefoPayApiClient implements CrefoPayApiClientInterface
@@ -32,18 +33,27 @@ class CrefoPayApiClient implements CrefoPayApiClientInterface
     protected $converter;
 
     /**
+     * @var \SprykerEco\Zed\CrefoPayApi\Business\Logger\CrefoPayApiLoggerInterface
+     */
+    protected $logger;
+
+    /**
      * @param \GuzzleHttp\ClientInterface|\GuzzleHttp\Client $client
      * @param \SprykerEco\Zed\CrefoPayApi\Business\Request\CrefoPayApiRequestInterface $request
      * @param \SprykerEco\Zed\CrefoPayApi\Business\Converter\CrefoPayApiConverterInterface $converter
+     * @param \SprykerEco\Zed\CrefoPayApi\Business\Logger\CrefoPayApiLoggerInterface $logger
      */
     public function __construct(
         ClientInterface $client,
         CrefoPayApiRequestInterface $request,
-        CrefoPayApiConverterInterface $converter
+        CrefoPayApiConverterInterface $converter,
+        CrefoPayApiLoggerInterface $logger
     ) {
         $this->client = $client;
         $this->request = $request;
         $this->converter = $converter;
+        $this->logger = $logger;
+
     }
 
     /**
@@ -56,7 +66,6 @@ class CrefoPayApiClient implements CrefoPayApiClientInterface
         $isSuccess = true;
 
         try {
-            /** @var \Psr\Http\Message\ResponseInterface $response */
             $response = $this->client->post(
                 $this->request->getUrl(),
                 $this->request->getRequestOptions($requestTransfer)
@@ -67,6 +76,14 @@ class CrefoPayApiClient implements CrefoPayApiClientInterface
             $response = $requestException->getResponse();
         }
 
-        return $this->converter->convertToResponseTransfer($response, $isSuccess);
+        $responseTransfer = $this->converter->convertToResponseTransfer($response, $isSuccess);
+        $this->logger
+            ->logApiCall(
+                $requestTransfer,
+                $responseTransfer,
+                $this->request->getRequestType()
+            );
+
+        return $responseTransfer;
     }
 }

@@ -52,11 +52,11 @@ class MacHashCalculator implements MacHashCalculatorInterface
     }
 
     /**
-     * @param $value
+     * @param string $value
      *
      * @return string
      */
-    protected function hashValue($value): string
+    protected function hashValue(string $value): string
     {
         return hash_hmac(static::HASHING_ALGORITHM, $value, $this->getPrivateKey());
     }

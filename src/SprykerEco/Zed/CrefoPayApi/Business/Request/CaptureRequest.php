@@ -9,6 +9,16 @@ namespace SprykerEco\Zed\CrefoPayApi\Business\Request;
 
 class CaptureRequest extends AbstractRequest implements CrefoPayApiRequestInterface
 {
+    protected const REQUEST_TYPE = 'capture';
+
+    /**
+     * @return string
+     */
+    public function getRequestType(): string
+    {
+        return static::REQUEST_TYPE;
+    }
+
     /**
      * @return string
      */

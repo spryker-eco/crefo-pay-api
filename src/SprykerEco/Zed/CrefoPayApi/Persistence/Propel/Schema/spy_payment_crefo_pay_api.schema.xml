@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          name="zed" xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd"
+          namespace="Orm\Zed\CrefoPayApi\Persistence"
+          namespaceAutoPackage="false"
+          package="src.Orm.Zed.CrefoPayApi.Persistence">
+
+    <table name="spy_payment_crefo_pay_api_log">
+        <column name="id_payment_crefo_pay_api_log" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
+
+        <column name="request_type" required="true" type="VARCHAR" />
+        <column name="crefo_pay_order_id" required="true" type="VARCHAR" />
+        <column name="result_code" required="true" type="INTEGER" />
+        <column name="message" required="false" type="VARCHAR" />
+        <column name="salt" required="true" type="VARCHAR" />
+        <column name="is_success" required="true" type="BOOLEAN"/>
+        <column name="request" required="true" type="VARCHAR"/>
+        <column name="response" required="true" type="VARCHAR"/>
+
+        <behavior name="timestampable"/>
+
+        <id-method-parameter value="spy_payment_crefo_pay_api_log_pk_seq"/>
+    </table>
+
+</database>

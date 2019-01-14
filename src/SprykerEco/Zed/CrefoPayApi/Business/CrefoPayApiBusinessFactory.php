@@ -27,6 +27,8 @@ use SprykerEco\Zed\CrefoPayApi\Business\Converter\CrefoPayApiConverterInterface;
 use SprykerEco\Zed\CrefoPayApi\Business\Converter\FinishConverter;
 use SprykerEco\Zed\CrefoPayApi\Business\Converter\RefundConverter;
 use SprykerEco\Zed\CrefoPayApi\Business\Converter\ReserveConverter;
+use SprykerEco\Zed\CrefoPayApi\Business\Logger\CrefoPayApiLogger;
+use SprykerEco\Zed\CrefoPayApi\Business\Logger\CrefoPayApiLoggerInterface;
 use SprykerEco\Zed\CrefoPayApi\Business\Request\CancelRequest;
 use SprykerEco\Zed\CrefoPayApi\Business\Request\CaptureRequest;
 use SprykerEco\Zed\CrefoPayApi\Business\Request\CreateTransactionRequest;
@@ -39,6 +41,7 @@ use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServi
 
 /**
  * @method \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig getConfig()
+ * @method \SprykerEco\Zed\CrefoPayApi\Persistence\CrefoPayApiEntityManagerInterface getEntityManager()
  */
 class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
 {
@@ -50,7 +53,8 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiClient(
             $this->createGuzzleClient(),
             $this->createCreateTransactionRequest(),
-            $this->createCreateTransactionConverter()
+            $this->createCreateTransactionConverter(),
+            $this->createLogger()
         );
     }
 
@@ -62,7 +66,8 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiClient(
             $this->createGuzzleClient(),
             $this->createReserveRequest(),
-            $this->createReserveConverter()
+            $this->createReserveConverter(),
+            $this->createLogger()
         );
     }
 
@@ -74,7 +79,8 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiClient(
             $this->createGuzzleClient(),
             $this->createCaptureRequest(),
-            $this->createCancelConverter()
+            $this->createCancelConverter(),
+            $this->createLogger()
         );
     }
 
@@ -86,7 +92,8 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiClient(
             $this->createGuzzleClient(),
             $this->createCancelRequest(),
-            $this->createCancelConverter()
+            $this->createCancelConverter(),
+            $this->createLogger()
         );
     }
 
@@ -98,7 +105,8 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiClient(
             $this->createGuzzleClient(),
             $this->createRefundRequest(),
-            $this->createRefundConverter()
+            $this->createRefundConverter(),
+            $this->createLogger()
         );
     }
 
@@ -110,7 +118,8 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiClient(
             $this->createGuzzleClient(),
             $this->createFinishRequest(),
-            $this->createFinishConverter()
+            $this->createFinishConverter(),
+            $this->createLogger()
         );
     }
 
@@ -300,6 +309,14 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     public function createFinishConverter(): CrefoPayApiConverterInterface
     {
         return new FinishConverter($this->getUtilEncodingService());
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Logger\CrefoPayApiLoggerInterface
+     */
+    public function createLogger(): CrefoPayApiLoggerInterface
+    {
+        return new CrefoPayApiLogger($this->getEntityManager());
     }
 
     /**

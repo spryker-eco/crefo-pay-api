@@ -9,6 +9,16 @@ namespace SprykerEco\Zed\CrefoPayApi\Business\Request;
 
 class RefundRequest extends AbstractRequest implements CrefoPayApiRequestInterface
 {
+    protected const REQUEST_TYPE = 'refund';
+
+    /**
+     * @return string
+     */
+    public function getRequestType(): string
+    {
+        return static::REQUEST_TYPE;
+    }
+
     /**
      * @return string
      */
