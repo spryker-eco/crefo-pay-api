@@ -91,7 +91,7 @@ class CrefoPayApiLogger implements CrefoPayApiLoggerInterface
     {
         $method = sprintf(static::GET_REQUEST_METHOD, ucfirst($this->requestType));
 
-        return $requestTransfer->$method()->getCrefoPayOrderId();
+        return $requestTransfer->$method()->getOrderID();
     }
 
     /**
@@ -109,9 +109,9 @@ class CrefoPayApiLogger implements CrefoPayApiLoggerInterface
     /**
      * @param \Generated\Shared\Transfer\CrefoPayApiResponseTransfer $responseTransfer
      *
-     * @return string
+     * @return string|null
      */
-    protected function getMessage(CrefoPayApiResponseTransfer $responseTransfer): string
+    protected function getMessage(CrefoPayApiResponseTransfer $responseTransfer): ?string
     {
         $method = sprintf(static::GET_RESPONSE_METHOD, ucfirst($this->requestType));
 
