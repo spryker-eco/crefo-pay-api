@@ -181,7 +181,7 @@
     <transfer name="CrefoPayApiAmount">
         <property name="amount" type="int" /> <!--- For example: 1922 -->
         <property name="vatAmount" type="int" /> <!--- For example: 1922 -->
-        <property name="vatRate" type="int" /> <!--- For example: 19.22 -->
+        <property name="vatRate" type="float" /> <!--- For example: 19.22 -->
     </transfer>
 
     <transfer name="CrefoPayApiPerson">
