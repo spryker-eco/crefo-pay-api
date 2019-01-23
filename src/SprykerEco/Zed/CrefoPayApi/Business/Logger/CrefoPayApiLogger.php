@@ -101,6 +101,10 @@ class CrefoPayApiLogger implements CrefoPayApiLoggerInterface
      */
     protected function getResultCode(CrefoPayApiResponseTransfer $responseTransfer): int
     {
+        if ($responseTransfer->getIsSuccess() === false) {
+            return $responseTransfer->getError()->getResultCode();
+        }
+
         $method = sprintf(static::GET_RESPONSE_METHOD, ucfirst($this->requestType));
 
         return $responseTransfer->$method()->getResultCode();
@@ -113,6 +117,10 @@ class CrefoPayApiLogger implements CrefoPayApiLoggerInterface
      */
     protected function getMessage(CrefoPayApiResponseTransfer $responseTransfer): ?string
     {
+        if ($responseTransfer->getIsSuccess() === false) {
+            return $responseTransfer->getError()->getMessage();
+        }
+
         $method = sprintf(static::GET_RESPONSE_METHOD, ucfirst($this->requestType));
 
         return $responseTransfer->$method()->getMessage();
@@ -125,6 +133,10 @@ class CrefoPayApiLogger implements CrefoPayApiLoggerInterface
      */
     protected function getSalt(CrefoPayApiResponseTransfer $responseTransfer): string
     {
+        if ($responseTransfer->getIsSuccess() === false) {
+            return $responseTransfer->getError()->getSalt();
+        }
+
         $method = sprintf(static::GET_RESPONSE_METHOD, ucfirst($this->requestType));
 
         return $responseTransfer->$method()->getSalt();

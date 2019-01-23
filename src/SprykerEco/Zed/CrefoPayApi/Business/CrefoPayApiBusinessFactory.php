@@ -79,7 +79,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiClient(
             $this->createGuzzleClient(),
             $this->createCaptureRequest(),
-            $this->createCancelConverter(),
+            $this->createCaptureConverter(),
             $this->createLogger()
         );
     }
