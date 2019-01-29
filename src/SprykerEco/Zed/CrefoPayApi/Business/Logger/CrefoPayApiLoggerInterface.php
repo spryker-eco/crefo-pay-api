@@ -9,6 +9,7 @@ namespace SprykerEco\Zed\CrefoPayApi\Business\Logger;
 
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
+use Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer;
 
 interface CrefoPayApiLoggerInterface
 {
@@ -17,11 +18,11 @@ interface CrefoPayApiLoggerInterface
      * @param \Generated\Shared\Transfer\CrefoPayApiResponseTransfer $responseTransfer
      * @param string $requestType
      *
-     * @return void
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer
      */
     public function logApiCall(
         CrefoPayApiRequestTransfer $requestTransfer,
         CrefoPayApiResponseTransfer $responseTransfer,
         string $requestType
-    ): void;
+    ): PaymentCrefoPayApiLogTransfer;
 }

@@ -90,6 +90,7 @@
 
     <transfer name="CrefoPayApiResponse">
         <property name="isSuccess" type="bool" />
+        <property name="crefoPayApiLogId" type="int" />
         <property name="error" type="CrefoPayApiErrorResponse" />
         <property name="createTransactionResponse" type="CrefoPayApiCreateTransactionResponse" />
         <property name="reserveResponse" type="CrefoPayApiReserveResponse" />

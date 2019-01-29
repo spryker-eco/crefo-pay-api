@@ -43,20 +43,20 @@ class CrefoPayApiLogger implements CrefoPayApiLoggerInterface
      * @param \Generated\Shared\Transfer\CrefoPayApiResponseTransfer $responseTransfer
      * @param string $requestType
      *
-     * @return void
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer
      */
     public function logApiCall(
         CrefoPayApiRequestTransfer $requestTransfer,
         CrefoPayApiResponseTransfer $responseTransfer,
         string $requestType
-    ): void {
+    ): PaymentCrefoPayApiLogTransfer {
         $this->requestType = $requestType;
         $paymentCrefoPayApiLog = $this->createPaymentCrefoPayApiLogTransfer(
             $requestTransfer,
             $responseTransfer
         );
 
-        $this->getTransactionHandler()->handleTransaction(function () use ($paymentCrefoPayApiLog) {
+        return $this->getTransactionHandler()->handleTransaction(function () use ($paymentCrefoPayApiLog) {
             return $this->entityManager->savePaymentCrefoPayApiLog($paymentCrefoPayApiLog);
         });
     }
@@ -97,9 +97,9 @@ class CrefoPayApiLogger implements CrefoPayApiLoggerInterface
     /**
      * @param \Generated\Shared\Transfer\CrefoPayApiResponseTransfer $responseTransfer
      *
-     * @return int
+     * @return int|null
      */
-    protected function getResultCode(CrefoPayApiResponseTransfer $responseTransfer): int
+    protected function getResultCode(CrefoPayApiResponseTransfer $responseTransfer): ?int
     {
         if ($responseTransfer->getIsSuccess() === false) {
             return $responseTransfer->getError()->getResultCode();
@@ -129,9 +129,9 @@ class CrefoPayApiLogger implements CrefoPayApiLoggerInterface
     /**
      * @param \Generated\Shared\Transfer\CrefoPayApiResponseTransfer $responseTransfer
      *
-     * @return string
+     * @return string|null
      */
-    protected function getSalt(CrefoPayApiResponseTransfer $responseTransfer): string
+    protected function getSalt(CrefoPayApiResponseTransfer $responseTransfer): ?string
     {
         if ($responseTransfer->getIsSuccess() === false) {
             return $responseTransfer->getError()->getSalt();

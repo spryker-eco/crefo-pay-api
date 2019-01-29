@@ -77,12 +77,14 @@ class CrefoPayApiClient implements CrefoPayApiClientInterface
         }
 
         $responseTransfer = $this->converter->convertToResponseTransfer($response, $isSuccess);
-        $this->logger
+        $paymentCrefoPayApiLogTransfer = $this->logger
             ->logApiCall(
                 $requestTransfer,
                 $responseTransfer,
                 $this->request->getRequestType()
             );
+
+        $responseTransfer->setCrefoPayApiLogId($paymentCrefoPayApiLogTransfer->getIdPaymentCrefoPayApiLog());
 
         return $responseTransfer;
     }

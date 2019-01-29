@@ -15,6 +15,8 @@ use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServi
 
 abstract class AbstractConverter implements CrefoPayApiConverterInterface
 {
+    protected const EXTERNAL_ERROR_MESSAGE = 'CrefoPay service temporarily unavailable.';
+
     /**
      * @var \SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface
      */
@@ -69,21 +71,29 @@ abstract class AbstractConverter implements CrefoPayApiConverterInterface
      */
     protected function isResultCodeSuccess(array $responseData): bool
     {
+        if ($responseData === null) {
+            return false;
+        }
+
         $resultCode = $responseData[CrefoPayApiConfig::API_RESPONSE_FIELD_RESULT_CODE];
 
         return isset($resultCode) && ($resultCode === 0 || $resultCode === 1);
     }
 
     /**
-     * @param array $responseData
+     * @param array|null $responseData
      *
      * @return \Generated\Shared\Transfer\CrefoPayApiResponseTransfer
      */
-    protected function createResponseTransferWithError(array $responseData): CrefoPayApiResponseTransfer
+    protected function createResponseTransferWithError(?array $responseData): CrefoPayApiResponseTransfer
     {
         $errorTransfer = (new CrefoPayApiErrorResponseTransfer())
-            ->fromArray($responseData, true)
+            ->setMessage(static::EXTERNAL_ERROR_MESSAGE)
             ->setErrorType(CrefoPayApiConfig::API_ERROR_TYPE_EXTERNAL);
+
+        if ($responseData !== null) {
+            $errorTransfer->fromArray($responseData, true);
+        }
 
         return (new CrefoPayApiResponseTransfer())
             ->setIsSuccess(false)
