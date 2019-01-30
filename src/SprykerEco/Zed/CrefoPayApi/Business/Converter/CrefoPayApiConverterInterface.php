@@ -8,18 +8,18 @@
 namespace SprykerEco\Zed\CrefoPayApi\Business\Converter;
 
 use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
-use Psr\Http\Message\ResponseInterface;
+use SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\Response\CrefoPayApiGuzzleResponseInterface;
 
 interface CrefoPayApiConverterInterface
 {
     /**
-     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param \SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\Response\CrefoPayApiGuzzleResponseInterface $response
      * @param bool $isSuccess
      *
      * @return \Generated\Shared\Transfer\CrefoPayApiResponseTransfer
      */
     public function convertToResponseTransfer(
-        ResponseInterface $response,
+        CrefoPayApiGuzzleResponseInterface $response,
         bool $isSuccess = true
     ): CrefoPayApiResponseTransfer;
 }

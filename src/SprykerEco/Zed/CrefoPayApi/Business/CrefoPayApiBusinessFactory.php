@@ -7,8 +7,6 @@
 
 namespace SprykerEco\Zed\CrefoPayApi\Business;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use SprykerEco\Service\CrefoPayApi\CrefoPayApiServiceInterface;
 use SprykerEco\Zed\CrefoPayApi\Business\Builder\Request\CancelRequestBuilder;
@@ -37,6 +35,7 @@ use SprykerEco\Zed\CrefoPayApi\Business\Request\FinishRequest;
 use SprykerEco\Zed\CrefoPayApi\Business\Request\RefundRequest;
 use SprykerEco\Zed\CrefoPayApi\Business\Request\ReserveRequest;
 use SprykerEco\Zed\CrefoPayApi\CrefoPayApiDependencyProvider;
+use SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\CrefoPayApiGuzzleHttpClientAdapterInterface;
 use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface;
 
 /**
@@ -51,7 +50,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     public function createCreateTransactionClient(): CrefoPayApiClientInterface
     {
         return new CrefoPayApiClient(
-            $this->createGuzzleClient(),
+            $this->getCrefoPayApiHttpClient(),
             $this->createCreateTransactionRequest(),
             $this->createCreateTransactionConverter(),
             $this->createLogger()
@@ -64,7 +63,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     public function createReserveClient(): CrefoPayApiClientInterface
     {
         return new CrefoPayApiClient(
-            $this->createGuzzleClient(),
+            $this->getCrefoPayApiHttpClient(),
             $this->createReserveRequest(),
             $this->createReserveConverter(),
             $this->createLogger()
@@ -77,7 +76,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     public function createCaptureClient(): CrefoPayApiClientInterface
     {
         return new CrefoPayApiClient(
-            $this->createGuzzleClient(),
+            $this->getCrefoPayApiHttpClient(),
             $this->createCaptureRequest(),
             $this->createCaptureConverter(),
             $this->createLogger()
@@ -90,7 +89,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     public function createCancelClient(): CrefoPayApiClientInterface
     {
         return new CrefoPayApiClient(
-            $this->createGuzzleClient(),
+            $this->getCrefoPayApiHttpClient(),
             $this->createCancelRequest(),
             $this->createCancelConverter(),
             $this->createLogger()
@@ -103,7 +102,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     public function createRefundClient(): CrefoPayApiClientInterface
     {
         return new CrefoPayApiClient(
-            $this->createGuzzleClient(),
+            $this->getCrefoPayApiHttpClient(),
             $this->createRefundRequest(),
             $this->createRefundConverter(),
             $this->createLogger()
@@ -116,19 +115,11 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     public function createFinishClient(): CrefoPayApiClientInterface
     {
         return new CrefoPayApiClient(
-            $this->createGuzzleClient(),
+            $this->getCrefoPayApiHttpClient(),
             $this->createFinishRequest(),
             $this->createFinishConverter(),
             $this->createLogger()
         );
-    }
-
-    /**
-     * @return \GuzzleHttp\ClientInterface
-     */
-    public function createGuzzleClient(): ClientInterface
-    {
-        return new Client();
     }
 
     /**
@@ -333,5 +324,13 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     public function getCrefoPayApiService(): CrefoPayApiServiceInterface
     {
         return $this->getProvidedDependency(CrefoPayApiDependencyProvider::SERVICE_CREFO_PAY_API);
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\CrefoPayApiGuzzleHttpClientAdapterInterface
+     */
+    public function getCrefoPayApiHttpClient(): CrefoPayApiGuzzleHttpClientAdapterInterface
+    {
+        return $this->getProvidedDependency(CrefoPayApiDependencyProvider::CREFO_PAY_API_HTTP_CLIENT);
     }
 }

@@ -7,16 +7,44 @@
 
 namespace SprykerEco\Zed\CrefoPayApi\Business\Request;
 
-class RefundRequest extends AbstractRequest implements CrefoPayApiRequestInterface
+use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
+use SprykerEco\Zed\CrefoPayApi\Business\Builder\Request\CrefoPayApiRequestBuilderInterface;
+use SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig;
+
+class RefundRequest implements CrefoPayApiRequestInterface
 {
     protected const REQUEST_TYPE = 'refund';
 
     /**
-     * @return string
+     * @var \SprykerEco\Zed\CrefoPayApi\Business\Builder\Request\CrefoPayApiRequestBuilderInterface
      */
-    public function getRequestType(): string
+    protected $requestBuilder;
+
+    /**
+     * @var \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig
+     */
+    protected $config;
+
+    /**
+     * @param \SprykerEco\Zed\CrefoPayApi\Business\Builder\Request\CrefoPayApiRequestBuilderInterface $requestBuilder
+     * @param \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig $config
+     */
+    public function __construct(
+        CrefoPayApiRequestBuilderInterface $requestBuilder,
+        CrefoPayApiConfig $config
+    ) {
+        $this->requestBuilder = $requestBuilder;
+        $this->config = $config;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayApiRequestTransfer $requestTransfer
+     *
+     * @return array
+     */
+    public function getFormParams(CrefoPayApiRequestTransfer $requestTransfer): array
     {
-        return static::REQUEST_TYPE;
+        return $this->requestBuilder->buildRequestPayload($requestTransfer);
     }
 
     /**
@@ -25,5 +53,13 @@ class RefundRequest extends AbstractRequest implements CrefoPayApiRequestInterfa
     public function getUrl(): string
     {
         return $this->config->getRefundActionUrl();
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequestType(): string
+    {
+        return static::REQUEST_TYPE;
     }
 }

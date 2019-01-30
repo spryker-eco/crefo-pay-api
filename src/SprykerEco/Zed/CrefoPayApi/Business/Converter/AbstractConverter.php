@@ -9,8 +9,8 @@ namespace SprykerEco\Zed\CrefoPayApi\Business\Converter;
 
 use Generated\Shared\Transfer\CrefoPayApiErrorResponseTransfer;
 use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
-use Psr\Http\Message\ResponseInterface;
 use SprykerEco\Shared\CrefoPayApi\CrefoPayApiConfig;
+use SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\Response\CrefoPayApiGuzzleResponseInterface;
 use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface;
 
 abstract class AbstractConverter implements CrefoPayApiConverterInterface
@@ -43,16 +43,16 @@ abstract class AbstractConverter implements CrefoPayApiConverterInterface
     }
 
     /**
-     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param \SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\Response\CrefoPayApiGuzzleResponseInterface $response
      * @param bool $isSuccess
      *
      * @return \Generated\Shared\Transfer\CrefoPayApiResponseTransfer
      */
     public function convertToResponseTransfer(
-        ResponseInterface $response,
+        CrefoPayApiGuzzleResponseInterface $response,
         bool $isSuccess = true
     ): CrefoPayApiResponseTransfer {
-        $responseData = $this->encodingService->decodeJson($response->getBody(), true);
+        $responseData = $this->encodingService->decodeJson($response->getResponseBody(), true);
 
         if (!$isSuccess || !$this->isResultCodeSuccess($responseData)) {
             return $this->createResponseTransferWithError($responseData);

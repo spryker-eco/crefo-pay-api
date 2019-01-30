@@ -16,7 +16,7 @@ interface CrefoPayApiRequestInterface
      *
      * @return array
      */
-    public function getRequestOptions(CrefoPayApiRequestTransfer $requestTransfer): array;
+    public function getFormParams(CrefoPayApiRequestTransfer $requestTransfer): array;
 
     /**
      * @return string

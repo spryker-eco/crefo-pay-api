@@ -9,18 +9,18 @@ namespace SprykerEco\Zed\CrefoPayApi\Business\Client;
 
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\RequestException;
 use SprykerEco\Zed\CrefoPayApi\Business\Converter\CrefoPayApiConverterInterface;
 use SprykerEco\Zed\CrefoPayApi\Business\Logger\CrefoPayApiLoggerInterface;
 use SprykerEco\Zed\CrefoPayApi\Business\Request\CrefoPayApiRequestInterface;
+use SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\CrefoPayApiGuzzleHttpClientAdapterInterface;
+use SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\Exception\CrefoPayApiGuzzleRequestException;
 
 class CrefoPayApiClient implements CrefoPayApiClientInterface
 {
     /**
-     * @var \GuzzleHttp\ClientInterface|\GuzzleHttp\Client
+     * @var \SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\CrefoPayApiGuzzleHttpClientAdapterInterface
      */
-    protected $client;
+    protected $httpClient;
 
     /**
      * @var \SprykerEco\Zed\CrefoPayApi\Business\Request\CrefoPayApiRequestInterface
@@ -38,18 +38,18 @@ class CrefoPayApiClient implements CrefoPayApiClientInterface
     protected $logger;
 
     /**
-     * @param \GuzzleHttp\ClientInterface|\GuzzleHttp\Client $client
+     * @param \SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\CrefoPayApiGuzzleHttpClientAdapterInterface $httpClient
      * @param \SprykerEco\Zed\CrefoPayApi\Business\Request\CrefoPayApiRequestInterface $request
      * @param \SprykerEco\Zed\CrefoPayApi\Business\Converter\CrefoPayApiConverterInterface $converter
      * @param \SprykerEco\Zed\CrefoPayApi\Business\Logger\CrefoPayApiLoggerInterface $logger
      */
     public function __construct(
-        ClientInterface $client,
+        CrefoPayApiGuzzleHttpClientAdapterInterface $httpClient,
         CrefoPayApiRequestInterface $request,
         CrefoPayApiConverterInterface $converter,
         CrefoPayApiLoggerInterface $logger
     ) {
-        $this->client = $client;
+        $this->httpClient = $httpClient;
         $this->request = $request;
         $this->converter = $converter;
         $this->logger = $logger;
@@ -66,12 +66,12 @@ class CrefoPayApiClient implements CrefoPayApiClientInterface
         $isSuccess = true;
 
         try {
-            $response = $this->client->post(
+            $response = $this->httpClient->post(
                 $this->request->getUrl(),
-                $this->request->getRequestOptions($requestTransfer)
+                $this->request->getFormParams($requestTransfer)
             );
 
-        } catch (RequestException $requestException) {
+        } catch (CrefoPayApiGuzzleRequestException $requestException) {
             $isSuccess = false;
             $response = $requestException->getResponse();
         }
