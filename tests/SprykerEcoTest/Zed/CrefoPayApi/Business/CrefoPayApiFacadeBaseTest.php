@@ -13,7 +13,6 @@ use SprykerEco\Zed\CrefoPayApi\Business\CrefoPayApiFacade;
 
 class CrefoPayApiFacadeBaseTest extends Test
 {
-
     /**
      * @var \SprykerEcoTest\Zed\CrefoPayApi\CrefoPayApiZedTester
      */
@@ -23,6 +22,7 @@ class CrefoPayApiFacadeBaseTest extends Test
      * @var \SprykerEco\Zed\CrefoPayApi\Business\CrefoPayApiFacadeInterface
      */
     protected $facade;
+
     /**
      * @return void
      */

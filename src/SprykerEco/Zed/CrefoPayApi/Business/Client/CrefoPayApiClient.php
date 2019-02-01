@@ -53,7 +53,6 @@ class CrefoPayApiClient implements CrefoPayApiClientInterface
         $this->request = $request;
         $this->converter = $converter;
         $this->logger = $logger;
-
     }
 
     /**
@@ -70,7 +69,6 @@ class CrefoPayApiClient implements CrefoPayApiClientInterface
                 $this->request->getUrl(),
                 $this->request->getFormParams($requestTransfer)
             );
-
         } catch (CrefoPayApiGuzzleRequestException $requestException) {
             $isSuccess = false;
             $response = $requestException->getResponse();

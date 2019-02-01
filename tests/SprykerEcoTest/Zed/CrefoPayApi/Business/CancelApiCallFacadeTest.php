@@ -21,7 +21,7 @@ class CancelApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
     /**
      * @return void
      */
-    public function testPerformCancelApiCall():void
+    public function testPerformCancelApiCall(): void
     {
         $requestTransfer = $this->tester->createRequestTransfer();
         $responseTransfer = $this->facade->performCancelApiCall($requestTransfer);

@@ -21,7 +21,7 @@ class CaptureApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
     /**
      * @return void
      */
-    public function testPerformCaptureApiCall():void
+    public function testPerformCaptureApiCall(): void
     {
         $requestTransfer = $this->tester->createRequestTransfer();
         $responseTransfer = $this->facade->performCaptureApiCall($requestTransfer);

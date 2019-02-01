@@ -34,7 +34,7 @@
         <property name="shippingAddress" type="CrefoPayApiAddress" />
         <property name="amount" type="CrefoPayApiAmount" />
         <property name="basketItems" type="CrefoPayApiBasketItem[]" singular="basketItem" />
-        <property name="basketValidity" type="string" /> <!--- Example: one hour: 1h, ten minutes: 10m, two days: 2d - only one unit of time can be provided -->
+        <property name="basketValidity" type="string" />
         <property name="locale" type="string" />
     </transfer>
 
@@ -52,7 +52,7 @@
 
     <transfer name="CrefoPayApiReserveInformationRequest">
         <property name="salutation" type="string" />
-        <property name="dateOfBirth" type="string" /> <!--- YYYY-MM-DD -->
+        <property name="dateOfBirth" type="string" />
     </transfer>
 
     <transfer name="CrefoPayApiCaptureRequest">
@@ -101,7 +101,7 @@
     </transfer>
 
     <transfer name="CrefoPayApiCreateTransactionResponse">
-        <property name="resultCode" type="int" /> <!--- 0 -> OK, 1 -> redirect, other - error. -->
+        <property name="resultCode" type="int" />
         <property name="message" type="string" />
         <property name="userData" type="CrefoPayApiPerson" />
         <property name="billingAddress" type="CrefoPayApiAddress" />
@@ -113,7 +113,7 @@
     </transfer>
 
     <transfer name="CrefoPayApiReserveResponse">
-        <property name="resultCode" type="int" /> <!--- 0 -> OK, 1 -> redirect, any other code -> see error codes -->
+        <property name="resultCode" type="int" />
         <property name="message" type="string" />
         <property name="redirectUrl" type="string" />
         <property name="additionalData" type="CrefoPayApiReserveInformationResponse" />
@@ -132,7 +132,7 @@
     <transfer name="CrefoPayApiCaptureResponse">
         <property name="resultCode" type="int" />
         <property name="message" type="string" />
-        <property name="status" type="string" /> <!--- PAID, PAYPENDING or PAYMENTFAILED -->
+        <property name="status" type="string" />
         <property name="errorDetails" type="CrefoPayApiErrorDetails[]" singular="error" />
         <property name="salt" type="string" />
     </transfer>
@@ -165,8 +165,8 @@
         <property name="basketItemID" type="string" />
         <property name="basketItemCount" type="int" />
         <property name="basketItemAmount" type="CrefoPayApiAmount" />
-        <property name="basketItemRiskClass" type="int" /> <!--- 0 -> trusted user, 1 -> default risk user, 2 -> high risk user -->
-        <property name="basketItemType" type="string" /> <!--- DEFAULT, SHIPPINGCOSTS, COUPON    -->
+        <property name="basketItemRiskClass" type="int" />
+        <property name="basketItemType" type="string" />
     </transfer>
 
     <transfer name="CrefoPayApiAddress">
@@ -176,23 +176,23 @@
         <property name="zip" type="string" />
         <property name="city" type="string" />
         <property name="state" type="string" />
-        <property name="country" type="string" /> <!--- 2 letter country code according ISO 3166 -->
+        <property name="country" type="string" />
     </transfer>
 
     <transfer name="CrefoPayApiAmount">
-        <property name="amount" type="int" /> <!--- For example: 1922 -->
-        <property name="vatAmount" type="int" /> <!--- For example: 1922 -->
-        <property name="vatRate" type="float" /> <!--- For example: 19.22 -->
+        <property name="amount" type="int" />
+        <property name="vatAmount" type="int" />
+        <property name="vatRate" type="float" />
     </transfer>
 
     <transfer name="CrefoPayApiPerson">
-        <property name="salutation" type="string" /> <!--- F -> Female, M -> Male -->
+        <property name="salutation" type="string" />
         <property name="name" type="string" />
         <property name="surname" type="string" />
-        <property name="dateOfBirth" type="string" /> <!--- YYYY-MM-DD -->
+        <property name="dateOfBirth" type="string" />
         <property name="email" type="string" />
-        <property name="phoneNumber" type="string" /> <!--- Person's phone number with leading zero -->
-        <property name="faxNumber" type="string" /> <!--- Person's fax number with leading zero -->
+        <property name="phoneNumber" type="string" />
+        <property name="faxNumber" type="string" />
     </transfer>
 
     <transfer name="CrefoPayApiCompany">

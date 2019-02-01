@@ -195,7 +195,8 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     {
         return new CreateTransactionRequestBuilder(
             $this->getUtilEncodingService(),
-            $this->getCrefoPayApiService()
+            $this->getCrefoPayApiService(),
+            $this->getConfig()
         );
     }
 
@@ -206,7 +207,8 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     {
         return new ReserveRequestBuilder(
             $this->getUtilEncodingService(),
-            $this->getCrefoPayApiService()
+            $this->getCrefoPayApiService(),
+            $this->getConfig()
         );
     }
 
@@ -217,7 +219,8 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     {
         return new CaptureRequestBuilder(
             $this->getUtilEncodingService(),
-            $this->getCrefoPayApiService()
+            $this->getCrefoPayApiService(),
+            $this->getConfig()
         );
     }
 
@@ -228,7 +231,8 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     {
         return new CancelRequestBuilder(
             $this->getUtilEncodingService(),
-            $this->getCrefoPayApiService()
+            $this->getCrefoPayApiService(),
+            $this->getConfig()
         );
     }
 
@@ -239,7 +243,8 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     {
         return new RefundRequestBuilder(
             $this->getUtilEncodingService(),
-            $this->getCrefoPayApiService()
+            $this->getCrefoPayApiService(),
+            $this->getConfig()
         );
     }
 
@@ -250,7 +255,8 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     {
         return new FinishRequestBuilder(
             $this->getUtilEncodingService(),
-            $this->getCrefoPayApiService()
+            $this->getCrefoPayApiService(),
+            $this->getConfig()
         );
     }
 
@@ -259,7 +265,10 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createCreateTransactionConverter(): CrefoPayApiConverterInterface
     {
-        return new CreateTransactionConverter($this->getUtilEncodingService());
+        return new CreateTransactionConverter(
+            $this->getUtilEncodingService(),
+            $this->getConfig()
+        );
     }
 
     /**
@@ -267,7 +276,10 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createReserveConverter(): CrefoPayApiConverterInterface
     {
-        return new ReserveConverter($this->getUtilEncodingService());
+        return new ReserveConverter(
+            $this->getUtilEncodingService(),
+            $this->getConfig()
+        );
     }
 
     /**
@@ -275,7 +287,10 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createCaptureConverter(): CrefoPayApiConverterInterface
     {
-        return new CaptureConverter($this->getUtilEncodingService());
+        return new CaptureConverter(
+            $this->getUtilEncodingService(),
+            $this->getConfig()
+        );
     }
 
     /**
@@ -283,7 +298,10 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createCancelConverter(): CrefoPayApiConverterInterface
     {
-        return new CancelConverter($this->getUtilEncodingService());
+        return new CancelConverter(
+            $this->getUtilEncodingService(),
+            $this->getConfig()
+        );
     }
 
     /**
@@ -291,7 +309,10 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createRefundConverter(): CrefoPayApiConverterInterface
     {
-        return new RefundConverter($this->getUtilEncodingService());
+        return new RefundConverter(
+            $this->getUtilEncodingService(),
+            $this->getConfig()
+        );
     }
 
     /**
@@ -299,7 +320,10 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createFinishConverter(): CrefoPayApiConverterInterface
     {
-        return new FinishConverter($this->getUtilEncodingService());
+        return new FinishConverter(
+            $this->getUtilEncodingService(),
+            $this->getConfig()
+        );
     }
 
     /**

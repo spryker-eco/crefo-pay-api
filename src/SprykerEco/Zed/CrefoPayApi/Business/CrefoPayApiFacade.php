@@ -13,6 +13,7 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
  * @method \SprykerEco\Zed\CrefoPayApi\Business\CrefoPayApiBusinessFactory getFactory()
+ * @method \SprykerEco\Zed\CrefoPayApi\Persistence\CrefoPayApiEntityManagerInterface getEntityManager()
  */
 class CrefoPayApiFacade extends AbstractFacade implements CrefoPayApiFacadeInterface
 {

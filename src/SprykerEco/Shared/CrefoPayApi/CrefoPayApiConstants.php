@@ -22,5 +22,5 @@ interface CrefoPayApiConstants
     public const PRIVATE_KEY = 'CREFOPAYAPI:PRIVATE_KEY';
     public const PUBLIC_KEY = 'CREFOPAYAPI:PUBLIC_KEY';
 
-    public const AUTO_CAPTURE = 'CREFOPAYAPI:AUTO_CAPTURE'; //false, true
+    public const AUTO_CAPTURE = 'CREFOPAYAPI:AUTO_CAPTURE';
 }

@@ -14,6 +14,7 @@ use SprykerEco\Zed\CrefoPayApi\Persistence\Mapper\CrefoPayApiPersistenceMapperIn
 
 /**
  * @method \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig getConfig()
+ * @method \SprykerEco\Zed\CrefoPayApi\Persistence\CrefoPayApiEntityManagerInterface getEntityManager()
  */
 class CrefoPayApiPersistenceFactory extends AbstractPersistenceFactory
 {

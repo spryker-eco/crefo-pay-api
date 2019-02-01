@@ -71,7 +71,7 @@ class CrefoPayApiLogger implements CrefoPayApiLoggerInterface
         CrefoPayApiRequestTransfer $requestTransfer,
         CrefoPayApiResponseTransfer $responseTransfer
     ): PaymentCrefoPayApiLogTransfer {
-        return (new PaymentCrefoPayApiLogTransfer)
+        return (new PaymentCrefoPayApiLogTransfer())
             ->setRequestType($this->requestType)
             ->setCrefoPayOrderId($this->getCrefoPayOrderId($requestTransfer))
             ->setIsSuccess($responseTransfer->getIsSuccess())

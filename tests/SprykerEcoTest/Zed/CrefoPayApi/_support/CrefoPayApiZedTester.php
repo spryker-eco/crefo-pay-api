@@ -1,6 +1,13 @@
 <?php
+
+/**
+ * MIT License
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
 namespace SprykerEcoTest\Zed\CrefoPayApi;
 
+use Codeception\Actor;
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig;
 use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceBridge;
@@ -20,8 +27,8 @@ use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServi
  * @method \Codeception\Lib\Friend haveFriend($name, $actorClass = NULL)
  *
  * @SuppressWarnings(PHPMD)
-*/
-class CrefoPayApiZedTester extends \Codeception\Actor
+ */
+class CrefoPayApiZedTester extends Actor
 {
     use _generated\CrefoPayApiZedTesterActions;
 

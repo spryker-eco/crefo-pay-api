@@ -21,7 +21,7 @@ class ReserveApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
     /**
      * @return void
      */
-    public function testPerformReserveApiCall():void
+    public function testPerformReserveApiCall(): void
     {
         $requestTransfer = $this->tester->createRequestTransfer();
         $responseTransfer = $this->facade->performReserveApiCall($requestTransfer);

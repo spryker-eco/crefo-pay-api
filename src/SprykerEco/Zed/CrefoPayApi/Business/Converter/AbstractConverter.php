@@ -9,7 +9,7 @@ namespace SprykerEco\Zed\CrefoPayApi\Business\Converter;
 
 use Generated\Shared\Transfer\CrefoPayApiErrorResponseTransfer;
 use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
-use SprykerEco\Shared\CrefoPayApi\CrefoPayApiConfig;
+use SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig;
 use SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\Response\CrefoPayApiGuzzleResponseInterface;
 use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface;
 
@@ -21,6 +21,11 @@ abstract class AbstractConverter implements CrefoPayApiConverterInterface
      * @var \SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface
      */
     protected $encodingService;
+
+    /**
+     * @var \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig
+     */
+    protected $config;
 
     /**
      * @param \Generated\Shared\Transfer\CrefoPayApiResponseTransfer $responseTransfer
@@ -35,11 +40,14 @@ abstract class AbstractConverter implements CrefoPayApiConverterInterface
 
     /**
      * @param \SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface $encodingService
+     * @param \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig $config
      */
     public function __construct(
-        CrefoPayApiToUtilEncodingServiceInterface $encodingService
+        CrefoPayApiToUtilEncodingServiceInterface $encodingService,
+        CrefoPayApiConfig $config
     ) {
         $this->encodingService = $encodingService;
+        $this->config = $config;
     }
 
     /**
@@ -75,7 +83,7 @@ abstract class AbstractConverter implements CrefoPayApiConverterInterface
             return false;
         }
 
-        $resultCode = $responseData[CrefoPayApiConfig::API_RESPONSE_FIELD_RESULT_CODE];
+        $resultCode = $responseData[$this->config->getApiResponseFieldResultCode()];
 
         return isset($resultCode) && ($resultCode === 0 || $resultCode === 1);
     }
@@ -89,7 +97,7 @@ abstract class AbstractConverter implements CrefoPayApiConverterInterface
     {
         $errorTransfer = (new CrefoPayApiErrorResponseTransfer())
             ->setMessage(static::EXTERNAL_ERROR_MESSAGE)
-            ->setErrorType(CrefoPayApiConfig::API_ERROR_TYPE_EXTERNAL);
+            ->setErrorType($this->config->getApiErrorTypeExternal());
 
         if ($responseData !== null) {
             $errorTransfer->fromArray($responseData, true);

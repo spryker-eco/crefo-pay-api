@@ -12,6 +12,10 @@ use SprykerEco\Shared\CrefoPayApi\CrefoPayApiConstants;
 
 class CrefoPayApiConfig extends AbstractBundleConfig
 {
+    protected const API_FIELD_MAC = 'mac';
+    protected const API_RESPONSE_FIELD_RESULT_CODE = 'resultCode';
+    protected const API_ERROR_TYPE_EXTERNAL = 'EXTERNAL';
+
     /**
      * @return string
      */
@@ -58,5 +62,29 @@ class CrefoPayApiConfig extends AbstractBundleConfig
     public function getFinishActionUrl(): string
     {
         return $this->get(CrefoPayApiConstants::FINISH_ACTION_URL);
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiFieldMac(): string
+    {
+        return static::API_FIELD_MAC;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiResponseFieldResultCode(): string
+    {
+        return static::API_RESPONSE_FIELD_RESULT_CODE;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiErrorTypeExternal(): string
+    {
+        return static::API_ERROR_TYPE_EXTERNAL;
     }
 }

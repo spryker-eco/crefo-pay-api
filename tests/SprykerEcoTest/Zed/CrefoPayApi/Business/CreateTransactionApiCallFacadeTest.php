@@ -21,7 +21,7 @@ class CreateTransactionApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
     /**
      * @return void
      */
-    public function testPerformCreateTransactionApiCall():void
+    public function testPerformCreateTransactionApiCall(): void
     {
         $requestTransfer = $this->tester->createRequestTransfer();
         $responseTransfer = $this->facade->performCreateTransactionApiCall($requestTransfer);

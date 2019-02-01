@@ -21,7 +21,7 @@ class RefundApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
     /**
      * @return void
      */
-    public function testPerformRefundApiCall():void
+    public function testPerformRefundApiCall(): void
     {
         $requestTransfer = $this->tester->createRequestTransfer();
         $responseTransfer = $this->facade->performRefundApiCall($requestTransfer);

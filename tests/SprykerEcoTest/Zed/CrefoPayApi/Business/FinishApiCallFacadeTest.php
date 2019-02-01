@@ -21,7 +21,7 @@ class FinishApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
     /**
      * @return void
      */
-    public function testPerformFinishApiCall():void
+    public function testPerformFinishApiCall(): void
     {
         $requestTransfer = $this->tester->createRequestTransfer();
         $responseTransfer = $this->facade->performFinishApiCall($requestTransfer);
