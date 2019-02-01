@@ -8,7 +8,7 @@
 namespace SprykerEco\Zed\CrefoPayApi\Business\Request;
 
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
-use SprykerEco\Zed\CrefoPayApi\Business\Builder\Request\CrefoPayApiRequestBuilderInterface;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CrefoPayApiRequestBuilderInterface;
 use SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig;
 
 class CaptureRequest implements CrefoPayApiRequestInterface
@@ -16,7 +16,7 @@ class CaptureRequest implements CrefoPayApiRequestInterface
     protected const REQUEST_TYPE = 'capture';
 
     /**
-     * @var \SprykerEco\Zed\CrefoPayApi\Business\Builder\Request\CrefoPayApiRequestBuilderInterface
+     * @var \SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CrefoPayApiRequestBuilderInterface
      */
     protected $requestBuilder;
 
@@ -26,7 +26,7 @@ class CaptureRequest implements CrefoPayApiRequestInterface
     protected $config;
 
     /**
-     * @param \SprykerEco\Zed\CrefoPayApi\Business\Builder\Request\CrefoPayApiRequestBuilderInterface $requestBuilder
+     * @param \SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CrefoPayApiRequestBuilderInterface $requestBuilder
      * @param \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig $config
      */
     public function __construct(

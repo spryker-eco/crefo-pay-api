@@ -5,11 +5,11 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace SprykerEco\Zed\CrefoPayApi\Business\Builder\Request;
+namespace SprykerEco\Zed\CrefoPayApi\Business\Request\Builder;
 
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 
-class CreateTransactionRequestBuilder extends AbstractRequestBuilder
+class RefundRequestBuilder extends AbstractRequestBuilder
 {
     /**
      * @param \Generated\Shared\Transfer\CrefoPayApiRequestTransfer $requestTransfer
@@ -18,6 +18,6 @@ class CreateTransactionRequestBuilder extends AbstractRequestBuilder
      */
     protected function convertRequestTransferToArray(CrefoPayApiRequestTransfer $requestTransfer): array
     {
-        return $requestTransfer->getCreateTransactionRequest()->toArray(true, true);
+        return $requestTransfer->getRefundRequest()->toArray(true, true);
     }
 }

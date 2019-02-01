@@ -9,22 +9,24 @@ namespace SprykerEco\Zed\CrefoPayApi\Business;
 
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use SprykerEco\Service\CrefoPayApi\CrefoPayApiServiceInterface;
-use SprykerEco\Zed\CrefoPayApi\Business\Builder\Request\CancelRequestBuilder;
-use SprykerEco\Zed\CrefoPayApi\Business\Builder\Request\CaptureRequestBuilder;
-use SprykerEco\Zed\CrefoPayApi\Business\Builder\Request\CreateTransactionRequestBuilder;
-use SprykerEco\Zed\CrefoPayApi\Business\Builder\Request\CrefoPayApiRequestBuilderInterface;
-use SprykerEco\Zed\CrefoPayApi\Business\Builder\Request\FinishRequestBuilder;
-use SprykerEco\Zed\CrefoPayApi\Business\Builder\Request\RefundRequestBuilder;
-use SprykerEco\Zed\CrefoPayApi\Business\Builder\Request\ReserveRequestBuilder;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CancelRequestBuilder;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CaptureRequestBuilder;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CreateTransactionRequestBuilder;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CrefoPayApiRequestBuilderInterface;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\FinishRequestBuilder;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\RefundRequestBuilder;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\ReserveRequestBuilder;
 use SprykerEco\Zed\CrefoPayApi\Business\Client\CrefoPayApiClient;
 use SprykerEco\Zed\CrefoPayApi\Business\Client\CrefoPayApiClientInterface;
-use SprykerEco\Zed\CrefoPayApi\Business\Converter\CancelConverter;
-use SprykerEco\Zed\CrefoPayApi\Business\Converter\CaptureConverter;
-use SprykerEco\Zed\CrefoPayApi\Business\Converter\CreateTransactionConverter;
-use SprykerEco\Zed\CrefoPayApi\Business\Converter\CrefoPayApiConverterInterface;
-use SprykerEco\Zed\CrefoPayApi\Business\Converter\FinishConverter;
-use SprykerEco\Zed\CrefoPayApi\Business\Converter\RefundConverter;
-use SprykerEco\Zed\CrefoPayApi\Business\Converter\ReserveConverter;
+use SprykerEco\Zed\CrefoPayApi\Business\Response\Converter\CrefoPayApiResponseConverter;
+use SprykerEco\Zed\CrefoPayApi\Business\Response\Converter\CrefoPayApiResponseConverterInterface;
+use SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\CancelResponseMapper;
+use SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\CaptureResponseMapper;
+use SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\CreateTransactionResponseMapper;
+use SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\CrefoPayApiResponseMapperInterface;
+use SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\FinishResponseMapper;
+use SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\RefundResponseMapper;
+use SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\ReserveResponseMapper;
 use SprykerEco\Zed\CrefoPayApi\Business\Logger\CrefoPayApiLogger;
 use SprykerEco\Zed\CrefoPayApi\Business\Logger\CrefoPayApiLoggerInterface;
 use SprykerEco\Zed\CrefoPayApi\Business\Request\CancelRequest;
@@ -189,7 +191,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Builder\Request\CrefoPayApiRequestBuilderInterface
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CrefoPayApiRequestBuilderInterface
      */
     public function createCreateTransactionRequestBuilder(): CrefoPayApiRequestBuilderInterface
     {
@@ -201,7 +203,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Builder\Request\CrefoPayApiRequestBuilderInterface
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CrefoPayApiRequestBuilderInterface
      */
     public function createReserveRequestBuilder(): CrefoPayApiRequestBuilderInterface
     {
@@ -213,7 +215,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Builder\Request\CrefoPayApiRequestBuilderInterface
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CrefoPayApiRequestBuilderInterface
      */
     public function createCaptureRequestBuilder(): CrefoPayApiRequestBuilderInterface
     {
@@ -225,7 +227,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Builder\Request\CrefoPayApiRequestBuilderInterface
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CrefoPayApiRequestBuilderInterface
      */
     public function createCancelRequestBuilder(): CrefoPayApiRequestBuilderInterface
     {
@@ -237,7 +239,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Builder\Request\CrefoPayApiRequestBuilderInterface
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CrefoPayApiRequestBuilderInterface
      */
     public function createRefundRequestBuilder(): CrefoPayApiRequestBuilderInterface
     {
@@ -249,7 +251,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Builder\Request\CrefoPayApiRequestBuilderInterface
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CrefoPayApiRequestBuilderInterface
      */
     public function createFinishRequestBuilder(): CrefoPayApiRequestBuilderInterface
     {
@@ -261,69 +263,123 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Converter\CrefoPayApiConverterInterface
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Response\Converter\CrefoPayApiResponseConverterInterface
      */
-    public function createCreateTransactionConverter(): CrefoPayApiConverterInterface
+    public function createCreateTransactionConverter(): CrefoPayApiResponseConverterInterface
     {
-        return new CreateTransactionConverter(
+        return new CrefoPayApiResponseConverter(
             $this->getUtilEncodingService(),
+            $this->createCreateTransactionResponseMapper(),
             $this->getConfig()
         );
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Converter\CrefoPayApiConverterInterface
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Response\Converter\CrefoPayApiResponseConverterInterface
      */
-    public function createReserveConverter(): CrefoPayApiConverterInterface
+    public function createReserveConverter(): CrefoPayApiResponseConverterInterface
     {
-        return new ReserveConverter(
+        return new CrefoPayApiResponseConverter(
             $this->getUtilEncodingService(),
+            $this->createReserveResponseMapper(),
             $this->getConfig()
         );
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Converter\CrefoPayApiConverterInterface
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Response\Converter\CrefoPayApiResponseConverterInterface
      */
-    public function createCaptureConverter(): CrefoPayApiConverterInterface
+    public function createCaptureConverter(): CrefoPayApiResponseConverterInterface
     {
-        return new CaptureConverter(
+        return new CrefoPayApiResponseConverter(
             $this->getUtilEncodingService(),
+            $this->createCaptureResponseMapper(),
             $this->getConfig()
         );
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Converter\CrefoPayApiConverterInterface
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Response\Converter\CrefoPayApiResponseConverterInterface
      */
-    public function createCancelConverter(): CrefoPayApiConverterInterface
+    public function createCancelConverter(): CrefoPayApiResponseConverterInterface
     {
-        return new CancelConverter(
+        return new CrefoPayApiResponseConverter(
             $this->getUtilEncodingService(),
+            $this->createCancelResponseMapper(),
             $this->getConfig()
         );
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Converter\CrefoPayApiConverterInterface
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Response\Converter\CrefoPayApiResponseConverterInterface
      */
-    public function createRefundConverter(): CrefoPayApiConverterInterface
+    public function createRefundConverter(): CrefoPayApiResponseConverterInterface
     {
-        return new RefundConverter(
+        return new CrefoPayApiResponseConverter(
             $this->getUtilEncodingService(),
+            $this->createRefundResponseMapper(),
             $this->getConfig()
         );
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Converter\CrefoPayApiConverterInterface
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Response\Converter\CrefoPayApiResponseConverterInterface
      */
-    public function createFinishConverter(): CrefoPayApiConverterInterface
+    public function createFinishConverter(): CrefoPayApiResponseConverterInterface
     {
-        return new FinishConverter(
+        return new CrefoPayApiResponseConverter(
             $this->getUtilEncodingService(),
+            $this->createFinishResponseMapper(),
             $this->getConfig()
         );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\CrefoPayApiResponseMapperInterface
+     */
+    public function createCreateTransactionResponseMapper(): CrefoPayApiResponseMapperInterface
+    {
+        return new CreateTransactionResponseMapper();
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\CrefoPayApiResponseMapperInterface
+     */
+    public function createReserveResponseMapper(): CrefoPayApiResponseMapperInterface
+    {
+        return new ReserveResponseMapper();
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\CrefoPayApiResponseMapperInterface
+     */
+    public function createCaptureResponseMapper(): CrefoPayApiResponseMapperInterface
+    {
+        return new CaptureResponseMapper();
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\CrefoPayApiResponseMapperInterface
+     */
+    public function createCancelResponseMapper(): CrefoPayApiResponseMapperInterface
+    {
+        return new CancelResponseMapper();
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\CrefoPayApiResponseMapperInterface
+     */
+    public function createRefundResponseMapper(): CrefoPayApiResponseMapperInterface
+    {
+        return new RefundResponseMapper();
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\CrefoPayApiResponseMapperInterface
+     */
+    public function createFinishResponseMapper(): CrefoPayApiResponseMapperInterface
+    {
+        return new FinishResponseMapper();
     }
 
     /**

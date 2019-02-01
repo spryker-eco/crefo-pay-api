@@ -8,7 +8,7 @@
 namespace SprykerEco\Zed\CrefoPayApi\Business\Request;
 
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
-use SprykerEco\Zed\CrefoPayApi\Business\Builder\Request\CrefoPayApiRequestBuilderInterface;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CrefoPayApiRequestBuilderInterface;
 use SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig;
 
 class ReserveRequest implements CrefoPayApiRequestInterface
@@ -16,7 +16,7 @@ class ReserveRequest implements CrefoPayApiRequestInterface
     protected const REQUEST_TYPE = 'reserve';
 
     /**
-     * @var \SprykerEco\Zed\CrefoPayApi\Business\Builder\Request\CrefoPayApiRequestBuilderInterface
+     * @var \SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CrefoPayApiRequestBuilderInterface
      */
     protected $requestBuilder;
 
@@ -26,7 +26,7 @@ class ReserveRequest implements CrefoPayApiRequestInterface
     protected $config;
 
     /**
-     * @param \SprykerEco\Zed\CrefoPayApi\Business\Builder\Request\CrefoPayApiRequestBuilderInterface $requestBuilder
+     * @param \SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CrefoPayApiRequestBuilderInterface $requestBuilder
      * @param \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig $config
      */
     public function __construct(

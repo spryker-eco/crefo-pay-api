@@ -5,12 +5,12 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace SprykerEco\Zed\CrefoPayApi\Business\Converter;
+namespace SprykerEco\Zed\CrefoPayApi\Business\Response\Converter;
 
 use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
 use SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\Response\CrefoPayApiGuzzleResponseInterface;
 
-interface CrefoPayApiConverterInterface
+interface CrefoPayApiResponseConverterInterface
 {
     /**
      * @param \SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\Response\CrefoPayApiGuzzleResponseInterface $response

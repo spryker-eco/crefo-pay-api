@@ -5,15 +5,16 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace SprykerEco\Zed\CrefoPayApi\Business\Converter;
+namespace SprykerEco\Zed\CrefoPayApi\Business\Response\Converter;
 
 use Generated\Shared\Transfer\CrefoPayApiErrorResponseTransfer;
 use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
+use SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\CrefoPayApiResponseMapperInterface;
 use SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig;
 use SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\Response\CrefoPayApiGuzzleResponseInterface;
 use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface;
 
-abstract class AbstractConverter implements CrefoPayApiConverterInterface
+class CrefoPayApiResponseConverter implements CrefoPayApiResponseConverterInterface
 {
     protected const EXTERNAL_ERROR_MESSAGE = 'CrefoPay service temporarily unavailable.';
 
@@ -23,30 +24,27 @@ abstract class AbstractConverter implements CrefoPayApiConverterInterface
     protected $encodingService;
 
     /**
+     * @var \SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\CrefoPayApiResponseMapperInterface
+     */
+    protected $responseMapper;
+
+    /**
      * @var \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig
      */
     protected $config;
 
     /**
-     * @param \Generated\Shared\Transfer\CrefoPayApiResponseTransfer $responseTransfer
-     * @param array $responseData
-     *
-     * @return \Generated\Shared\Transfer\CrefoPayApiResponseTransfer
-     */
-    abstract protected function updateResponseTransferWithApiCallResponse(
-        CrefoPayApiResponseTransfer $responseTransfer,
-        array $responseData
-    ): CrefoPayApiResponseTransfer;
-
-    /**
      * @param \SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface $encodingService
+     * @param \SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\CrefoPayApiResponseMapperInterface $responseMapper
      * @param \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig $config
      */
     public function __construct(
         CrefoPayApiToUtilEncodingServiceInterface $encodingService,
+        CrefoPayApiResponseMapperInterface $responseMapper,
         CrefoPayApiConfig $config
     ) {
         $this->encodingService = $encodingService;
+        $this->responseMapper = $responseMapper;
         $this->config = $config;
     }
 
@@ -67,7 +65,8 @@ abstract class AbstractConverter implements CrefoPayApiConverterInterface
         }
 
         $responseTransfer = $this->createSuccessResponseTransfer();
-        $responseTransfer = $this->updateResponseTransferWithApiCallResponse($responseTransfer, $responseData);
+        $responseTransfer = $this->responseMapper
+            ->mapResponseDataToResponseTransfer($responseData, $responseTransfer);
 
         return $responseTransfer;
     }
