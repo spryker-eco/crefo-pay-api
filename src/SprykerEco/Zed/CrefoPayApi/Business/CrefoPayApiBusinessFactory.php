@@ -9,15 +9,17 @@ namespace SprykerEco\Zed\CrefoPayApi\Business;
 
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use SprykerEco\Service\CrefoPayApi\CrefoPayApiServiceInterface;
-use SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CancelRequestBuilder;
-use SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CaptureRequestBuilder;
-use SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CreateTransactionRequestBuilder;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CrefoPayApiRequestBuilder;
 use SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CrefoPayApiRequestBuilderInterface;
-use SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\FinishRequestBuilder;
-use SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\RefundRequestBuilder;
-use SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\ReserveRequestBuilder;
 use SprykerEco\Zed\CrefoPayApi\Business\Client\CrefoPayApiClient;
 use SprykerEco\Zed\CrefoPayApi\Business\Client\CrefoPayApiClientInterface;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\CancelRequestConverter;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\CaptureRequestConverter;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\CreateTransactionRequestConverter;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\CrefoPayApiRequestConverterInterface;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\FinishRequestConverter;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\RefundRequestConverter;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\ReserveRequestConverter;
 use SprykerEco\Zed\CrefoPayApi\Business\Response\Converter\CrefoPayApiResponseConverter;
 use SprykerEco\Zed\CrefoPayApi\Business\Response\Converter\CrefoPayApiResponseConverterInterface;
 use SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\CancelResponseMapper;
@@ -195,7 +197,8 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createCreateTransactionRequestBuilder(): CrefoPayApiRequestBuilderInterface
     {
-        return new CreateTransactionRequestBuilder(
+        return new CrefoPayApiRequestBuilder(
+            $this->createCreateTransactionRequestConverter(),
             $this->getUtilEncodingService(),
             $this->getCrefoPayApiService(),
             $this->getConfig()
@@ -207,7 +210,8 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createReserveRequestBuilder(): CrefoPayApiRequestBuilderInterface
     {
-        return new ReserveRequestBuilder(
+        return new CrefoPayApiRequestBuilder(
+            $this->createReserveRequestConverter(),
             $this->getUtilEncodingService(),
             $this->getCrefoPayApiService(),
             $this->getConfig()
@@ -219,7 +223,8 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createCaptureRequestBuilder(): CrefoPayApiRequestBuilderInterface
     {
-        return new CaptureRequestBuilder(
+        return new CrefoPayApiRequestBuilder(
+            $this->createCaptureRequestConverter(),
             $this->getUtilEncodingService(),
             $this->getCrefoPayApiService(),
             $this->getConfig()
@@ -231,7 +236,8 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createCancelRequestBuilder(): CrefoPayApiRequestBuilderInterface
     {
-        return new CancelRequestBuilder(
+        return new CrefoPayApiRequestBuilder(
+            $this->createCancelRequestConverter(),
             $this->getUtilEncodingService(),
             $this->getCrefoPayApiService(),
             $this->getConfig()
@@ -243,7 +249,8 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createRefundRequestBuilder(): CrefoPayApiRequestBuilderInterface
     {
-        return new RefundRequestBuilder(
+        return new CrefoPayApiRequestBuilder(
+            $this->createRefundRequestConverter(),
             $this->getUtilEncodingService(),
             $this->getCrefoPayApiService(),
             $this->getConfig()
@@ -255,11 +262,60 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createFinishRequestBuilder(): CrefoPayApiRequestBuilderInterface
     {
-        return new FinishRequestBuilder(
+        return new CrefoPayApiRequestBuilder(
+            $this->createFinishRequestConverter(),
             $this->getUtilEncodingService(),
             $this->getCrefoPayApiService(),
             $this->getConfig()
         );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\CrefoPayApiRequestConverterInterface
+     */
+    public function createCreateTransactionRequestConverter(): CrefoPayApiRequestConverterInterface
+    {
+        return new CreateTransactionRequestConverter();
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\CrefoPayApiRequestConverterInterface
+     */
+    public function createReserveRequestConverter(): CrefoPayApiRequestConverterInterface
+    {
+        return new ReserveRequestConverter();
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\CrefoPayApiRequestConverterInterface
+     */
+    public function createCaptureRequestConverter(): CrefoPayApiRequestConverterInterface
+    {
+        return new CaptureRequestConverter();
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\CrefoPayApiRequestConverterInterface
+     */
+    public function createCancelRequestConverter(): CrefoPayApiRequestConverterInterface
+    {
+        return new CancelRequestConverter();
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\CrefoPayApiRequestConverterInterface
+     */
+    public function createRefundRequestConverter(): CrefoPayApiRequestConverterInterface
+    {
+        return new RefundRequestConverter();
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\CrefoPayApiRequestConverterInterface
+     */
+    public function createFinishRequestConverter(): CrefoPayApiRequestConverterInterface
+    {
+        return new FinishRequestConverter();
     }
 
     /**

@@ -10,11 +10,17 @@ namespace SprykerEco\Zed\CrefoPayApi\Business\Request\Builder;
 use ArrayObject;
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use SprykerEco\Service\CrefoPayApi\CrefoPayApiServiceInterface;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\CrefoPayApiRequestConverterInterface;
 use SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig;
 use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface;
 
-abstract class AbstractRequestBuilder implements CrefoPayApiRequestBuilderInterface
+class CrefoPayApiRequestBuilder implements CrefoPayApiRequestBuilderInterface
 {
+    /**
+     * @var \SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\CrefoPayApiRequestConverterInterface
+     */
+    protected $requestConverter;
+
     /**
      * @var \SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface
      */
@@ -31,22 +37,18 @@ abstract class AbstractRequestBuilder implements CrefoPayApiRequestBuilderInterf
     protected $config;
 
     /**
-     * @param \Generated\Shared\Transfer\CrefoPayApiRequestTransfer $requestTransfer
-     *
-     * @return array
-     */
-    abstract protected function convertRequestTransferToArray(CrefoPayApiRequestTransfer $requestTransfer): array;
-
-    /**
+     * @param \SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\CrefoPayApiRequestConverterInterface $requestConverter
      * @param \SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface $encodingService
      * @param \SprykerEco\Service\CrefoPayApi\CrefoPayApiServiceInterface $service
      * @param \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig $config
      */
     public function __construct(
+        CrefoPayApiRequestConverterInterface $requestConverter,
         CrefoPayApiToUtilEncodingServiceInterface $encodingService,
         CrefoPayApiServiceInterface $service,
         CrefoPayApiConfig $config
     ) {
+        $this->requestConverter = $requestConverter;
         $this->encodingService = $encodingService;
         $this->service = $service;
         $this->config = $config;
@@ -59,7 +61,8 @@ abstract class AbstractRequestBuilder implements CrefoPayApiRequestBuilderInterf
      */
     public function buildRequestPayload(CrefoPayApiRequestTransfer $requestTransfer): array
     {
-        $requestPayload = $this->convertRequestTransferToArray($requestTransfer);
+        $requestPayload = $this->requestConverter
+            ->convertRequestTransferToArray($requestTransfer);
         $requestPayload = $this->removeRedundantParams($requestPayload);
         $requestPayload = $this->convertNestedArrayToJson($requestPayload);
         $requestPayload[$this->config->getApiFieldMac()] = $this->service->calculateMac($requestPayload);
