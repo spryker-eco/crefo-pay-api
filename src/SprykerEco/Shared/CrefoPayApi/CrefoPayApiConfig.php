@@ -11,4 +11,13 @@ use Spryker\Shared\Kernel\AbstractBundleConfig;
 
 class CrefoPayApiConfig extends AbstractBundleConfig
 {
+    protected const API_FIELD_MAC = 'mac';
+
+    /**
+     * @return string
+     */
+    public function getApiFieldMac(): string
+    {
+        return static::API_FIELD_MAC;
+    }
 }

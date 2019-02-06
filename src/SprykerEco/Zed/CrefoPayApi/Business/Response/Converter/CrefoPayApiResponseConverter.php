@@ -10,6 +10,7 @@ namespace SprykerEco\Zed\CrefoPayApi\Business\Response\Converter;
 use Generated\Shared\Transfer\CrefoPayApiErrorResponseTransfer;
 use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
 use SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\CrefoPayApiResponseMapperInterface;
+use SprykerEco\Zed\CrefoPayApi\Business\Response\Validator\CrefoPayApiResponseValidatorInterface;
 use SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig;
 use SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\Response\CrefoPayApiGuzzleResponseInterface;
 use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface;
@@ -29,6 +30,11 @@ class CrefoPayApiResponseConverter implements CrefoPayApiResponseConverterInterf
     protected $responseMapper;
 
     /**
+     * @var \SprykerEco\Zed\CrefoPayApi\Business\Response\Validator\CrefoPayApiResponseValidatorInterface
+     */
+    protected $responseValidator;
+
+    /**
      * @var \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig
      */
     protected $config;
@@ -36,15 +42,18 @@ class CrefoPayApiResponseConverter implements CrefoPayApiResponseConverterInterf
     /**
      * @param \SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface $encodingService
      * @param \SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\CrefoPayApiResponseMapperInterface $responseMapper
+     * @param \SprykerEco\Zed\CrefoPayApi\Business\Response\Validator\CrefoPayApiResponseValidatorInterface $responseValidator
      * @param \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig $config
      */
     public function __construct(
         CrefoPayApiToUtilEncodingServiceInterface $encodingService,
         CrefoPayApiResponseMapperInterface $responseMapper,
+        CrefoPayApiResponseValidatorInterface $responseValidator,
         CrefoPayApiConfig $config
     ) {
         $this->encodingService = $encodingService;
         $this->responseMapper = $responseMapper;
+        $this->responseValidator = $responseValidator;
         $this->config = $config;
     }
 
@@ -59,41 +68,26 @@ class CrefoPayApiResponseConverter implements CrefoPayApiResponseConverterInterf
         bool $isSuccess = true
     ): CrefoPayApiResponseTransfer {
         $responseData = $this->encodingService->decodeJson($response->getResponseBody(), true);
+        $responseTransfer = $this->createResponseTransfer($isSuccess);
 
-        if (!$isSuccess || !$this->isResultCodeSuccess($responseData)) {
-            return $this->createResponseTransferWithError($responseData);
+        if (!$isSuccess || !$this->responseValidator->validateResponse($response, $responseData)) {
+            return $this->updateResponseTransferWithError($responseTransfer, $responseData);
         }
 
-        $responseTransfer = $this->createSuccessResponseTransfer();
-        $responseTransfer = $this->responseMapper
+        return $this->responseMapper
             ->mapResponseDataToResponseTransfer($responseData, $responseTransfer);
-
-        return $responseTransfer;
     }
 
     /**
-     * @param array $responseData
-     *
-     * @return bool
-     */
-    protected function isResultCodeSuccess(array $responseData): bool
-    {
-        if ($responseData === null) {
-            return false;
-        }
-
-        $resultCode = $responseData[$this->config->getApiResponseFieldResultCode()];
-
-        return isset($resultCode) && ($resultCode === 0 || $resultCode === 1);
-    }
-
-    /**
+     * @param \Generated\Shared\Transfer\CrefoPayApiResponseTransfer $responseTransfer
      * @param array|null $responseData
      *
      * @return \Generated\Shared\Transfer\CrefoPayApiResponseTransfer
      */
-    protected function createResponseTransferWithError(?array $responseData): CrefoPayApiResponseTransfer
-    {
+    protected function updateResponseTransferWithError(
+        CrefoPayApiResponseTransfer $responseTransfer,
+        ?array $responseData
+    ): CrefoPayApiResponseTransfer {
         $errorTransfer = (new CrefoPayApiErrorResponseTransfer())
             ->setMessage(static::EXTERNAL_ERROR_MESSAGE)
             ->setErrorType($this->config->getApiErrorTypeExternal());
@@ -102,17 +96,19 @@ class CrefoPayApiResponseConverter implements CrefoPayApiResponseConverterInterf
             $errorTransfer->fromArray($responseData, true);
         }
 
-        return (new CrefoPayApiResponseTransfer())
+        return $responseTransfer
             ->setIsSuccess(false)
             ->setError($errorTransfer);
     }
 
     /**
+     * @param bool $isSuccess
+     *
      * @return \Generated\Shared\Transfer\CrefoPayApiResponseTransfer
      */
-    protected function createSuccessResponseTransfer(): CrefoPayApiResponseTransfer
+    protected function createResponseTransfer(bool $isSuccess): CrefoPayApiResponseTransfer
     {
         return (new CrefoPayApiResponseTransfer())
-            ->setIsSuccess(true);
+            ->setIsSuccess($isSuccess);
     }
 }

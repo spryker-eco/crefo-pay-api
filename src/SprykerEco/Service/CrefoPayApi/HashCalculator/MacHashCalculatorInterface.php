@@ -15,4 +15,12 @@ interface MacHashCalculatorInterface
      * @return string
      */
     public function calculateMac(array $data): string;
+
+    /**
+     * @param array $responseData
+     * @param string $mac
+     *
+     * @return bool
+     */
+    public function validateMac(array $responseData, string $mac): bool;
 }

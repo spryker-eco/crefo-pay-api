@@ -51,7 +51,10 @@ class CrefoPayApiGuzzleHttpClientAdapter implements CrefoPayApiGuzzleHttpClientA
             ];
             $response = $this->guzzleHttpClient->post($url, $options);
         } catch (RequestException $requestException) {
-            $response = new CrefoPayApiGuzzleResponse($requestException->getResponse()->getBody());
+            $response = new CrefoPayApiGuzzleResponse(
+                $requestException->getResponse()->getBody(),
+                $requestException->getResponse()->getHeaders()
+            );
             throw new CrefoPayApiGuzzleRequestException(
                 $response,
                 $requestException->getMessage(),
@@ -60,6 +63,9 @@ class CrefoPayApiGuzzleHttpClientAdapter implements CrefoPayApiGuzzleHttpClientA
             );
         }
 
-        return new CrefoPayApiGuzzleResponse($response->getBody());
+        return new CrefoPayApiGuzzleResponse(
+            $response->getBody(),
+            $response->getHeaders()
+        );
     }
 }

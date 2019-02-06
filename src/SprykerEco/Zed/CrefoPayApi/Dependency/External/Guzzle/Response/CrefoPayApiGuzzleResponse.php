@@ -17,11 +17,18 @@ class CrefoPayApiGuzzleResponse implements CrefoPayApiGuzzleResponseInterface
     protected $responseBody;
 
     /**
-     * @param \Psr\Http\Message\StreamInterface $responseBody
+     * @var array
      */
-    public function __construct(StreamInterface $responseBody)
+    protected $headers;
+
+    /**
+     * @param \Psr\Http\Message\StreamInterface $responseBody
+     * @param array $headers
+     */
+    public function __construct(StreamInterface $responseBody, array $headers = [])
     {
         $this->responseBody = $responseBody;
+        $this->headers = $headers;
     }
 
     /**
@@ -30,5 +37,27 @@ class CrefoPayApiGuzzleResponse implements CrefoPayApiGuzzleResponseInterface
     public function getResponseBody(): string
     {
         return (string)$this->responseBody;
+    }
+
+    /**
+     * @return array
+     */
+    public function getHeaders(): array
+    {
+        return $this->headers;
+    }
+
+    /**
+     * @param string $header
+     *
+     * @return string|null
+     */
+    public function getHeader(string $header): ?string
+    {
+        if (!isset($this->headers[$header])) {
+            return null;
+        }
+
+        return (string)reset($this->headers[$header]);
     }
 }

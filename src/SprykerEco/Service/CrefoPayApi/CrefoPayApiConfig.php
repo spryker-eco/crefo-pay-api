@@ -10,6 +10,9 @@ namespace SprykerEco\Service\CrefoPayApi;
 use Spryker\Service\Kernel\AbstractBundleConfig;
 use SprykerEco\Shared\CrefoPayApi\CrefoPayApiConstants;
 
+/**
+ * @method \SprykerEco\Shared\CrefoPayApi\CrefoPayApiConfig getSharedConfig()
+ */
 class CrefoPayApiConfig extends AbstractBundleConfig
 {
     /**
@@ -18,5 +21,13 @@ class CrefoPayApiConfig extends AbstractBundleConfig
     public function getPrivateKey(): string
     {
         return $this->get(CrefoPayApiConstants::PRIVATE_KEY);
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiFieldMac(): string
+    {
+        return $this->getSharedConfig()->getApiFieldMac();
     }
 }

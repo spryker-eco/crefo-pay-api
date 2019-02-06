@@ -40,6 +40,17 @@ class MacHashCalculator implements MacHashCalculatorInterface
     }
 
     /**
+     * @param array $responseData
+     * @param string $mac
+     *
+     * @return bool
+     */
+    public function validateMac(array $responseData, string $mac): bool
+    {
+        return $this->calculateMac($responseData) === $mac;
+    }
+
+    /**
      * @param array $data
      *
      * @return string

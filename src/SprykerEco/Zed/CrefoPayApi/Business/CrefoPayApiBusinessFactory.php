@@ -9,10 +9,14 @@ namespace SprykerEco\Zed\CrefoPayApi\Business;
 
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use SprykerEco\Service\CrefoPayApi\CrefoPayApiServiceInterface;
-use SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CrefoPayApiRequestBuilder;
-use SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CrefoPayApiRequestBuilderInterface;
 use SprykerEco\Zed\CrefoPayApi\Business\Client\CrefoPayApiClient;
 use SprykerEco\Zed\CrefoPayApi\Business\Client\CrefoPayApiClientInterface;
+use SprykerEco\Zed\CrefoPayApi\Business\Logger\CrefoPayApiLogger;
+use SprykerEco\Zed\CrefoPayApi\Business\Logger\CrefoPayApiLoggerInterface;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CrefoPayApiRequestBuilder;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CrefoPayApiRequestBuilderInterface;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\CancelRequest;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\CaptureRequest;
 use SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\CancelRequestConverter;
 use SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\CaptureRequestConverter;
 use SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\CreateTransactionRequestConverter;
@@ -20,6 +24,11 @@ use SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\CrefoPayApiRequestConv
 use SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\FinishRequestConverter;
 use SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\RefundRequestConverter;
 use SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\ReserveRequestConverter;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\CreateTransactionRequest;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\CrefoPayApiRequestInterface;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\FinishRequest;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\RefundRequest;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\ReserveRequest;
 use SprykerEco\Zed\CrefoPayApi\Business\Response\Converter\CrefoPayApiResponseConverter;
 use SprykerEco\Zed\CrefoPayApi\Business\Response\Converter\CrefoPayApiResponseConverterInterface;
 use SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\CancelResponseMapper;
@@ -29,15 +38,8 @@ use SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\CrefoPayApiResponseMappe
 use SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\FinishResponseMapper;
 use SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\RefundResponseMapper;
 use SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\ReserveResponseMapper;
-use SprykerEco\Zed\CrefoPayApi\Business\Logger\CrefoPayApiLogger;
-use SprykerEco\Zed\CrefoPayApi\Business\Logger\CrefoPayApiLoggerInterface;
-use SprykerEco\Zed\CrefoPayApi\Business\Request\CancelRequest;
-use SprykerEco\Zed\CrefoPayApi\Business\Request\CaptureRequest;
-use SprykerEco\Zed\CrefoPayApi\Business\Request\CreateTransactionRequest;
-use SprykerEco\Zed\CrefoPayApi\Business\Request\CrefoPayApiRequestInterface;
-use SprykerEco\Zed\CrefoPayApi\Business\Request\FinishRequest;
-use SprykerEco\Zed\CrefoPayApi\Business\Request\RefundRequest;
-use SprykerEco\Zed\CrefoPayApi\Business\Request\ReserveRequest;
+use SprykerEco\Zed\CrefoPayApi\Business\Response\Validator\CrefoPayApiResponseValidator;
+use SprykerEco\Zed\CrefoPayApi\Business\Response\Validator\CrefoPayApiResponseValidatorInterface;
 use SprykerEco\Zed\CrefoPayApi\CrefoPayApiDependencyProvider;
 use SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\CrefoPayApiGuzzleHttpClientAdapterInterface;
 use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface;
@@ -56,8 +58,8 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiClient(
             $this->getCrefoPayApiHttpClient(),
             $this->createCreateTransactionRequest(),
-            $this->createCreateTransactionConverter(),
-            $this->createLogger()
+            $this->createCreateTransactionResponseConverter(),
+            $this->createCrefoPayApiLogger()
         );
     }
 
@@ -69,8 +71,8 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiClient(
             $this->getCrefoPayApiHttpClient(),
             $this->createReserveRequest(),
-            $this->createReserveConverter(),
-            $this->createLogger()
+            $this->createReserveResponseConverter(),
+            $this->createCrefoPayApiLogger()
         );
     }
 
@@ -82,8 +84,8 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiClient(
             $this->getCrefoPayApiHttpClient(),
             $this->createCaptureRequest(),
-            $this->createCaptureConverter(),
-            $this->createLogger()
+            $this->createCaptureResponseConverter(),
+            $this->createCrefoPayApiLogger()
         );
     }
 
@@ -95,8 +97,8 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiClient(
             $this->getCrefoPayApiHttpClient(),
             $this->createCancelRequest(),
-            $this->createCancelConverter(),
-            $this->createLogger()
+            $this->createCancelResponseConverter(),
+            $this->createCrefoPayApiLogger()
         );
     }
 
@@ -108,8 +110,8 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiClient(
             $this->getCrefoPayApiHttpClient(),
             $this->createRefundRequest(),
-            $this->createRefundConverter(),
-            $this->createLogger()
+            $this->createRefundResponseConverter(),
+            $this->createCrefoPayApiLogger()
         );
     }
 
@@ -121,8 +123,8 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiClient(
             $this->getCrefoPayApiHttpClient(),
             $this->createFinishRequest(),
-            $this->createFinishConverter(),
-            $this->createLogger()
+            $this->createFinishResponseConverter(),
+            $this->createCrefoPayApiLogger()
         );
     }
 
@@ -321,11 +323,12 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\CrefoPayApi\Business\Response\Converter\CrefoPayApiResponseConverterInterface
      */
-    public function createCreateTransactionConverter(): CrefoPayApiResponseConverterInterface
+    public function createCreateTransactionResponseConverter(): CrefoPayApiResponseConverterInterface
     {
         return new CrefoPayApiResponseConverter(
             $this->getUtilEncodingService(),
             $this->createCreateTransactionResponseMapper(),
+            $this->createCrefoPayApiResponseValidator(),
             $this->getConfig()
         );
     }
@@ -333,11 +336,12 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\CrefoPayApi\Business\Response\Converter\CrefoPayApiResponseConverterInterface
      */
-    public function createReserveConverter(): CrefoPayApiResponseConverterInterface
+    public function createReserveResponseConverter(): CrefoPayApiResponseConverterInterface
     {
         return new CrefoPayApiResponseConverter(
             $this->getUtilEncodingService(),
             $this->createReserveResponseMapper(),
+            $this->createCrefoPayApiResponseValidator(),
             $this->getConfig()
         );
     }
@@ -345,11 +349,12 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\CrefoPayApi\Business\Response\Converter\CrefoPayApiResponseConverterInterface
      */
-    public function createCaptureConverter(): CrefoPayApiResponseConverterInterface
+    public function createCaptureResponseConverter(): CrefoPayApiResponseConverterInterface
     {
         return new CrefoPayApiResponseConverter(
             $this->getUtilEncodingService(),
             $this->createCaptureResponseMapper(),
+            $this->createCrefoPayApiResponseValidator(),
             $this->getConfig()
         );
     }
@@ -357,11 +362,12 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\CrefoPayApi\Business\Response\Converter\CrefoPayApiResponseConverterInterface
      */
-    public function createCancelConverter(): CrefoPayApiResponseConverterInterface
+    public function createCancelResponseConverter(): CrefoPayApiResponseConverterInterface
     {
         return new CrefoPayApiResponseConverter(
             $this->getUtilEncodingService(),
             $this->createCancelResponseMapper(),
+            $this->createCrefoPayApiResponseValidator(),
             $this->getConfig()
         );
     }
@@ -369,11 +375,12 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\CrefoPayApi\Business\Response\Converter\CrefoPayApiResponseConverterInterface
      */
-    public function createRefundConverter(): CrefoPayApiResponseConverterInterface
+    public function createRefundResponseConverter(): CrefoPayApiResponseConverterInterface
     {
         return new CrefoPayApiResponseConverter(
             $this->getUtilEncodingService(),
             $this->createRefundResponseMapper(),
+            $this->createCrefoPayApiResponseValidator(),
             $this->getConfig()
         );
     }
@@ -381,11 +388,12 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\CrefoPayApi\Business\Response\Converter\CrefoPayApiResponseConverterInterface
      */
-    public function createFinishConverter(): CrefoPayApiResponseConverterInterface
+    public function createFinishResponseConverter(): CrefoPayApiResponseConverterInterface
     {
         return new CrefoPayApiResponseConverter(
             $this->getUtilEncodingService(),
             $this->createFinishResponseMapper(),
+            $this->createCrefoPayApiResponseValidator(),
             $this->getConfig()
         );
     }
@@ -439,9 +447,20 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\Response\Validator\CrefoPayApiResponseValidatorInterface
+     */
+    public function createCrefoPayApiResponseValidator(): CrefoPayApiResponseValidatorInterface
+    {
+        return new CrefoPayApiResponseValidator(
+            $this->getCrefoPayApiService(),
+            $this->getConfig()
+        );
+    }
+
+    /**
      * @return \SprykerEco\Zed\CrefoPayApi\Business\Logger\CrefoPayApiLoggerInterface
      */
-    public function createLogger(): CrefoPayApiLoggerInterface
+    public function createCrefoPayApiLogger(): CrefoPayApiLoggerInterface
     {
         return new CrefoPayApiLogger($this->getEntityManager());
     }

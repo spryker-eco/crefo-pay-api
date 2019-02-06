@@ -10,9 +10,12 @@ namespace SprykerEco\Zed\CrefoPayApi;
 use Spryker\Zed\Kernel\AbstractBundleConfig;
 use SprykerEco\Shared\CrefoPayApi\CrefoPayApiConstants;
 
+/**
+ * @method \SprykerEco\Shared\CrefoPayApi\CrefoPayApiConfig getSharedConfig()
+ */
 class CrefoPayApiConfig extends AbstractBundleConfig
 {
-    protected const API_FIELD_MAC = 'mac';
+    protected const API_HEADER_MAC = 'X-Payco-HMAC';
     protected const API_RESPONSE_FIELD_RESULT_CODE = 'resultCode';
     protected const API_ERROR_TYPE_EXTERNAL = 'EXTERNAL';
 
@@ -69,7 +72,15 @@ class CrefoPayApiConfig extends AbstractBundleConfig
      */
     public function getApiFieldMac(): string
     {
-        return static::API_FIELD_MAC;
+        return $this->getSharedConfig()->getApiFieldMac();
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiHeaderMac(): string
+    {
+        return static::API_HEADER_MAC;
     }
 
     /**
