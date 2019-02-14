@@ -18,6 +18,10 @@ class CancelRequestConverter implements CrefoPayApiRequestConverterInterface
      */
     public function convertRequestTransferToArray(CrefoPayApiRequestTransfer $requestTransfer): array
     {
+        if ($requestTransfer->getCancelRequest() === null) {
+            return [];
+        }
+
         return $requestTransfer
             ->getCancelRequest()
             ->toArray(true, true);

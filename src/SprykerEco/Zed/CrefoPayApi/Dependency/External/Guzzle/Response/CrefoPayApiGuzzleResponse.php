@@ -12,7 +12,7 @@ use Psr\Http\Message\StreamInterface;
 class CrefoPayApiGuzzleResponse implements CrefoPayApiGuzzleResponseInterface
 {
     /**
-     * @var \Psr\Http\Message\StreamInterface
+     * @var \Psr\Http\Message\StreamInterface|null
      */
     protected $responseBody;
 
@@ -22,10 +22,10 @@ class CrefoPayApiGuzzleResponse implements CrefoPayApiGuzzleResponseInterface
     protected $headers;
 
     /**
-     * @param \Psr\Http\Message\StreamInterface $responseBody
+     * @param \Psr\Http\Message\StreamInterface|null $responseBody
      * @param array $headers
      */
-    public function __construct(StreamInterface $responseBody, array $headers = [])
+    public function __construct(?StreamInterface $responseBody = null, array $headers = [])
     {
         $this->responseBody = $responseBody;
         $this->headers = $headers;

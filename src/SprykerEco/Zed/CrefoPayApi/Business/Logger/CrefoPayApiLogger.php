@@ -101,7 +101,7 @@ class CrefoPayApiLogger implements CrefoPayApiLoggerInterface
      */
     protected function getResultCode(CrefoPayApiResponseTransfer $responseTransfer): ?int
     {
-        if ($responseTransfer->getIsSuccess() === false) {
+        if ($responseTransfer->getIsSuccess() === false && $responseTransfer->getError() !== null) {
             return $responseTransfer->getError()->getResultCode();
         }
 
@@ -117,7 +117,7 @@ class CrefoPayApiLogger implements CrefoPayApiLoggerInterface
      */
     protected function getMessage(CrefoPayApiResponseTransfer $responseTransfer): ?string
     {
-        if ($responseTransfer->getIsSuccess() === false) {
+        if ($responseTransfer->getIsSuccess() === false && $responseTransfer->getError() !== null) {
             return $responseTransfer->getError()->getMessage();
         }
 
@@ -133,7 +133,7 @@ class CrefoPayApiLogger implements CrefoPayApiLoggerInterface
      */
     protected function getSalt(CrefoPayApiResponseTransfer $responseTransfer): ?string
     {
-        if ($responseTransfer->getIsSuccess() === false) {
+        if ($responseTransfer->getIsSuccess() === false && $responseTransfer->getError() !== null) {
             return $responseTransfer->getError()->getSalt();
         }
 

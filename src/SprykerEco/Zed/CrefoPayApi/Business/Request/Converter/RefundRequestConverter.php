@@ -18,6 +18,10 @@ class RefundRequestConverter implements CrefoPayApiRequestConverterInterface
      */
     public function convertRequestTransferToArray(CrefoPayApiRequestTransfer $requestTransfer): array
     {
+        if ($requestTransfer->getRefundRequest() === null) {
+            return [];
+        }
+
         return $requestTransfer
             ->getRefundRequest()
             ->toArray(true, true);

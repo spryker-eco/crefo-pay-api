@@ -18,6 +18,10 @@ class CaptureRequestConverter implements CrefoPayApiRequestConverterInterface
      */
     public function convertRequestTransferToArray(CrefoPayApiRequestTransfer $requestTransfer): array
     {
+        if ($requestTransfer->getCaptureRequest() === null) {
+            return [];
+        }
+
         return $requestTransfer
             ->getCaptureRequest()
             ->toArray(true, true);

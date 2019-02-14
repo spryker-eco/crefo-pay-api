@@ -8,7 +8,6 @@
 namespace SprykerEco\Zed\CrefoPayApi\Persistence;
 
 use Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer;
-use Generated\Shared\Transfer\SpyPaymentCrefoPayApiLogEntityTransfer;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 use SprykerEco\Zed\CrefoPayApi\Persistence\Mapper\CrefoPayApiPersistenceMapperInterface;
 
@@ -25,22 +24,23 @@ class CrefoPayApiEntityManager extends AbstractEntityManager implements CrefoPay
     public function savePaymentCrefoPayApiLog(
         PaymentCrefoPayApiLogTransfer $paymentCrefoPayApiLogTransfer
     ): PaymentCrefoPayApiLogTransfer {
-        $entityTransfer = $this->getMapper()
-            ->mapPaymentCrefoPayApiLogTransferToEntityTransfer(
-                $paymentCrefoPayApiLogTransfer,
-                new SpyPaymentCrefoPayApiLogEntityTransfer()
-            );
+        $paymentCrefoPayApiLogEntity = $this->getFactory()
+            ->createPaymentCrefoPayApiLogQuery()
+            ->filterByRequestType($paymentCrefoPayApiLogTransfer->getRequestType())
+            ->filterByCrefoPayOrderId($paymentCrefoPayApiLogTransfer->getCrefoPayOrderId())
+            ->filterBySalt($paymentCrefoPayApiLogTransfer->getSalt())
+            ->findOneOrCreate();
 
-        /** @var \Generated\Shared\Transfer\SpyPaymentCrefoPayApiLogEntityTransfer $entityTransfer */
-        $entityTransfer = $this->save($entityTransfer);
+        $paymentCrefoPayApiLogEntity->fromArray(
+            $paymentCrefoPayApiLogTransfer->modifiedToArray()
+        );
+        $paymentCrefoPayApiLogEntity->save();
 
-        $paymentCrefoPayApiLogTransfer = $this->getMapper()
-            ->mapEntityTransferToPaymentCrefoPayApiLogTransfer(
-                $entityTransfer,
+        return $this->getMapper()
+            ->mapEntityToPaymentCrefoPayApiLogTransfer(
+                $paymentCrefoPayApiLogEntity,
                 $paymentCrefoPayApiLogTransfer
             );
-
-        return $paymentCrefoPayApiLogTransfer;
     }
 
     /**

@@ -9,8 +9,8 @@ namespace SprykerEco\Zed\CrefoPayApi\Business;
 
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use SprykerEco\Service\CrefoPayApi\CrefoPayApiServiceInterface;
-use SprykerEco\Zed\CrefoPayApi\Business\Client\CrefoPayApiClient;
-use SprykerEco\Zed\CrefoPayApi\Business\Client\CrefoPayApiClientInterface;
+use SprykerEco\Zed\CrefoPayApi\Business\ApiClient\CrefoPayApiClient;
+use SprykerEco\Zed\CrefoPayApi\Business\ApiClient\CrefoPayApiClientInterface;
 use SprykerEco\Zed\CrefoPayApi\Business\Logger\CrefoPayApiLogger;
 use SprykerEco\Zed\CrefoPayApi\Business\Logger\CrefoPayApiLoggerInterface;
 use SprykerEco\Zed\CrefoPayApi\Business\Request\Builder\CrefoPayApiRequestBuilder;
@@ -51,7 +51,7 @@ use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServi
 class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
 {
     /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Client\CrefoPayApiClientInterface
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\ApiClient\CrefoPayApiClientInterface
      */
     public function createCreateTransactionClient(): CrefoPayApiClientInterface
     {
@@ -64,7 +64,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Client\CrefoPayApiClientInterface
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\ApiClient\CrefoPayApiClientInterface
      */
     public function createReserveClient(): CrefoPayApiClientInterface
     {
@@ -77,7 +77,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Client\CrefoPayApiClientInterface
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\ApiClient\CrefoPayApiClientInterface
      */
     public function createCaptureClient(): CrefoPayApiClientInterface
     {
@@ -90,7 +90,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Client\CrefoPayApiClientInterface
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\ApiClient\CrefoPayApiClientInterface
      */
     public function createCancelClient(): CrefoPayApiClientInterface
     {
@@ -103,7 +103,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Client\CrefoPayApiClientInterface
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\ApiClient\CrefoPayApiClientInterface
      */
     public function createRefundClient(): CrefoPayApiClientInterface
     {
@@ -116,7 +116,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Business\Client\CrefoPayApiClientInterface
+     * @return \SprykerEco\Zed\CrefoPayApi\Business\ApiClient\CrefoPayApiClientInterface
      */
     public function createFinishClient(): CrefoPayApiClientInterface
     {

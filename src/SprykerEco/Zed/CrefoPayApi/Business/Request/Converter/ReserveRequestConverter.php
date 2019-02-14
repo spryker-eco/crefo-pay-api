@@ -18,6 +18,10 @@ class ReserveRequestConverter implements CrefoPayApiRequestConverterInterface
      */
     public function convertRequestTransferToArray(CrefoPayApiRequestTransfer $requestTransfer): array
     {
+        if ($requestTransfer->getReserveRequest() === null) {
+            return [];
+        }
+
         return $requestTransfer
             ->getReserveRequest()
             ->toArray(true, true);

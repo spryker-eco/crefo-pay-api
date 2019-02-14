@@ -10,6 +10,7 @@ namespace SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\RequestOptions;
+use Psr\Http\Message\ResponseInterface;
 use SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\Exception\CrefoPayApiGuzzleRequestException;
 use SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\Response\CrefoPayApiGuzzleResponse;
 use SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\Response\CrefoPayApiGuzzleResponseInterface;
@@ -51,16 +52,26 @@ class CrefoPayApiGuzzleHttpClientAdapter implements CrefoPayApiGuzzleHttpClientA
             ];
             $response = $this->guzzleHttpClient->post($url, $options);
         } catch (RequestException $requestException) {
-            $response = new CrefoPayApiGuzzleResponse(
-                $requestException->getResponse()->getBody(),
-                $requestException->getResponse()->getHeaders()
-            );
             throw new CrefoPayApiGuzzleRequestException(
-                $response,
+                $this->createCrefoPayApiGuzzleResponse($requestException->getResponse()),
                 $requestException->getMessage(),
                 $requestException->getCode(),
                 $requestException
             );
+        }
+
+        return $this->createCrefoPayApiGuzzleResponse($response);
+    }
+
+    /**
+     * @param \Psr\Http\Message\ResponseInterface|null $response
+     *
+     * @return \SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\Response\CrefoPayApiGuzzleResponse
+     */
+    protected function createCrefoPayApiGuzzleResponse(?ResponseInterface $response): CrefoPayApiGuzzleResponse
+    {
+        if ($response === null) {
+            return new CrefoPayApiGuzzleResponse();
         }
 
         return new CrefoPayApiGuzzleResponse(

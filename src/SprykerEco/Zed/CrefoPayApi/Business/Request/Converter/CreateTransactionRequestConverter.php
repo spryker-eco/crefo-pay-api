@@ -18,6 +18,10 @@ class CreateTransactionRequestConverter implements CrefoPayApiRequestConverterIn
      */
     public function convertRequestTransferToArray(CrefoPayApiRequestTransfer $requestTransfer): array
     {
+        if ($requestTransfer->getCreateTransactionRequest() === null) {
+            return [];
+        }
+
         return $requestTransfer
             ->getCreateTransactionRequest()
             ->toArray(true, true);

@@ -18,6 +18,10 @@ class FinishRequestConverter implements CrefoPayApiRequestConverterInterface
      */
     public function convertRequestTransferToArray(CrefoPayApiRequestTransfer $requestTransfer): array
     {
+        if ($requestTransfer->getFinishRequest() === null) {
+            return [];
+        }
+
         return $requestTransfer
             ->getFinishRequest()
             ->toArray(true, true);

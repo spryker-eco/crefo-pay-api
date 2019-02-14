@@ -8,40 +8,22 @@
 namespace SprykerEco\Zed\CrefoPayApi\Persistence\Mapper;
 
 use Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer;
-use Generated\Shared\Transfer\SpyPaymentCrefoPayApiLogEntityTransfer;
+use Orm\Zed\CrefoPayApi\Persistence\SpyPaymentCrefoPayApiLog;
 
 class CrefoPayApiPersistenceMapper implements CrefoPayApiPersistenceMapperInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer $paymentCrefoPayApiLogTransfer
-     * @param \Generated\Shared\Transfer\SpyPaymentCrefoPayApiLogEntityTransfer $paymentCrefoPayApiLogEntityTransfer
-     *
-     * @return \Generated\Shared\Transfer\SpyPaymentCrefoPayApiLogEntityTransfer
-     */
-    public function mapPaymentCrefoPayApiLogTransferToEntityTransfer(
-        PaymentCrefoPayApiLogTransfer $paymentCrefoPayApiLogTransfer,
-        SpyPaymentCrefoPayApiLogEntityTransfer $paymentCrefoPayApiLogEntityTransfer
-    ): SpyPaymentCrefoPayApiLogEntityTransfer {
-        $paymentCrefoPayApiLogEntityTransfer->fromArray(
-            $paymentCrefoPayApiLogTransfer->modifiedToArray(),
-            true
-        );
-
-        return $paymentCrefoPayApiLogEntityTransfer;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\SpyPaymentCrefoPayApiLogEntityTransfer $paymentCrefoPayApiLogEntityTransfer
+     * @param \Orm\Zed\CrefoPayApi\Persistence\SpyPaymentCrefoPayApiLog $paymentCrefoPayApiLogEntity
      * @param \Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer $paymentCrefoPayApiLogTransfer
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer
      */
-    public function mapEntityTransferToPaymentCrefoPayApiLogTransfer(
-        SpyPaymentCrefoPayApiLogEntityTransfer $paymentCrefoPayApiLogEntityTransfer,
+    public function mapEntityToPaymentCrefoPayApiLogTransfer(
+        SpyPaymentCrefoPayApiLog $paymentCrefoPayApiLogEntity,
         PaymentCrefoPayApiLogTransfer $paymentCrefoPayApiLogTransfer
     ): PaymentCrefoPayApiLogTransfer {
         $paymentCrefoPayApiLogTransfer->fromArray(
-            $paymentCrefoPayApiLogEntityTransfer->toArray(),
+            $paymentCrefoPayApiLogEntity->toArray(),
             true
         );
 
