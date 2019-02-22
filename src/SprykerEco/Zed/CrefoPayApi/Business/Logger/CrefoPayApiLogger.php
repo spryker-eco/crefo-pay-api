@@ -11,6 +11,7 @@ use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
+use SprykerEco\Zed\CrefoPayApi\Business\Exception\InvalidRequestTypeException;
 use SprykerEco\Zed\CrefoPayApi\Persistence\CrefoPayApiEntityManagerInterface;
 
 class CrefoPayApiLogger implements CrefoPayApiLoggerInterface
@@ -24,11 +25,6 @@ class CrefoPayApiLogger implements CrefoPayApiLoggerInterface
      * @var \SprykerEco\Zed\CrefoPayApi\Persistence\CrefoPayApiEntityManagerInterface
      */
     protected $entityManager;
-
-    /**
-     * @var string
-     */
-    protected $requestType;
 
     /**
      * @param \SprykerEco\Zed\CrefoPayApi\Persistence\CrefoPayApiEntityManagerInterface $entityManager
@@ -50,10 +46,10 @@ class CrefoPayApiLogger implements CrefoPayApiLoggerInterface
         CrefoPayApiResponseTransfer $responseTransfer,
         string $requestType
     ): PaymentCrefoPayApiLogTransfer {
-        $this->requestType = $requestType;
         $paymentCrefoPayApiLog = $this->createPaymentCrefoPayApiLogTransfer(
             $requestTransfer,
-            $responseTransfer
+            $responseTransfer,
+            $requestType
         );
 
         return $this->getTransactionHandler()->handleTransaction(function () use ($paymentCrefoPayApiLog) {
@@ -64,80 +60,110 @@ class CrefoPayApiLogger implements CrefoPayApiLoggerInterface
     /**
      * @param \Generated\Shared\Transfer\CrefoPayApiRequestTransfer $requestTransfer
      * @param \Generated\Shared\Transfer\CrefoPayApiResponseTransfer $responseTransfer
+     * @param string $requestType
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer
      */
     protected function createPaymentCrefoPayApiLogTransfer(
         CrefoPayApiRequestTransfer $requestTransfer,
-        CrefoPayApiResponseTransfer $responseTransfer
+        CrefoPayApiResponseTransfer $responseTransfer,
+        string $requestType
     ): PaymentCrefoPayApiLogTransfer {
         return (new PaymentCrefoPayApiLogTransfer())
-            ->setRequestType($this->requestType)
-            ->setCrefoPayOrderId($this->getCrefoPayOrderId($requestTransfer))
+            ->setRequestType($requestType)
+            ->setCrefoPayOrderId($this->getCrefoPayOrderId($requestTransfer, $requestType))
             ->setIsSuccess($responseTransfer->getIsSuccess())
-            ->setResultCode($this->getResultCode($responseTransfer))
-            ->setMessage($this->getMessage($responseTransfer))
-            ->setSalt($this->getSalt($responseTransfer))
+            ->setResultCode($this->getResultCode($responseTransfer, $requestType))
+            ->setMessage($this->getMessage($responseTransfer, $requestType))
+            ->setSalt($this->getSalt($responseTransfer, $requestType))
             ->setRequest($requestTransfer->serialize())
             ->setResponse($responseTransfer->serialize());
     }
 
     /**
      * @param \Generated\Shared\Transfer\CrefoPayApiRequestTransfer $requestTransfer
+     * @param string $requestType
+     *
+     * @throws \SprykerEco\Zed\CrefoPayApi\Business\Exception\InvalidRequestTypeException
      *
      * @return string
      */
-    protected function getCrefoPayOrderId(CrefoPayApiRequestTransfer $requestTransfer): string
+    protected function getCrefoPayOrderId(CrefoPayApiRequestTransfer $requestTransfer, string $requestType): string
     {
-        $method = sprintf(static::GET_REQUEST_METHOD, ucfirst($this->requestType));
+        $method = sprintf(static::GET_REQUEST_METHOD, ucfirst($requestType));
+
+        if (!method_exists($requestTransfer, $method)) {
+            throw new InvalidRequestTypeException();
+        }
 
         return $requestTransfer->$method()->getOrderID();
     }
 
     /**
      * @param \Generated\Shared\Transfer\CrefoPayApiResponseTransfer $responseTransfer
+     * @param string $requestType
+     *
+     * @throws \SprykerEco\Zed\CrefoPayApi\Business\Exception\InvalidRequestTypeException
      *
      * @return int|null
      */
-    protected function getResultCode(CrefoPayApiResponseTransfer $responseTransfer): ?int
+    protected function getResultCode(CrefoPayApiResponseTransfer $responseTransfer, string $requestType): ?int
     {
         if ($responseTransfer->getIsSuccess() === false && $responseTransfer->getError() !== null) {
             return $responseTransfer->getError()->getResultCode();
         }
 
-        $method = sprintf(static::GET_RESPONSE_METHOD, ucfirst($this->requestType));
+        $method = sprintf(static::GET_RESPONSE_METHOD, ucfirst($requestType));
+
+        if (!method_exists($responseTransfer, $method)) {
+            throw new InvalidRequestTypeException();
+        }
 
         return $responseTransfer->$method()->getResultCode();
     }
 
     /**
      * @param \Generated\Shared\Transfer\CrefoPayApiResponseTransfer $responseTransfer
+     * @param string $requestType
+     *
+     * @throws \SprykerEco\Zed\CrefoPayApi\Business\Exception\InvalidRequestTypeException
      *
      * @return string|null
      */
-    protected function getMessage(CrefoPayApiResponseTransfer $responseTransfer): ?string
+    protected function getMessage(CrefoPayApiResponseTransfer $responseTransfer, string $requestType): ?string
     {
         if ($responseTransfer->getIsSuccess() === false && $responseTransfer->getError() !== null) {
             return $responseTransfer->getError()->getMessage();
         }
 
-        $method = sprintf(static::GET_RESPONSE_METHOD, ucfirst($this->requestType));
+        $method = sprintf(static::GET_RESPONSE_METHOD, ucfirst($requestType));
+
+        if (!method_exists($responseTransfer, $method)) {
+            throw new InvalidRequestTypeException();
+        }
 
         return $responseTransfer->$method()->getMessage();
     }
 
     /**
      * @param \Generated\Shared\Transfer\CrefoPayApiResponseTransfer $responseTransfer
+     * @param string $requestType
+     *
+     * @throws \SprykerEco\Zed\CrefoPayApi\Business\Exception\InvalidRequestTypeException
      *
      * @return string|null
      */
-    protected function getSalt(CrefoPayApiResponseTransfer $responseTransfer): ?string
+    protected function getSalt(CrefoPayApiResponseTransfer $responseTransfer, string $requestType): ?string
     {
         if ($responseTransfer->getIsSuccess() === false && $responseTransfer->getError() !== null) {
             return $responseTransfer->getError()->getSalt();
         }
 
-        $method = sprintf(static::GET_RESPONSE_METHOD, ucfirst($this->requestType));
+        $method = sprintf(static::GET_RESPONSE_METHOD, ucfirst($requestType));
+
+        if (!method_exists($responseTransfer, $method)) {
+            throw new InvalidRequestTypeException();
+        }
 
         return $responseTransfer->$method()->getSalt();
     }

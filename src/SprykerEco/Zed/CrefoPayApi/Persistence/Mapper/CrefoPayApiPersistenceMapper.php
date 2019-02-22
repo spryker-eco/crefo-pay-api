@@ -10,7 +10,7 @@ namespace SprykerEco\Zed\CrefoPayApi\Persistence\Mapper;
 use Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer;
 use Orm\Zed\CrefoPayApi\Persistence\SpyPaymentCrefoPayApiLog;
 
-class CrefoPayApiPersistenceMapper implements CrefoPayApiPersistenceMapperInterface
+class CrefoPayApiPersistenceMapper
 {
     /**
      * @param \Orm\Zed\CrefoPayApi\Persistence\SpyPaymentCrefoPayApiLog $paymentCrefoPayApiLogEntity

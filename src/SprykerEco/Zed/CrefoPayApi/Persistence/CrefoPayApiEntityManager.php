@@ -9,7 +9,7 @@ namespace SprykerEco\Zed\CrefoPayApi\Persistence;
 
 use Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
-use SprykerEco\Zed\CrefoPayApi\Persistence\Mapper\CrefoPayApiPersistenceMapperInterface;
+use SprykerEco\Zed\CrefoPayApi\Persistence\Mapper\CrefoPayApiPersistenceMapper;
 
 /**
  * @method \SprykerEco\Zed\CrefoPayApi\Persistence\CrefoPayApiPersistenceFactory getFactory()
@@ -44,9 +44,9 @@ class CrefoPayApiEntityManager extends AbstractEntityManager implements CrefoPay
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Persistence\Mapper\CrefoPayApiPersistenceMapperInterface
+     * @return \SprykerEco\Zed\CrefoPayApi\Persistence\Mapper\CrefoPayApiPersistenceMapper
      */
-    protected function getMapper(): CrefoPayApiPersistenceMapperInterface
+    protected function getMapper(): CrefoPayApiPersistenceMapper
     {
         return $this->getFactory()->createCrefoPayApiPersistenceMapper();
     }

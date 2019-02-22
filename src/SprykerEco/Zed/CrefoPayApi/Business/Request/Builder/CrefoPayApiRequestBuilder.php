@@ -29,7 +29,7 @@ class CrefoPayApiRequestBuilder implements CrefoPayApiRequestBuilderInterface
     /**
      * @var \SprykerEco\Service\CrefoPayApi\CrefoPayApiServiceInterface
      */
-    protected $service;
+    protected $crefoPayApiService;
 
     /**
      * @var \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig
@@ -39,18 +39,18 @@ class CrefoPayApiRequestBuilder implements CrefoPayApiRequestBuilderInterface
     /**
      * @param \SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\CrefoPayApiRequestConverterInterface $requestConverter
      * @param \SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface $encodingService
-     * @param \SprykerEco\Service\CrefoPayApi\CrefoPayApiServiceInterface $service
+     * @param \SprykerEco\Service\CrefoPayApi\CrefoPayApiServiceInterface $crefoPayApiService
      * @param \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig $config
      */
     public function __construct(
         CrefoPayApiRequestConverterInterface $requestConverter,
         CrefoPayApiToUtilEncodingServiceInterface $encodingService,
-        CrefoPayApiServiceInterface $service,
+        CrefoPayApiServiceInterface $crefoPayApiService,
         CrefoPayApiConfig $config
     ) {
         $this->requestConverter = $requestConverter;
         $this->encodingService = $encodingService;
-        $this->service = $service;
+        $this->crefoPayApiService = $crefoPayApiService;
         $this->config = $config;
     }
 
@@ -65,7 +65,7 @@ class CrefoPayApiRequestBuilder implements CrefoPayApiRequestBuilderInterface
             ->convertRequestTransferToArray($requestTransfer);
         $requestPayload = $this->removeRedundantParams($requestPayload);
         $requestPayload = $this->convertNestedArrayToJson($requestPayload);
-        $requestPayload[$this->config->getApiFieldMac()] = $this->service->calculateMac($requestPayload);
+        $requestPayload = $this->addMacToRequestPayload($requestPayload);
 
         return $requestPayload;
     }
@@ -107,5 +107,17 @@ class CrefoPayApiRequestBuilder implements CrefoPayApiRequestBuilderInterface
         }
 
         return $data;
+    }
+
+    /**
+     * @param array $requestPayload
+     *
+     * @return array
+     */
+    protected function addMacToRequestPayload(array $requestPayload): array
+    {
+        $requestPayload[$this->config->getApiFieldMac()] = $this->crefoPayApiService->calculateMac($requestPayload);
+
+        return $requestPayload;
     }
 }

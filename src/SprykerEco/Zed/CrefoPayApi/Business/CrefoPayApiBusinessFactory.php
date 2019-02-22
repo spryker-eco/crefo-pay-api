@@ -277,7 +277,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createCreateTransactionRequestConverter(): CrefoPayApiRequestConverterInterface
     {
-        return new CreateTransactionRequestConverter();
+        return new CreateTransactionRequestConverter($this->getConfig());
     }
 
     /**
@@ -285,7 +285,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createReserveRequestConverter(): CrefoPayApiRequestConverterInterface
     {
-        return new ReserveRequestConverter();
+        return new ReserveRequestConverter($this->getConfig());
     }
 
     /**
@@ -293,7 +293,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createCaptureRequestConverter(): CrefoPayApiRequestConverterInterface
     {
-        return new CaptureRequestConverter();
+        return new CaptureRequestConverter($this->getConfig());
     }
 
     /**
@@ -301,7 +301,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createCancelRequestConverter(): CrefoPayApiRequestConverterInterface
     {
-        return new CancelRequestConverter();
+        return new CancelRequestConverter($this->getConfig());
     }
 
     /**
@@ -309,7 +309,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createRefundRequestConverter(): CrefoPayApiRequestConverterInterface
     {
-        return new RefundRequestConverter();
+        return new RefundRequestConverter($this->getConfig());
     }
 
     /**
@@ -317,7 +317,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createFinishRequestConverter(): CrefoPayApiRequestConverterInterface
     {
-        return new FinishRequestConverter();
+        return new FinishRequestConverter($this->getConfig());
     }
 
     /**

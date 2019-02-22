@@ -8,9 +8,23 @@
 namespace SprykerEco\Zed\CrefoPayApi\Business\Request\Converter;
 
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
+use SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig;
 
 class FinishRequestConverter implements CrefoPayApiRequestConverterInterface
 {
+    /**
+     * @var \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig
+     */
+    protected $config;
+
+    /**
+     * @param \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig $config
+     */
+    public function __construct(CrefoPayApiConfig $config)
+    {
+        $this->config = $config;
+    }
+
     /**
      * @param \Generated\Shared\Transfer\CrefoPayApiRequestTransfer $requestTransfer
      *
@@ -18,12 +32,15 @@ class FinishRequestConverter implements CrefoPayApiRequestConverterInterface
      */
     public function convertRequestTransferToArray(CrefoPayApiRequestTransfer $requestTransfer): array
     {
-        if ($requestTransfer->getFinishRequest() === null) {
+        $finishRequest = $requestTransfer->getFinishRequest();
+        if ($finishRequest === null) {
             return [];
         }
 
-        return $requestTransfer
-            ->getFinishRequest()
-            ->toArray(true, true);
+        return [
+            $this->config->getApiFieldMerchantId() => $finishRequest->getMerchantID(),
+            $this->config->getApiFieldStoreId() => $finishRequest->getStoreID(),
+            $this->config->getApiFieldOrderId() => $finishRequest->getOrderID(),
+        ];
     }
 }

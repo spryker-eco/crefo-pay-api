@@ -10,7 +10,6 @@ namespace SprykerEco\Zed\CrefoPayApi\Persistence;
 use Orm\Zed\CrefoPayApi\Persistence\SpyPaymentCrefoPayApiLogQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 use SprykerEco\Zed\CrefoPayApi\Persistence\Mapper\CrefoPayApiPersistenceMapper;
-use SprykerEco\Zed\CrefoPayApi\Persistence\Mapper\CrefoPayApiPersistenceMapperInterface;
 
 /**
  * @method \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig getConfig()
@@ -27,9 +26,9 @@ class CrefoPayApiPersistenceFactory extends AbstractPersistenceFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Persistence\Mapper\CrefoPayApiPersistenceMapperInterface
+     * @return \SprykerEco\Zed\CrefoPayApi\Persistence\Mapper\CrefoPayApiPersistenceMapper
      */
-    public function createCrefoPayApiPersistenceMapper(): CrefoPayApiPersistenceMapperInterface
+    public function createCrefoPayApiPersistenceMapper()
     {
         return new CrefoPayApiPersistenceMapper();
     }

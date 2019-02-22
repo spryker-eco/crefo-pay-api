@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/spryker-eco/crefo-pay-api.svg)](https://travis-ci.org/spryker-eco/crefo-pay-api)
 [![Coverage Status](https://coveralls.io/repos/github/spryker-eco/crefo-pay-api/badge.svg)](https://coveralls.io/github/spryker-eco/crefo-pay-api)
 
-{{ADD DESCRIPTION HERE}}
+CrefoPayApi Module provides a collection of calls to CrefoPay API system for processing payments. 
 
 ## Installation
 

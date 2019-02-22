@@ -59,7 +59,7 @@ class CrefoPayApiResponseValidator implements CrefoPayApiResponseValidatorInterf
     {
         $resultCode = $responseData[$this->config->getApiResponseFieldResultCode()] ?? null;
 
-        return isset($resultCode) && ($resultCode === 0 || $resultCode === 1);
+        return $resultCode === $this->config->getResultCodeOk() || $resultCode === $this->config->getResultCodeRedirect();
     }
 
     /**

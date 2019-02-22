@@ -10,12 +10,12 @@
 
         <column name="request_type" required="true" type="VARCHAR" />
         <column name="crefo_pay_order_id" required="true" type="VARCHAR" />
-        <column name="result_code" required="false" type="INTEGER" />
+        <column name="result_code" required="false" type="SMALLINT" size="5" />
         <column name="message" required="false" type="VARCHAR" />
         <column name="salt" required="false" type="VARCHAR" />
         <column name="is_success" required="true" type="BOOLEAN"/>
-        <column name="request" required="true" type="VARCHAR"/>
-        <column name="response" required="true" type="VARCHAR"/>
+        <column name="request" required="true" type="LONGVARCHAR"/>
+        <column name="response" required="true" type="LONGVARCHAR"/>
 
         <behavior name="timestampable"/>
 
