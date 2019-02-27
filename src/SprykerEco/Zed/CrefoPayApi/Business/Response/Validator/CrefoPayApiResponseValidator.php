@@ -8,31 +8,27 @@
 namespace SprykerEco\Zed\CrefoPayApi\Business\Response\Validator;
 
 use SprykerEco\Service\CrefoPayApi\CrefoPayApiServiceInterface;
-use SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig;
 use SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\Response\CrefoPayApiGuzzleResponseInterface;
 
 class CrefoPayApiResponseValidator implements CrefoPayApiResponseValidatorInterface
 {
+    protected const API_HEADER_MAC = 'X-Payco-HMAC';
+    protected const API_RESPONSE_FIELD_RESULT_CODE = 'resultCode';
+    protected const RESULT_CODE_OK = 0;
+    protected const RESULT_CODE_REDIRECT = 1;
+
     /**
      * @var \SprykerEco\Service\CrefoPayApi\CrefoPayApiServiceInterface
      */
     protected $service;
 
     /**
-     * @var \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig
-     */
-    protected $config;
-
-    /**
      * @param \SprykerEco\Service\CrefoPayApi\CrefoPayApiServiceInterface $service
-     * @param \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig $config
      */
     public function __construct(
-        CrefoPayApiServiceInterface $service,
-        CrefoPayApiConfig $config
+        CrefoPayApiServiceInterface $service
     ) {
         $this->service = $service;
-        $this->config = $config;
     }
 
     /**
@@ -57,9 +53,9 @@ class CrefoPayApiResponseValidator implements CrefoPayApiResponseValidatorInterf
      */
     protected function isResultCodeSuccess(array $responseData): bool
     {
-        $resultCode = $responseData[$this->config->getApiResponseFieldResultCode()] ?? null;
+        $resultCode = $responseData[static::API_RESPONSE_FIELD_RESULT_CODE] ?? null;
 
-        return $resultCode === $this->config->getResultCodeOk() || $resultCode === $this->config->getResultCodeRedirect();
+        return $resultCode === static::RESULT_CODE_OK || $resultCode === static::RESULT_CODE_REDIRECT;
     }
 
     /**
@@ -69,7 +65,7 @@ class CrefoPayApiResponseValidator implements CrefoPayApiResponseValidatorInterf
      */
     protected function validateMac(CrefoPayApiGuzzleResponseInterface $response): bool
     {
-        $mac = $response->getHeader($this->config->getApiHeaderMac());
+        $mac = $response->getHeader(static::API_HEADER_MAC);
         if ($mac === null) {
             return false;
         }

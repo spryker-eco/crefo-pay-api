@@ -14,23 +14,10 @@ use Generated\Shared\Transfer\CrefoPayApiBasketItemTransfer;
 use Generated\Shared\Transfer\CrefoPayApiCompanyTransfer;
 use Generated\Shared\Transfer\CrefoPayApiPersonTransfer;
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
-use SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\CrefoPayApiRequestFields;
 
 class CreateTransactionRequestConverter implements CrefoPayApiRequestConverterInterface
 {
-    /**
-     * @var \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig
-     */
-    protected $config;
-
-    /**
-     * @param \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig $config
-     */
-    public function __construct(CrefoPayApiConfig $config)
-    {
-        $this->config = $config;
-    }
-
     /**
      * @param \Generated\Shared\Transfer\CrefoPayApiRequestTransfer $requestTransfer
      *
@@ -44,27 +31,27 @@ class CreateTransactionRequestConverter implements CrefoPayApiRequestConverterIn
         }
 
         return [
-            $this->config->getApiFieldMerchantId() => $createTransactionRequest->getMerchantID(),
-            $this->config->getApiFieldStoreId() => $createTransactionRequest->getStoreID(),
-            $this->config->getApiFieldOrderId() => $createTransactionRequest->getOrderID(),
-            $this->config->getApiFieldUserId() => $createTransactionRequest->getUserID(),
-            $this->config->getApiFieldIntegrationType() => $createTransactionRequest->getIntegrationType(),
-            $this->config->getApiFieldAutoCapture() => $createTransactionRequest->getAutoCapture(),
-            $this->config->getApiFieldMerchantReference() => $createTransactionRequest->getMerchantReference(),
-            $this->config->getApiFieldContext() => $createTransactionRequest->getContext(),
-            $this->config->getApiFieldUserType() => $createTransactionRequest->getUserType(),
-            $this->config->getApiFieldUserRiskClass() => $createTransactionRequest->getUserRiskClass(),
-            $this->config->getApiFieldUserIpAddress() => $createTransactionRequest->getUserIpAddress(),
-            $this->config->getApiFieldCompanyData() => $this->getCompanyData($createTransactionRequest->getCompanyData()),
-            $this->config->getApiFieldUserData() => $this->getUserData($createTransactionRequest->getUserData()),
-            $this->config->getApiFieldBillingRecipient() => $createTransactionRequest->getBillingRecipient(),
-            $this->config->getApiFieldBillingAddress() => $this->getAddressData($createTransactionRequest->getBillingAddress()),
-            $this->config->getApiFieldShippingRecipient() => $createTransactionRequest->getShippingRecipient(),
-            $this->config->getApiFieldShippingAddress() => $this->getAddressData($createTransactionRequest->getShippingAddress()),
-            $this->config->getApiFieldAmount() => $this->getAmountData($createTransactionRequest->getAmount()),
-            $this->config->getApiFieldBasketItems() => $this->getBasketItemsData($createTransactionRequest->getBasketItems()),
-            $this->config->getApiFieldBasketValidity() => $createTransactionRequest->getBasketValidity(),
-            $this->config->getApiFieldLocale() => $createTransactionRequest->getLocale(),
+            CrefoPayApiRequestFields::API_FIELD_MERCHANT_ID => $createTransactionRequest->getMerchantID(),
+            CrefoPayApiRequestFields::API_FIELD_STORE_ID => $createTransactionRequest->getStoreID(),
+            CrefoPayApiRequestFields::API_FIELD_ORDER_ID => $createTransactionRequest->getOrderID(),
+            CrefoPayApiRequestFields::API_FIELD_USER_ID => $createTransactionRequest->getUserID(),
+            CrefoPayApiRequestFields::API_FIELD_INTEGRATION_TYPE => $createTransactionRequest->getIntegrationType(),
+            CrefoPayApiRequestFields::API_FIELD_AUTO_CAPTURE => $createTransactionRequest->getAutoCapture(),
+            CrefoPayApiRequestFields::API_FIELD_MERCHANT_REFERENCE => $createTransactionRequest->getMerchantReference(),
+            CrefoPayApiRequestFields::API_FIELD_CONTEXT => $createTransactionRequest->getContext(),
+            CrefoPayApiRequestFields::API_FIELD_USER_TYPE => $createTransactionRequest->getUserType(),
+            CrefoPayApiRequestFields::API_FIELD_USER_RISK_CLASS => $createTransactionRequest->getUserRiskClass(),
+            CrefoPayApiRequestFields::API_FIELD_USER_IP_ADDRESS => $createTransactionRequest->getUserIpAddress(),
+            CrefoPayApiRequestFields::API_FIELD_COMPANY_DATA => $this->getCompanyData($createTransactionRequest->getCompanyData()),
+            CrefoPayApiRequestFields::API_FIELD_USER_DATA => $this->getUserData($createTransactionRequest->getUserData()),
+            CrefoPayApiRequestFields::API_FIELD_BILLING_RECIPIENT => $createTransactionRequest->getBillingRecipient(),
+            CrefoPayApiRequestFields::API_FIELD_BILLING_ADDRESS => $this->getAddressData($createTransactionRequest->getBillingAddress()),
+            CrefoPayApiRequestFields::API_FIELD_SHIPPING_RECIPIENT => $createTransactionRequest->getShippingRecipient(),
+            CrefoPayApiRequestFields::API_FIELD_SHIPPING_ADDRESS => $this->getAddressData($createTransactionRequest->getShippingAddress()),
+            CrefoPayApiRequestFields::API_FIELD_AMOUNT => $this->getAmountData($createTransactionRequest->getAmount()),
+            CrefoPayApiRequestFields::API_FIELD_BASKET_ITEMS => $this->getBasketItemsData($createTransactionRequest->getBasketItems()),
+            CrefoPayApiRequestFields::API_FIELD_BASKET_VALIDITY => $createTransactionRequest->getBasketValidity(),
+            CrefoPayApiRequestFields::API_FIELD_LOCALE => $createTransactionRequest->getLocale(),
         ];
     }
 
@@ -135,12 +122,12 @@ class CreateTransactionRequestConverter implements CrefoPayApiRequestConverterIn
     protected function convertBasketItemTransferToArray(CrefoPayApiBasketItemTransfer $basketItem): array
     {
         return [
-            $this->config->getApiObjectBasketItemFieldText() => $basketItem->getBasketItemText(),
-            $this->config->getApiObjectBasketItemFieldId() => $basketItem->getBasketItemID(),
-            $this->config->getApiObjectBasketItemFieldCount() => $basketItem->getBasketItemCount(),
-            $this->config->getApiObjectBasketItemFieldAmount() => $this->getAmountData($basketItem->getBasketItemAmount()),
-            $this->config->getApiObjectBasketItemFieldRiskClass() => $basketItem->getBasketItemRiskClass(),
-            $this->config->getApiObjectBasketItemFieldType() => $basketItem->getBasketItemType(),
+            CrefoPayApiRequestFields::API_OBJECT_BASKET_ITEM_FIELD_TEXT => $basketItem->getBasketItemText(),
+            CrefoPayApiRequestFields::API_OBJECT_BASKET_ITEM_FIELD_ID => $basketItem->getBasketItemID(),
+            CrefoPayApiRequestFields::API_OBJECT_BASKET_ITEM_FIELD_COUNT => $basketItem->getBasketItemCount(),
+            CrefoPayApiRequestFields::API_OBJECT_BASKET_ITEM_FIELD_AMOUNT => $this->getAmountData($basketItem->getBasketItemAmount()),
+            CrefoPayApiRequestFields::API_OBJECT_BASKET_ITEM_FIELD_RISK_CLASS => $basketItem->getBasketItemRiskClass(),
+            CrefoPayApiRequestFields::API_OBJECT_BASKET_ITEM_FIELD_TYPE => $basketItem->getBasketItemType(),
         ];
     }
 
@@ -152,9 +139,9 @@ class CreateTransactionRequestConverter implements CrefoPayApiRequestConverterIn
     protected function convertAmountTransferToArray(CrefoPayApiAmountTransfer $amountTransfer): array
     {
         return [
-            $this->config->getApiObjectAmountFieldAmount() => $amountTransfer->getAmount(),
-            $this->config->getApiObjectAmountFieldVatAmount() => $amountTransfer->getVatAmount(),
-            $this->config->getApiObjectAmountFieldVatRate() => $amountTransfer->getVatRate(),
+            CrefoPayApiRequestFields::API_OBJECT_AMOUNT_FIELD_AMOUNT => $amountTransfer->getAmount(),
+            CrefoPayApiRequestFields::API_OBJECT_AMOUNT_FIELD_VAT_AMOUNT => $amountTransfer->getVatAmount(),
+            CrefoPayApiRequestFields::API_OBJECT_AMOUNT_FIELD_VAT_RATE => $amountTransfer->getVatRate(),
         ];
     }
 
@@ -166,12 +153,12 @@ class CreateTransactionRequestConverter implements CrefoPayApiRequestConverterIn
     protected function convertCompanyTransferToArray(CrefoPayApiCompanyTransfer $companyTransfer): array
     {
         return [
-            $this->config->getApiObjectCompanyFieldName() => $companyTransfer->getCompanyName(),
-            $this->config->getApiObjectCompanyFieldEmail() => $companyTransfer->getEmail(),
-            $this->config->getApiObjectCompanyFieldRegisterType() => $companyTransfer->getCompanyRegisterType(),
-            $this->config->getApiObjectCompanyFieldRegistrationId() => $companyTransfer->getCompanyRegistrationID(),
-            $this->config->getApiObjectCompanyFieldVatId() => $companyTransfer->getCompanyVatID(),
-            $this->config->getApiObjectCompanyFieldTaxId() => $companyTransfer->getCompanyTaxID(),
+            CrefoPayApiRequestFields::API_OBJECT_COMPANY_FIELD_NAME => $companyTransfer->getCompanyName(),
+            CrefoPayApiRequestFields::API_OBJECT_COMPANY_FIELD_EMAIL => $companyTransfer->getEmail(),
+            CrefoPayApiRequestFields::API_OBJECT_COMPANY_FIELD_REGISTER_TYPE => $companyTransfer->getCompanyRegisterType(),
+            CrefoPayApiRequestFields::API_OBJECT_COMPANY_FIELD_REGISTRATION_ID => $companyTransfer->getCompanyRegistrationID(),
+            CrefoPayApiRequestFields::API_OBJECT_COMPANY_FIELD_VAT_ID => $companyTransfer->getCompanyVatID(),
+            CrefoPayApiRequestFields::API_OBJECT_COMPANY_FIELD_TAX_ID => $companyTransfer->getCompanyTaxID(),
         ];
     }
 
@@ -183,13 +170,13 @@ class CreateTransactionRequestConverter implements CrefoPayApiRequestConverterIn
     protected function convertPersonTransferToArray(CrefoPayApiPersonTransfer $personTransfer): array
     {
         return [
-            $this->config->getApiObjectPersonFieldSalutation() => $personTransfer->getSalutation(),
-            $this->config->getApiObjectPersonFieldName() => $personTransfer->getName(),
-            $this->config->getApiObjectPersonFieldSurname() => $personTransfer->getSurname(),
-            $this->config->getApiObjectPersonFieldDateOfBirth() => $personTransfer->getDateOfBirth(),
-            $this->config->getApiObjectPersonFieldEmail() => $personTransfer->getEmail(),
-            $this->config->getApiObjectPersonFieldPhoneNumber() => $personTransfer->getPhoneNumber(),
-            $this->config->getApiObjectPersonFieldFaxNumber() => $personTransfer->getFaxNumber(),
+            CrefoPayApiRequestFields::API_OBJECT_PERSON_FIELD_SALUTATION => $personTransfer->getSalutation(),
+            CrefoPayApiRequestFields::API_OBJECT_PERSON_FIELD_NAME => $personTransfer->getName(),
+            CrefoPayApiRequestFields::API_OBJECT_PERSON_FIELD_SURNAME => $personTransfer->getSurname(),
+            CrefoPayApiRequestFields::API_OBJECT_PERSON_FIELD_DATE_OF_BIRTH => $personTransfer->getDateOfBirth(),
+            CrefoPayApiRequestFields::API_OBJECT_PERSON_FIELD_EMAIL => $personTransfer->getEmail(),
+            CrefoPayApiRequestFields::API_OBJECT_PERSON_FIELD_PHONE_NUMBER => $personTransfer->getPhoneNumber(),
+            CrefoPayApiRequestFields::API_OBJECT_PERSON_FIELD_FAX_NUMBER => $personTransfer->getFaxNumber(),
         ];
     }
 
@@ -201,13 +188,13 @@ class CreateTransactionRequestConverter implements CrefoPayApiRequestConverterIn
     protected function convertAddressTransferToArray(CrefoPayApiAddressTransfer $addressTransfer): array
     {
         return [
-            $this->config->getApiObjectAddressFieldStreet() => $addressTransfer->getStreet(),
-            $this->config->getApiObjectAddressFieldHouseNumber() => $addressTransfer->getNo(),
-            $this->config->getApiObjectAddressFieldAdditional() => $addressTransfer->getAdditional(),
-            $this->config->getApiObjectAddressFieldZip() => $addressTransfer->getZip(),
-            $this->config->getApiObjectAddressFieldCity() => $addressTransfer->getCity(),
-            $this->config->getApiObjectAddressFieldState() => $addressTransfer->getState(),
-            $this->config->getApiObjectAddressFieldCountry() => $addressTransfer->getCountry(),
+            CrefoPayApiRequestFields::API_OBJECT_ADDRESS_FIELD_STREET => $addressTransfer->getStreet(),
+            CrefoPayApiRequestFields::API_OBJECT_ADDRESS_FIELD_HOUSE_NUMBER => $addressTransfer->getNo(),
+            CrefoPayApiRequestFields::API_OBJECT_ADDRESS_FIELD_ADDITIONAL => $addressTransfer->getAdditional(),
+            CrefoPayApiRequestFields::API_OBJECT_ADDRESS_FIELD_ZIP => $addressTransfer->getZip(),
+            CrefoPayApiRequestFields::API_OBJECT_ADDRESS_FIELD_CITY => $addressTransfer->getCity(),
+            CrefoPayApiRequestFields::API_OBJECT_ADDRESS_FIELD_STATE => $addressTransfer->getState(),
+            CrefoPayApiRequestFields::API_OBJECT_ADDRESS_FIELD_COUNTRY => $addressTransfer->getCountry(),
         ];
     }
 }

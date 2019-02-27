@@ -22,12 +22,4 @@ class CrefoPayApiConfig extends AbstractBundleConfig
     {
         return $this->get(CrefoPayApiConstants::PRIVATE_KEY);
     }
-
-    /**
-     * @return string
-     */
-    public function getApiFieldMac(): string
-    {
-        return $this->getSharedConfig()->getApiFieldMac();
-    }
 }

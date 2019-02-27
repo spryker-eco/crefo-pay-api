@@ -11,12 +11,12 @@ use Generated\Shared\Transfer\CrefoPayApiErrorResponseTransfer;
 use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
 use SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\CrefoPayApiResponseMapperInterface;
 use SprykerEco\Zed\CrefoPayApi\Business\Response\Validator\CrefoPayApiResponseValidatorInterface;
-use SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig;
 use SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\Response\CrefoPayApiGuzzleResponseInterface;
 use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface;
 
 class CrefoPayApiResponseConverter implements CrefoPayApiResponseConverterInterface
 {
+    protected const API_ERROR_TYPE_EXTERNAL = 'EXTERNAL';
     protected const EXTERNAL_ERROR_MESSAGE = 'CrefoPay service temporarily unavailable.';
 
     /**
@@ -35,26 +35,18 @@ class CrefoPayApiResponseConverter implements CrefoPayApiResponseConverterInterf
     protected $responseValidator;
 
     /**
-     * @var \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig
-     */
-    protected $config;
-
-    /**
      * @param \SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface $encodingService
      * @param \SprykerEco\Zed\CrefoPayApi\Business\Response\Mapper\CrefoPayApiResponseMapperInterface $responseMapper
      * @param \SprykerEco\Zed\CrefoPayApi\Business\Response\Validator\CrefoPayApiResponseValidatorInterface $responseValidator
-     * @param \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig $config
      */
     public function __construct(
         CrefoPayApiToUtilEncodingServiceInterface $encodingService,
         CrefoPayApiResponseMapperInterface $responseMapper,
-        CrefoPayApiResponseValidatorInterface $responseValidator,
-        CrefoPayApiConfig $config
+        CrefoPayApiResponseValidatorInterface $responseValidator
     ) {
         $this->encodingService = $encodingService;
         $this->responseMapper = $responseMapper;
         $this->responseValidator = $responseValidator;
-        $this->config = $config;
     }
 
     /**
@@ -90,7 +82,7 @@ class CrefoPayApiResponseConverter implements CrefoPayApiResponseConverterInterf
     ): CrefoPayApiResponseTransfer {
         $errorTransfer = (new CrefoPayApiErrorResponseTransfer())
             ->setMessage(static::EXTERNAL_ERROR_MESSAGE)
-            ->setErrorType($this->config->getApiErrorTypeExternal());
+            ->setErrorType(static::API_ERROR_TYPE_EXTERNAL);
 
         if ($responseData !== null) {
             $errorTransfer->fromArray($responseData, true);

@@ -202,8 +202,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiRequestBuilder(
             $this->createCreateTransactionRequestConverter(),
             $this->getUtilEncodingService(),
-            $this->getCrefoPayApiService(),
-            $this->getConfig()
+            $this->getCrefoPayApiService()
         );
     }
 
@@ -215,8 +214,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiRequestBuilder(
             $this->createReserveRequestConverter(),
             $this->getUtilEncodingService(),
-            $this->getCrefoPayApiService(),
-            $this->getConfig()
+            $this->getCrefoPayApiService()
         );
     }
 
@@ -228,8 +226,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiRequestBuilder(
             $this->createCaptureRequestConverter(),
             $this->getUtilEncodingService(),
-            $this->getCrefoPayApiService(),
-            $this->getConfig()
+            $this->getCrefoPayApiService()
         );
     }
 
@@ -241,8 +238,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiRequestBuilder(
             $this->createCancelRequestConverter(),
             $this->getUtilEncodingService(),
-            $this->getCrefoPayApiService(),
-            $this->getConfig()
+            $this->getCrefoPayApiService()
         );
     }
 
@@ -254,8 +250,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiRequestBuilder(
             $this->createRefundRequestConverter(),
             $this->getUtilEncodingService(),
-            $this->getCrefoPayApiService(),
-            $this->getConfig()
+            $this->getCrefoPayApiService()
         );
     }
 
@@ -267,8 +262,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiRequestBuilder(
             $this->createFinishRequestConverter(),
             $this->getUtilEncodingService(),
-            $this->getCrefoPayApiService(),
-            $this->getConfig()
+            $this->getCrefoPayApiService()
         );
     }
 
@@ -277,7 +271,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createCreateTransactionRequestConverter(): CrefoPayApiRequestConverterInterface
     {
-        return new CreateTransactionRequestConverter($this->getConfig());
+        return new CreateTransactionRequestConverter();
     }
 
     /**
@@ -285,7 +279,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createReserveRequestConverter(): CrefoPayApiRequestConverterInterface
     {
-        return new ReserveRequestConverter($this->getConfig());
+        return new ReserveRequestConverter();
     }
 
     /**
@@ -293,7 +287,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createCaptureRequestConverter(): CrefoPayApiRequestConverterInterface
     {
-        return new CaptureRequestConverter($this->getConfig());
+        return new CaptureRequestConverter();
     }
 
     /**
@@ -301,7 +295,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createCancelRequestConverter(): CrefoPayApiRequestConverterInterface
     {
-        return new CancelRequestConverter($this->getConfig());
+        return new CancelRequestConverter();
     }
 
     /**
@@ -309,7 +303,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createRefundRequestConverter(): CrefoPayApiRequestConverterInterface
     {
-        return new RefundRequestConverter($this->getConfig());
+        return new RefundRequestConverter();
     }
 
     /**
@@ -317,7 +311,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
      */
     public function createFinishRequestConverter(): CrefoPayApiRequestConverterInterface
     {
-        return new FinishRequestConverter($this->getConfig());
+        return new FinishRequestConverter();
     }
 
     /**
@@ -328,8 +322,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiResponseConverter(
             $this->getUtilEncodingService(),
             $this->createCreateTransactionResponseMapper(),
-            $this->createCrefoPayApiResponseValidator(),
-            $this->getConfig()
+            $this->createCrefoPayApiResponseValidator()
         );
     }
 
@@ -341,8 +334,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiResponseConverter(
             $this->getUtilEncodingService(),
             $this->createReserveResponseMapper(),
-            $this->createCrefoPayApiResponseValidator(),
-            $this->getConfig()
+            $this->createCrefoPayApiResponseValidator()
         );
     }
 
@@ -354,8 +346,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiResponseConverter(
             $this->getUtilEncodingService(),
             $this->createCaptureResponseMapper(),
-            $this->createCrefoPayApiResponseValidator(),
-            $this->getConfig()
+            $this->createCrefoPayApiResponseValidator()
         );
     }
 
@@ -367,8 +358,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiResponseConverter(
             $this->getUtilEncodingService(),
             $this->createCancelResponseMapper(),
-            $this->createCrefoPayApiResponseValidator(),
-            $this->getConfig()
+            $this->createCrefoPayApiResponseValidator()
         );
     }
 
@@ -380,8 +370,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiResponseConverter(
             $this->getUtilEncodingService(),
             $this->createRefundResponseMapper(),
-            $this->createCrefoPayApiResponseValidator(),
-            $this->getConfig()
+            $this->createCrefoPayApiResponseValidator()
         );
     }
 
@@ -393,8 +382,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayApiResponseConverter(
             $this->getUtilEncodingService(),
             $this->createFinishResponseMapper(),
-            $this->createCrefoPayApiResponseValidator(),
-            $this->getConfig()
+            $this->createCrefoPayApiResponseValidator()
         );
     }
 
@@ -452,8 +440,7 @@ class CrefoPayApiBusinessFactory extends AbstractBusinessFactory
     public function createCrefoPayApiResponseValidator(): CrefoPayApiResponseValidatorInterface
     {
         return new CrefoPayApiResponseValidator(
-            $this->getCrefoPayApiService(),
-            $this->getConfig()
+            $this->getCrefoPayApiService()
         );
     }
 

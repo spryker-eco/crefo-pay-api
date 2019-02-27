@@ -9,23 +9,10 @@ namespace SprykerEco\Zed\CrefoPayApi\Business\Request\Converter;
 
 use Generated\Shared\Transfer\CrefoPayApiAmountTransfer;
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
-use SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\CrefoPayApiRequestFields;
 
 class RefundRequestConverter implements CrefoPayApiRequestConverterInterface
 {
-    /**
-     * @var \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig
-     */
-    protected $config;
-
-    /**
-     * @param \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig $config
-     */
-    public function __construct(CrefoPayApiConfig $config)
-    {
-        $this->config = $config;
-    }
-
     /**
      * @param \Generated\Shared\Transfer\CrefoPayApiRequestTransfer $requestTransfer
      *
@@ -39,12 +26,12 @@ class RefundRequestConverter implements CrefoPayApiRequestConverterInterface
         }
 
         return [
-            $this->config->getApiFieldMerchantId() => $refundRequest->getMerchantID(),
-            $this->config->getApiFieldStoreId() => $refundRequest->getStoreID(),
-            $this->config->getApiFieldOrderId() => $refundRequest->getOrderID(),
-            $this->config->getApiFieldCaptureId() => $refundRequest->getCaptureID(),
-            $this->config->getApiFieldAmount() => $this->getAmountData($refundRequest->getAmount()),
-            $this->config->getApiFieldRefundDescription() => $refundRequest->getRefundDescription(),
+            CrefoPayApiRequestFields::API_FIELD_MERCHANT_ID => $refundRequest->getMerchantID(),
+            CrefoPayApiRequestFields::API_FIELD_STORE_ID => $refundRequest->getStoreID(),
+            CrefoPayApiRequestFields::API_FIELD_ORDER_ID => $refundRequest->getOrderID(),
+            CrefoPayApiRequestFields::API_FIELD_CAPTURE_ID => $refundRequest->getCaptureID(),
+            CrefoPayApiRequestFields::API_FIELD_AMOUNT => $this->getAmountData($refundRequest->getAmount()),
+            CrefoPayApiRequestFields::API_FIELD_REFUND_DESCRIPTION => $refundRequest->getRefundDescription(),
         ];
     }
 
@@ -66,9 +53,9 @@ class RefundRequestConverter implements CrefoPayApiRequestConverterInterface
     protected function convertAmountTransferToArray(CrefoPayApiAmountTransfer $amountTransfer): array
     {
         return [
-            $this->config->getApiObjectAmountFieldAmount() => $amountTransfer->getAmount(),
-            $this->config->getApiObjectAmountFieldVatAmount() => $amountTransfer->getVatAmount(),
-            $this->config->getApiObjectAmountFieldVatRate() => $amountTransfer->getVatRate(),
+            CrefoPayApiRequestFields::API_OBJECT_AMOUNT_FIELD_AMOUNT => $amountTransfer->getAmount(),
+            CrefoPayApiRequestFields::API_OBJECT_AMOUNT_FIELD_VAT_AMOUNT => $amountTransfer->getVatAmount(),
+            CrefoPayApiRequestFields::API_OBJECT_AMOUNT_FIELD_VAT_RATE => $amountTransfer->getVatRate(),
         ];
     }
 }

@@ -11,7 +11,7 @@ use ArrayObject;
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use SprykerEco\Service\CrefoPayApi\CrefoPayApiServiceInterface;
 use SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\CrefoPayApiRequestConverterInterface;
-use SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\CrefoPayApiRequestFields;
 use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface;
 
 class CrefoPayApiRequestBuilder implements CrefoPayApiRequestBuilderInterface
@@ -32,26 +32,18 @@ class CrefoPayApiRequestBuilder implements CrefoPayApiRequestBuilderInterface
     protected $crefoPayApiService;
 
     /**
-     * @var \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig
-     */
-    protected $config;
-
-    /**
      * @param \SprykerEco\Zed\CrefoPayApi\Business\Request\Converter\CrefoPayApiRequestConverterInterface $requestConverter
      * @param \SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceInterface $encodingService
      * @param \SprykerEco\Service\CrefoPayApi\CrefoPayApiServiceInterface $crefoPayApiService
-     * @param \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig $config
      */
     public function __construct(
         CrefoPayApiRequestConverterInterface $requestConverter,
         CrefoPayApiToUtilEncodingServiceInterface $encodingService,
-        CrefoPayApiServiceInterface $crefoPayApiService,
-        CrefoPayApiConfig $config
+        CrefoPayApiServiceInterface $crefoPayApiService
     ) {
         $this->requestConverter = $requestConverter;
         $this->encodingService = $encodingService;
         $this->crefoPayApiService = $crefoPayApiService;
-        $this->config = $config;
     }
 
     /**
@@ -116,7 +108,7 @@ class CrefoPayApiRequestBuilder implements CrefoPayApiRequestBuilderInterface
      */
     protected function addMacToRequestPayload(array $requestPayload): array
     {
-        $requestPayload[$this->config->getApiFieldMac()] = $this->crefoPayApiService->calculateMac($requestPayload);
+        $requestPayload[CrefoPayApiRequestFields::API_FIELD_MAC] = $this->crefoPayApiService->calculateMac($requestPayload);
 
         return $requestPayload;
     }

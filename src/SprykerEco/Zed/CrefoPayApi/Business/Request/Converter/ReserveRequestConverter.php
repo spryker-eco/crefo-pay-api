@@ -12,23 +12,10 @@ use Generated\Shared\Transfer\CrefoPayApiAmountTransfer;
 use Generated\Shared\Transfer\CrefoPayApiBasketItemTransfer;
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayApiReserveInformationRequestTransfer;
-use SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\CrefoPayApiRequestFields;
 
 class ReserveRequestConverter implements CrefoPayApiRequestConverterInterface
 {
-    /**
-     * @var \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig
-     */
-    protected $config;
-
-    /**
-     * @param \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig $config
-     */
-    public function __construct(CrefoPayApiConfig $config)
-    {
-        $this->config = $config;
-    }
-
     /**
      * @param \Generated\Shared\Transfer\CrefoPayApiRequestTransfer $requestTransfer
      *
@@ -42,15 +29,15 @@ class ReserveRequestConverter implements CrefoPayApiRequestConverterInterface
         }
 
         return [
-            $this->config->getApiFieldMerchantId() => $reserveRequest->getMerchantID(),
-            $this->config->getApiFieldStoreId() => $reserveRequest->getStoreID(),
-            $this->config->getApiFieldOrderId() => $reserveRequest->getOrderID(),
-            $this->config->getApiFieldPaymentMethod() => $reserveRequest->getPaymentMethod(),
-            $this->config->getApiFieldPaymentInstrumentId() => $reserveRequest->getPaymentInstrumentID(),
-            $this->config->getApiFieldAdditionalInformation() => $this->getAdditionalInformationData($reserveRequest->getAdditionalInformation()),
-            $this->config->getApiFieldAmount() => $this->getAmountData($reserveRequest->getAmount()),
-            $this->config->getApiFieldBasketItems() => $this->getBasketItemsData($reserveRequest->getBasketItems()),
-            $this->config->getApiFieldCvv() => $reserveRequest->getCvv(),
+            CrefoPayApiRequestFields::API_FIELD_MERCHANT_ID => $reserveRequest->getMerchantID(),
+            CrefoPayApiRequestFields::API_FIELD_STORE_ID => $reserveRequest->getStoreID(),
+            CrefoPayApiRequestFields::API_FIELD_ORDER_ID => $reserveRequest->getOrderID(),
+            CrefoPayApiRequestFields::API_FIELD_PAYMENT_METHOD => $reserveRequest->getPaymentMethod(),
+            CrefoPayApiRequestFields::API_FIELD_PAYMENT_INSTRUMENT_ID => $reserveRequest->getPaymentInstrumentID(),
+            CrefoPayApiRequestFields::API_FIELD_ADDITIONAL_INFORMATION => $this->getAdditionalInformationData($reserveRequest->getAdditionalInformation()),
+            CrefoPayApiRequestFields::API_FIELD_AMOUNT => $this->getAmountData($reserveRequest->getAmount()),
+            CrefoPayApiRequestFields::API_FIELD_BASKET_ITEMS => $this->getBasketItemsData($reserveRequest->getBasketItems()),
+            CrefoPayApiRequestFields::API_FIELD_CVV => $reserveRequest->getCvv(),
         ];
     }
 
@@ -72,8 +59,8 @@ class ReserveRequestConverter implements CrefoPayApiRequestConverterInterface
     protected function convertAdditionalInformationTransferToArray(CrefoPayApiReserveInformationRequestTransfer $reserveInformationRequestTransfer): array
     {
         return [
-            $this->config->getApiObjectAdditionalInformationFieldSalutation() => $reserveInformationRequestTransfer->getSalutation(),
-            $this->config->getApiObjectAdditionalInformationFieldDateOfBirth() => $reserveInformationRequestTransfer->getDateOfBirth(),
+            CrefoPayApiRequestFields::API_OBJECT_ADDITIONAL_INFORMATION_FIELD_SALUTATION => $reserveInformationRequestTransfer->getSalutation(),
+            CrefoPayApiRequestFields::API_OBJECT_ADDITIONAL_INFORMATION_FIELD_DATE_OF_BIRTH => $reserveInformationRequestTransfer->getDateOfBirth(),
         ];
     }
 
@@ -97,23 +84,19 @@ class ReserveRequestConverter implements CrefoPayApiRequestConverterInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CrefoPayApiBasketItemTransfer|null $basketItem
+     * @param \Generated\Shared\Transfer\CrefoPayApiBasketItemTransfer $basketItem
      *
      * @return array
      */
-    protected function convertBasketItemTransferToArray(?CrefoPayApiBasketItemTransfer $basketItem): array
+    protected function convertBasketItemTransferToArray(CrefoPayApiBasketItemTransfer $basketItem): array
     {
-        if ($basketItem === null) {
-            return [];
-        }
-
         return [
-            $this->config->getApiObjectBasketItemFieldText() => $basketItem->getBasketItemText(),
-            $this->config->getApiObjectBasketItemFieldId() => $basketItem->getBasketItemID(),
-            $this->config->getApiObjectBasketItemFieldCount() => $basketItem->getBasketItemCount(),
-            $this->config->getApiObjectBasketItemFieldAmount() => $this->getAmountData($basketItem->getBasketItemAmount()),
-            $this->config->getApiObjectBasketItemFieldRiskClass() => $basketItem->getBasketItemRiskClass(),
-            $this->config->getApiObjectBasketItemFieldType() => $basketItem->getBasketItemType(),
+            CrefoPayApiRequestFields::API_OBJECT_BASKET_ITEM_FIELD_TEXT => $basketItem->getBasketItemText(),
+            CrefoPayApiRequestFields::API_OBJECT_BASKET_ITEM_FIELD_ID => $basketItem->getBasketItemID(),
+            CrefoPayApiRequestFields::API_OBJECT_BASKET_ITEM_FIELD_COUNT => $basketItem->getBasketItemCount(),
+            CrefoPayApiRequestFields::API_OBJECT_BASKET_ITEM_FIELD_AMOUNT => $this->getAmountData($basketItem->getBasketItemAmount()),
+            CrefoPayApiRequestFields::API_OBJECT_BASKET_ITEM_FIELD_RISK_CLASS => $basketItem->getBasketItemRiskClass(),
+            CrefoPayApiRequestFields::API_OBJECT_BASKET_ITEM_FIELD_TYPE => $basketItem->getBasketItemType(),
         ];
     }
 
@@ -135,9 +118,9 @@ class ReserveRequestConverter implements CrefoPayApiRequestConverterInterface
     protected function convertAmountTransferToArray(CrefoPayApiAmountTransfer $amountTransfer): array
     {
         return [
-            $this->config->getApiObjectAmountFieldAmount() => $amountTransfer->getAmount(),
-            $this->config->getApiObjectAmountFieldVatAmount() => $amountTransfer->getVatAmount(),
-            $this->config->getApiObjectAmountFieldVatRate() => $amountTransfer->getVatRate(),
+            CrefoPayApiRequestFields::API_OBJECT_AMOUNT_FIELD_AMOUNT => $amountTransfer->getAmount(),
+            CrefoPayApiRequestFields::API_OBJECT_AMOUNT_FIELD_VAT_AMOUNT => $amountTransfer->getVatAmount(),
+            CrefoPayApiRequestFields::API_OBJECT_AMOUNT_FIELD_VAT_RATE => $amountTransfer->getVatRate(),
         ];
     }
 }

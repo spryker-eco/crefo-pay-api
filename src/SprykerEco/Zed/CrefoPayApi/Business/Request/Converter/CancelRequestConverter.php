@@ -8,23 +8,10 @@
 namespace SprykerEco\Zed\CrefoPayApi\Business\Request\Converter;
 
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
-use SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig;
+use SprykerEco\Zed\CrefoPayApi\Business\Request\CrefoPayApiRequestFields;
 
 class CancelRequestConverter implements CrefoPayApiRequestConverterInterface
 {
-    /**
-     * @var \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig
-     */
-    protected $config;
-
-    /**
-     * @param \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig $config
-     */
-    public function __construct(CrefoPayApiConfig $config)
-    {
-        $this->config = $config;
-    }
-
     /**
      * @param \Generated\Shared\Transfer\CrefoPayApiRequestTransfer $requestTransfer
      *
@@ -38,9 +25,9 @@ class CancelRequestConverter implements CrefoPayApiRequestConverterInterface
         }
 
         return [
-            $this->config->getApiFieldMerchantId() => $cancelRequest->getMerchantID(),
-            $this->config->getApiFieldStoreId() => $cancelRequest->getStoreID(),
-            $this->config->getApiFieldOrderId() => $cancelRequest->getOrderID(),
+            CrefoPayApiRequestFields::API_FIELD_MERCHANT_ID => $cancelRequest->getMerchantID(),
+            CrefoPayApiRequestFields::API_FIELD_STORE_ID => $cancelRequest->getStoreID(),
+            CrefoPayApiRequestFields::API_FIELD_ORDER_ID => $cancelRequest->getOrderID(),
         ];
     }
 }
