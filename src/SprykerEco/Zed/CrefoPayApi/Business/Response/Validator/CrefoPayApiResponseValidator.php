@@ -54,8 +54,12 @@ class CrefoPayApiResponseValidator implements CrefoPayApiResponseValidatorInterf
     protected function isResultCodeSuccess(array $responseData): bool
     {
         $resultCode = $responseData[static::API_RESPONSE_FIELD_RESULT_CODE] ?? null;
+        $successResultCodes = [
+            static::RESULT_CODE_OK,
+            static::RESULT_CODE_REDIRECT,
+        ];
 
-        return $resultCode === static::RESULT_CODE_OK || $resultCode === static::RESULT_CODE_REDIRECT;
+        return in_array($resultCode, $successResultCodes);
     }
 
     /**

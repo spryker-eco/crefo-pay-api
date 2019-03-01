@@ -20,6 +20,7 @@ class CrefoPayApiLogger implements CrefoPayApiLoggerInterface
 
     protected const GET_REQUEST_METHOD = 'get%sRequest';
     protected const GET_RESPONSE_METHOD = 'get%sResponse';
+    protected const INVALID_REQUEST_TYPE_ERROR_MESSAGE = 'Request type "%s" is not supported';
 
     /**
      * @var \SprykerEco\Zed\CrefoPayApi\Persistence\CrefoPayApiEntityManagerInterface
@@ -93,7 +94,9 @@ class CrefoPayApiLogger implements CrefoPayApiLoggerInterface
         $method = sprintf(static::GET_REQUEST_METHOD, ucfirst($requestType));
 
         if (!method_exists($requestTransfer, $method)) {
-            throw new InvalidRequestTypeException();
+            throw new InvalidRequestTypeException(
+                sprintf(static::INVALID_REQUEST_TYPE_ERROR_MESSAGE, $requestType)
+            );
         }
 
         return $requestTransfer->$method()->getOrderID();
