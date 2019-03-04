@@ -52,7 +52,7 @@ class FinishRequest implements CrefoPayApiRequestInterface
      */
     public function getUrl(): string
     {
-        return $this->config->getFinishActionUrl();
+        return $this->config->getFinishApiEndpoint();
     }
 
     /**

@@ -52,7 +52,7 @@ class CancelRequest implements CrefoPayApiRequestInterface
      */
     public function getUrl(): string
     {
-        return $this->config->getCancelActionUrl();
+        return $this->config->getCancelApiEndpoint();
     }
 
     /**

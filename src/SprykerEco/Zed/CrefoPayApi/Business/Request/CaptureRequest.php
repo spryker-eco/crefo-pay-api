@@ -52,7 +52,7 @@ class CaptureRequest implements CrefoPayApiRequestInterface
      */
     public function getUrl(): string
     {
-        return $this->config->getCaptureActionUrl();
+        return $this->config->getCaptureApiEndpoint();
     }
 
     /**

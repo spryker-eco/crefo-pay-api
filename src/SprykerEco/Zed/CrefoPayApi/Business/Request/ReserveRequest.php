@@ -52,7 +52,7 @@ class ReserveRequest implements CrefoPayApiRequestInterface
      */
     public function getUrl(): string
     {
-        return $this->config->getReserveActionUrl();
+        return $this->config->getReserveApiEndpoint();
     }
 
     /**

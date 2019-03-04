@@ -52,7 +52,7 @@ class CreateTransactionRequest implements CrefoPayApiRequestInterface
      */
     public function getUrl(): string
     {
-        return $this->config->getCreateTransactionActionUrl();
+        return $this->config->getCreateTransactionApiEndpoint();
     }
 
     /**

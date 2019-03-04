@@ -52,7 +52,7 @@ class RefundRequest implements CrefoPayApiRequestInterface
      */
     public function getUrl(): string
     {
-        return $this->config->getRefundActionUrl();
+        return $this->config->getRefundApiEndpoint();
     }
 
     /**

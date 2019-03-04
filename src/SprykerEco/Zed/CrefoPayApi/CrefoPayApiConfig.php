@@ -15,48 +15,48 @@ class CrefoPayApiConfig extends AbstractBundleConfig
     /**
      * @return string
      */
-    public function getCreateTransactionActionUrl(): string
+    public function getCreateTransactionApiEndpoint(): string
     {
-        return $this->get(CrefoPayApiConstants::CREATE_TRANSACTION_ACTION_URL);
+        return $this->get(CrefoPayApiConstants::CREATE_TRANSACTION_API_ENDPOINT);
     }
 
     /**
      * @return string
      */
-    public function getReserveActionUrl(): string
+    public function getReserveApiEndpoint(): string
     {
-        return $this->get(CrefoPayApiConstants::RESERVE_ACTION_URL);
+        return $this->get(CrefoPayApiConstants::RESERVE_API_ENDPOINT);
     }
 
     /**
      * @return string
      */
-    public function getCaptureActionUrl(): string
+    public function getCaptureApiEndpoint(): string
     {
-        return $this->get(CrefoPayApiConstants::CAPTURE_ACTION_URL);
+        return $this->get(CrefoPayApiConstants::CAPTURE_API_ENDPOINT);
     }
 
     /**
      * @return string
      */
-    public function getCancelActionUrl(): string
+    public function getCancelApiEndpoint(): string
     {
-        return $this->get(CrefoPayApiConstants::CANCEL_ACTION_URL);
+        return $this->get(CrefoPayApiConstants::CANCEL_API_ENDPOINT);
     }
 
     /**
      * @return string
      */
-    public function getRefundActionUrl(): string
+    public function getRefundApiEndpoint(): string
     {
-        return $this->get(CrefoPayApiConstants::REFUND_ACTION_URL);
+        return $this->get(CrefoPayApiConstants::REFUND_API_ENDPOINT);
     }
 
     /**
      * @return string
      */
-    public function getFinishActionUrl(): string
+    public function getFinishApiEndpoint(): string
     {
-        return $this->get(CrefoPayApiConstants::FINISH_ACTION_URL);
+        return $this->get(CrefoPayApiConstants::FINISH_API_ENDPOINT);
     }
 }
