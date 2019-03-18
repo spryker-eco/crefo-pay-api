@@ -43,15 +43,24 @@ class CrefoPayApiFacadeBaseTest extends Test
         $builder->setMethods(
             [
                 'getConfig',
+                'getEntityManager',
                 'getUtilEncodingService',
+                'getCrefoPayApiService',
+                'getCrefoPayApiHttpClient',
             ]
         );
 
         $stub = $builder->getMock();
         $stub->method('getConfig')
             ->willReturn($this->tester->createConfig());
+        $stub->method('getEntityManager')
+            ->willReturn($this->tester->createEntityManager());
         $stub->method('getUtilEncodingService')
             ->willReturn($this->tester->createUtilEncodingService());
+        $stub->method('getCrefoPayApiService')
+            ->willReturn($this->tester->createCrefoPayApiService());
+        $stub->method('getCrefoPayApiHttpClient')
+            ->willReturn($this->tester->createCrefoPayApiHttpClient());
 
         return $stub;
     }
