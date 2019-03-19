@@ -7,11 +7,16 @@
 
 namespace SprykerEcoTest\Zed\CrefoPayApi;
 
+use ArrayObject;
 use Codeception\Actor;
+use Generated\Shared\Transfer\CrefoPayApiAddressTransfer;
+use Generated\Shared\Transfer\CrefoPayApiAmountTransfer;
+use Generated\Shared\Transfer\CrefoPayApiBasketItemTransfer;
 use Generated\Shared\Transfer\CrefoPayApiCancelRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayApiCaptureRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayApiCreateTransactionRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayApiFinishRequestTransfer;
+use Generated\Shared\Transfer\CrefoPayApiPersonTransfer;
 use Generated\Shared\Transfer\CrefoPayApiRefundRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayApiReserveRequestTransfer;
@@ -42,6 +47,40 @@ use SprykerEco\Zed\CrefoPayApi\Persistence\CrefoPayApiEntityManagerInterface;
 class CrefoPayApiZedTester extends Actor
 {
     use _generated\CrefoPayApiZedTesterActions;
+
+    protected const MERCHANT_ID = 265;
+    protected const STORE_ID = 'SprykerDevTestEUR';
+    protected const ORDER_ID = 'DE--22-5c9098f724af27.85915877';
+    protected const USER_ID = 'DE--22';
+    protected const INTEGRATION_TYPE = 'SecureFields';
+    protected const AUTO_CAPTURE = 'false';
+    protected const CONTEXT = 'ONLINE';
+    protected const USER_TYPE = 'PRIVATE';
+    protected const USER_RISK_CLASS = 1;
+    protected const USER_IP_ADDRESS = '10.10.0.1';
+    protected const PERSON_SALUTATION = 'M';
+    protected const PERSON_NAME = 'John';
+    protected const PERSON_SURNAME = 'Doe';
+    protected const PERSON_EMAIL = 'john.doe@mail.com';
+    protected const ADDRESS_STREET = 'Street';
+    protected const ADDRESS_NO = '130';
+    protected const ADDRESS_ADDITIONAL = 'Additional';
+    protected const ADDRESS_ZIP = '20537';
+    protected const ADDRESS_CITY = 'Hamburg';
+    protected const ADDRESS_COUNTRY = 'DE';
+    protected const AMOUNT_AMOUNT = 26772;
+    protected const AMOUNT_VAT_RATE = 19;
+    protected const AMOUNT_VAT_AMOUNT = 4275;
+    protected const BASKET_ITEM_TYPE = 'DEFAULT';
+    protected const BASKET_ITEM_RISK_CLASS = 1;
+    protected const BASKET_ITEM_TEXT = 'Canon PowerShot N';
+    protected const BASKET_ITEM_ID = '035_17360369';
+    protected const BASKET_ITEM_COUNT = 1;
+    protected const LOCALE = 'EN';
+    protected const PAYMENT_METHOD = 'CC';
+    protected const PAYMENT_INSTRUMENT_ID = '3DQ0kvzLkDQJ18Th5n-8Gg';
+    protected const CAPTURE_ID = '64c8a11132f11d5cd3ed83bf89f64b';
+    protected const REFUND_DESCRIPTION = 'Refund description';
 
     /**
      * @return \Generated\Shared\Transfer\CrefoPayApiRequestTransfer
@@ -102,7 +141,23 @@ class CrefoPayApiZedTester extends Actor
      */
     protected function createCreateTransactionApiRequestTransfer(): CrefoPayApiCreateTransactionRequestTransfer
     {
-        return (new CrefoPayApiCreateTransactionRequestTransfer());
+        return (new CrefoPayApiCreateTransactionRequestTransfer())
+            ->setMerchantID(static::MERCHANT_ID)
+            ->setStoreID(static::STORE_ID)
+            ->setOrderID(static::ORDER_ID)
+            ->setUserID(static::USER_ID)
+            ->setIntegrationType(static::INTEGRATION_TYPE)
+            ->setAutoCapture(static::AUTO_CAPTURE)
+            ->setContext(static::CONTEXT)
+            ->setUserType(static::USER_TYPE)
+            ->setUserRiskClass(static::USER_RISK_CLASS)
+            ->setUserIpAddress(static::USER_IP_ADDRESS)
+            ->setUserData($this->createCrefoPayApiPersonTransfer())
+            ->setBillingAddress($this->createCrefoPayApiAddressTransfer())
+            ->setShippingAddress($this->createCrefoPayApiAddressTransfer())
+            ->setAmount($this->createCrefoPayApiAmountTransfer())
+            ->setBasketItems($this->createBasket())
+            ->setLocale(static::LOCALE);
     }
 
     /**
@@ -110,7 +165,14 @@ class CrefoPayApiZedTester extends Actor
      */
     protected function createReserveApiRequestTransfer(): CrefoPayApiReserveRequestTransfer
     {
-        return (new CrefoPayApiReserveRequestTransfer());
+        return (new CrefoPayApiReserveRequestTransfer())
+            ->setMerchantID(static::MERCHANT_ID)
+            ->setStoreID(static::STORE_ID)
+            ->setOrderID(static::ORDER_ID)
+            ->setPaymentMethod(static::PAYMENT_METHOD)
+            ->setPaymentInstrumentID(static::PAYMENT_INSTRUMENT_ID)
+            ->setAmount($this->createCrefoPayApiAmountTransfer())
+            ->setBasketItems($this->createBasket());
     }
 
     /**
@@ -118,7 +180,10 @@ class CrefoPayApiZedTester extends Actor
      */
     protected function createCancelApiRequestTransfer(): CrefoPayApiCancelRequestTransfer
     {
-        return (new CrefoPayApiCancelRequestTransfer());
+        return (new CrefoPayApiCancelRequestTransfer())
+            ->setMerchantID(static::MERCHANT_ID)
+            ->setStoreID(static::STORE_ID)
+            ->setOrderID(static::ORDER_ID);
     }
 
     /**
@@ -126,7 +191,12 @@ class CrefoPayApiZedTester extends Actor
      */
     protected function createCaptureApiRequestTransfer(): CrefoPayApiCaptureRequestTransfer
     {
-        return (new CrefoPayApiCaptureRequestTransfer());
+        return (new CrefoPayApiCaptureRequestTransfer())
+            ->setMerchantID(static::MERCHANT_ID)
+            ->setStoreID(static::STORE_ID)
+            ->setOrderID(static::ORDER_ID)
+            ->setCaptureID(static::CAPTURE_ID)
+            ->setAmount($this->createCrefoPayApiAmountTransfer());
     }
 
     /**
@@ -134,7 +204,13 @@ class CrefoPayApiZedTester extends Actor
      */
     protected function createRefundApiRequestTransfer(): CrefoPayApiRefundRequestTransfer
     {
-        return (new CrefoPayApiRefundRequestTransfer());
+        return (new CrefoPayApiRefundRequestTransfer())
+            ->setMerchantID(static::MERCHANT_ID)
+            ->setStoreID(static::STORE_ID)
+            ->setOrderID(static::ORDER_ID)
+            ->setCaptureID(static::CAPTURE_ID)
+            ->setAmount($this->createCrefoPayApiAmountTransfer())
+            ->setRefundDescription(static::REFUND_DESCRIPTION);
     }
 
     /**
@@ -142,6 +218,62 @@ class CrefoPayApiZedTester extends Actor
      */
     protected function createFinishApiRequestTransfer(): CrefoPayApiFinishRequestTransfer
     {
-        return (new CrefoPayApiFinishRequestTransfer());
+        return (new CrefoPayApiFinishRequestTransfer())
+            ->setMerchantID(static::MERCHANT_ID)
+            ->setStoreID(static::STORE_ID)
+            ->setOrderID(static::ORDER_ID);
+    }
+
+    /**
+     * @return \Generated\Shared\Transfer\CrefoPayApiPersonTransfer
+     */
+    protected function createCrefoPayApiPersonTransfer(): CrefoPayApiPersonTransfer
+    {
+        return (new CrefoPayApiPersonTransfer())
+            ->setSalutation(static::PERSON_SALUTATION)
+            ->setName(static::PERSON_NAME)
+            ->setSurname(static::PERSON_SURNAME)
+            ->setEmail(static::PERSON_EMAIL);
+    }
+
+    /**
+     * @return \Generated\Shared\Transfer\CrefoPayApiAddressTransfer
+     */
+    protected function createCrefoPayApiAddressTransfer(): CrefoPayApiAddressTransfer
+    {
+        return (new CrefoPayApiAddressTransfer())
+            ->setStreet(static::ADDRESS_STREET)
+            ->setNo(static::ADDRESS_NO)
+            ->setAdditional(static::ADDRESS_ADDITIONAL)
+            ->setZip(static::ADDRESS_ZIP)
+            ->setCity(static::ADDRESS_CITY)
+            ->setCountry(static::ADDRESS_COUNTRY);
+    }
+
+    /**
+     * @return \ArrayObject
+     */
+    protected function createBasket(): ArrayObject
+    {
+        $item = (new CrefoPayApiBasketItemTransfer())
+            ->setBasketItemType(static::BASKET_ITEM_TYPE)
+            ->setBasketItemRiskClass(static::BASKET_ITEM_RISK_CLASS)
+            ->setBasketItemText(static::BASKET_ITEM_TEXT)
+            ->setBasketItemID(static::BASKET_ITEM_ID)
+            ->setBasketItemCount(static::BASKET_ITEM_COUNT)
+            ->setBasketItemAmount($this->createCrefoPayApiAmountTransfer());
+
+        return new ArrayObject([$item]);
+    }
+
+    /**
+     * @return \Generated\Shared\Transfer\CrefoPayApiAmountTransfer
+     */
+    protected function createCrefoPayApiAmountTransfer(): CrefoPayApiAmountTransfer
+    {
+        return (new CrefoPayApiAmountTransfer())
+            ->setAmount(static::AMOUNT_AMOUNT)
+            ->setVatRate(static::AMOUNT_VAT_RATE)
+            ->setVatAmount(static::AMOUNT_VAT_AMOUNT);
     }
 }
