@@ -1,6 +1,6 @@
 {
   "name": "spryker-eco/crefo-pay-api",
-  "description": "CrefoPayApi Module",
+  "description": "CrefoPayApi module",
   "license": "MIT",
   "require": {
     "php": ">=7.1",
