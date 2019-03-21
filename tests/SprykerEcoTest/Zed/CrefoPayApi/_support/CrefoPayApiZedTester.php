@@ -9,6 +9,7 @@ namespace SprykerEcoTest\Zed\CrefoPayApi;
 
 use ArrayObject;
 use Codeception\Actor;
+use Codeception\Scenario;
 use Generated\Shared\Transfer\CrefoPayApiAddressTransfer;
 use Generated\Shared\Transfer\CrefoPayApiAmountTransfer;
 use Generated\Shared\Transfer\CrefoPayApiBasketItemTransfer;
@@ -87,6 +88,31 @@ class CrefoPayApiZedTester extends Actor
     protected const PAYMENT_INSTRUMENT_ID = '3DQ0kvzLkDQJ18Th5n-8Gg';
     protected const CAPTURE_ID = '64c8a11132f11d5cd3ed83bf89f64b';
     protected const REFUND_DESCRIPTION = 'Refund description';
+
+
+    /**
+     * @param \Codeception\Scenario $scenario
+     */
+    public function __construct(Scenario $scenario)
+    {
+        parent::__construct($scenario);
+        $this->setUpConfig();
+    }
+
+    /**
+     * @return void
+     */
+    public function setUpConfig(): void
+    {
+        $this->setConfig('CREFO_PAY_API:CREATE_TRANSACTION_API_ENDPOINT', 'https://sandbox.crefopay.de/2.0/createTransaction');
+        $this->setConfig('CREFO_PAY_API:RESERVE_API_ENDPOINT', 'https://sandbox.crefopay.de/2.0/reserve');
+        $this->setConfig('CREFO_PAY_API:CAPTURE_API_ENDPOINT', 'https://sandbox.crefopay.de/2.0/capture');
+        $this->setConfig('CREFO_PAY_API:CANCEL_API_ENDPOINT', 'https://sandbox.crefopay.de/2.0/cancel');
+        $this->setConfig('CREFO_PAY_API:REFUND_API_ENDPOINT', 'https://sandbox.crefopay.de/2.0/refund');
+        $this->setConfig('CREFO_PAY_API:FINISH_API_ENDPOINT', 'https://sandbox.crefopay.de/2.0/finish');
+        $this->setConfig('CREFO_PAY_API:PRIVATE_KEY', 'GE2PM37816PYL4D7');
+        $this->setConfig('CREFO_PAY_API:PUBLIC_KEY', 'c90f2f01d8bbf5c923b6acfb15eb18bd9ad0d230c4ca0d736d538cfed69685b9');
+    }
 
     /**
      * @return \Generated\Shared\Transfer\CrefoPayApiRequestTransfer
