@@ -89,7 +89,6 @@ class CrefoPayApiZedTester extends Actor
     protected const CAPTURE_ID = '64c8a11132f11d5cd3ed83bf89f64b';
     protected const REFUND_DESCRIPTION = 'Refund description';
 
-
     /**
      * @param \Codeception\Scenario $scenario
      */
