@@ -40,7 +40,7 @@ class CancelApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
     public function doTest(CrefoPayApiResponseTransfer $responseTransfer): void
     {
         $this->assertTrue($responseTransfer->getIsSuccess());
-        $this->assertIsInt($responseTransfer->getCrefoPayApiLogId());
+        $this->assertNotEmpty($responseTransfer->getCrefoPayApiLogId());
         $cancelResponseTransfer = $responseTransfer->getCancelResponse();
         $this->assertInstanceOf(
             CrefoPayApiCancelResponseTransfer::class,

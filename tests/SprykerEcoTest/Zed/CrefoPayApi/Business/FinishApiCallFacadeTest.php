@@ -40,7 +40,7 @@ class FinishApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
     public function doTest(CrefoPayApiResponseTransfer $responseTransfer): void
     {
         $this->assertTrue($responseTransfer->getIsSuccess());
-        $this->assertIsInt($responseTransfer->getCrefoPayApiLogId());
+        $this->assertNotEmpty($responseTransfer->getCrefoPayApiLogId());
         $finishResponseTransfer = $responseTransfer->getFinishResponse();
         $this->assertInstanceOf(
             CrefoPayApiFinishResponseTransfer::class,

@@ -40,7 +40,7 @@ class RefundApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
     public function doTest(CrefoPayApiResponseTransfer $responseTransfer): void
     {
         $this->assertTrue($responseTransfer->getIsSuccess());
-        $this->assertIsInt($responseTransfer->getCrefoPayApiLogId());
+        $this->assertNotEmpty($responseTransfer->getCrefoPayApiLogId());
         $refundResponseTransfer = $responseTransfer->getRefundResponse();
         $this->assertInstanceOf(
             CrefoPayApiRefundResponseTransfer::class,

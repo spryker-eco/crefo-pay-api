@@ -40,7 +40,7 @@ class CreateTransactionApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
     public function doTest(CrefoPayApiResponseTransfer $responseTransfer): void
     {
         $this->assertTrue($responseTransfer->getIsSuccess());
-        $this->assertIsInt($responseTransfer->getCrefoPayApiLogId());
+        $this->assertNotEmpty($responseTransfer->getCrefoPayApiLogId());
         $createTransactionResponseTransfer = $responseTransfer->getCreateTransactionResponse();
         $this->assertInstanceOf(
             CrefoPayApiCreateTransactionResponseTransfer::class,

@@ -40,7 +40,7 @@ class ReserveApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
     public function doTest(CrefoPayApiResponseTransfer $responseTransfer): void
     {
         $this->assertTrue($responseTransfer->getIsSuccess());
-        $this->assertIsInt($responseTransfer->getCrefoPayApiLogId());
+        $this->assertNotEmpty($responseTransfer->getCrefoPayApiLogId());
         $reserveResponseTransfer = $responseTransfer->getReserveResponse();
         $this->assertInstanceOf(
             CrefoPayApiReserveResponseTransfer::class,
