@@ -1,0 +1,83 @@
+{
+  "resultCode": 0,
+  "salt": "0c17fadc458c6240",
+  "userData": {
+    "salutation": "M",
+    "name": "John",
+    "surname": "Doe",
+    "email": "john.doe@mail.com"
+  },
+  "billingAddress": {
+    "street": "Street",
+    "no": "130",
+    "zip": "20537",
+    "city": "Hamburg",
+    "additional": "Additional",
+    "country": "DE"
+  },
+  "allowedPaymentMethods": [
+    "BILL",
+    "DD",
+    "PREPAID",
+    "CC",
+    "PAYPAL",
+    "SU",
+    "COD"
+  ],
+  "allowedPaymentInstruments": [],
+  "additionalInformation": [
+    {
+      "paymentMethodType": "BILL",
+      "issuer": [],
+      "logos": [],
+      "customTranslations": {}
+    },
+    {
+      "paymentMethodType": "DD",
+      "issuer": [],
+      "logos": [],
+      "customTranslations": {},
+      "sepaPaymentType": "OOFF",
+      "mandateReference": "623249",
+      "creditorId": "DE98ZZZ09999999999",
+      "merchantName": "CrefoPay Plugin Devel",
+      "date": "Mar 20, 2019"
+    },
+    {
+      "paymentMethodType": "PREPAID",
+      "issuer": [],
+      "logos": [],
+      "customTranslations": {}
+    },
+    {
+      "paymentMethodType": "CC",
+      "issuer": [
+        "VISA",
+        "MC"
+      ],
+      "logos": [
+        "VISA",
+        "MC"
+      ],
+      "customTranslations": {}
+    },
+    {
+      "paymentMethodType": "PAYPAL",
+      "issuer": [],
+      "logos": [],
+      "customTranslations": {}
+    },
+    {
+      "paymentMethodType": "SU",
+      "issuer": [],
+      "logos": [],
+      "customTranslations": {}
+    },
+    {
+      "paymentMethodType": "COD",
+      "issuer": [],
+      "logos": [],
+      "customTranslations": {}
+    }
+  ]
+}

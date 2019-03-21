@@ -8,14 +8,22 @@
 namespace SprykerEcoTest\Zed\CrefoPayApi\Business;
 
 use Codeception\TestCase\Test;
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
 use SprykerEco\Zed\CrefoPayApi\Business\CrefoPayApiBusinessFactory;
 use SprykerEco\Zed\CrefoPayApi\Business\CrefoPayApiFacade;
 use SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\CrefoPayApiGuzzleHttpClientAdapter;
 use SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\CrefoPayApiGuzzleHttpClientAdapterInterface;
-use SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\Response\CrefoPayApiGuzzleResponse;
 
 class CrefoPayApiFacadeBaseTest extends Test
 {
+    protected const SUCCESS_RESPONSE_STATUS = 200;
+    protected const FIXTURES_FOLDER_NAME = 'Fixtures';
+    protected const RESPONSE_HEADERS = [];
+    protected const FIXTURE_FILE_NAME = '';
+
     /**
      * @var \SprykerEcoTest\Zed\CrefoPayApi\CrefoPayApiZedTester
      */
@@ -63,27 +71,75 @@ class CrefoPayApiFacadeBaseTest extends Test
         $stub->method('getCrefoPayApiService')
             ->willReturn($this->tester->createCrefoPayApiService());
         $stub->method('getCrefoPayApiHttpClient')
-            ->willReturn($this->tester->createCrefoPayApiHttpClient());
+            ->willReturn($this->createCrefoPayApiGuzzleHttpClientAdapterMock());
 
         return $stub;
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\CrefoPayApiGuzzleHttpClientAdapterInterface
+     * @throws \Exception
+     *
+     * @return \SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\CrefoPayApiGuzzleHttpClientAdapterInterface|object
      */
     protected function createCrefoPayApiGuzzleHttpClientAdapterMock(): CrefoPayApiGuzzleHttpClientAdapterInterface
     {
-        $response = new CrefoPayApiGuzzleResponse(
-            $response->getBody(),
-            $response->getHeaders()
+        return $this->make(
+            CrefoPayApiGuzzleHttpClientAdapter::class,
+            ['guzzleHttpClient' => $this->createGuzzleHttpClientMock()]
         );
+    }
 
-        $builder = $this->getMockBuilder(CrefoPayApiGuzzleHttpClientAdapter::class);
-        $builder->setMethods(['post']);
-        $stub = $builder->getMock();
-        $stub->method('post')
-            ->willReturn($this->tester->createConfig());
+    /**
+     * @throws \Exception
+     *
+     * @return \GuzzleHttp\ClientInterface|object
+     */
+    protected function createGuzzleHttpClientMock(): ClientInterface
+    {
+        return $this->makeEmpty(
+            Client::class,
+            ['__call' => $this->createResponseMock()]
+        );
+    }
 
-        return $stub;
+    /**
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    protected function createResponseMock(): ResponseInterface
+    {
+        return new Response(
+            static::SUCCESS_RESPONSE_STATUS,
+            $this->getResponseHeaders(),
+            $this->getResponseBody()
+        );
+    }
+
+    /**
+     * @return string[]
+     */
+    protected function getResponseHeaders(): array
+    {
+        return static::RESPONSE_HEADERS;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getResponseBody(): string
+    {
+        $fileName = $this->getFixtureDirectory() . DIRECTORY_SEPARATOR . static::FIXTURE_FILE_NAME;
+        if (file_exists($fileName) && is_readable($fileName)) {
+            return file_get_contents($fileName);
+        }
+
+        return '';
+    }
+
+    /**
+     * @return string
+     */
+    protected function getFixtureDirectory()
+    {
+        return __DIR__ . DIRECTORY_SEPARATOR . static::FIXTURES_FOLDER_NAME;
     }
 }

@@ -7,6 +7,7 @@
 
 namespace SprykerEcoTest\Zed\CrefoPayApi\Business;
 
+use Generated\Shared\Transfer\CrefoPayApiCancelResponseTransfer;
 use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
 
 /**
@@ -18,6 +19,9 @@ use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
  */
 class CancelApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
 {
+    protected const RESPONSE_HEADERS = ['X-Payco-HMAC' => 'dcce0cc98e82b0ba0587256b7205a2cc1fb7990a'];
+    protected const FIXTURE_FILE_NAME = 'cancelResponseBody.json';
+
     /**
      * @return void
      */
@@ -35,5 +39,16 @@ class CancelApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
      */
     public function doTest(CrefoPayApiResponseTransfer $responseTransfer): void
     {
+        $this->assertTrue($responseTransfer->getIsSuccess());
+        $this->assertIsInt($responseTransfer->getCrefoPayApiLogId());
+        $cancelResponseTransfer = $responseTransfer->getCancelResponse();
+        $this->assertInstanceOf(
+            CrefoPayApiCancelResponseTransfer::class,
+            $cancelResponseTransfer
+        );
+
+        $this->assertEquals(0, $cancelResponseTransfer->getResultCode());
+        $this->assertNotEmpty($cancelResponseTransfer->getSalt());
+        $this->assertCount(0, $cancelResponseTransfer->getErrorDetails());
     }
 }

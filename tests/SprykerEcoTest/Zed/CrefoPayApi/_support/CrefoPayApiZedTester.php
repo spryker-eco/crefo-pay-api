@@ -75,7 +75,13 @@ class CrefoPayApiZedTester extends Actor
     protected const BASKET_ITEM_RISK_CLASS = 1;
     protected const BASKET_ITEM_TEXT = 'Canon PowerShot N';
     protected const BASKET_ITEM_ID = '035_17360369';
-    protected const BASKET_ITEM_COUNT = 1;
+    protected const BASKET_ITEM_COUNT = 2;
+    protected const BASKET_ITEM_SHIPPING_TYPE = 'SHIPPINGCOSTS';
+    protected const BASKET_ITEM_SHIPPING_TEXT = 'Shipping Costs';
+    protected const BASKET_ITEM_SHIPPING_COUNT = 1;
+    protected const BASKET_ITEM_SHIPPING_AMOUNT = 1000;
+    protected const BASKET_ITEM_SHIPPING_VAT_RATE = 19;
+    protected const BASKET_ITEM_SHIPPING_VAT_AMOUNT = 160;
     protected const LOCALE = 'EN';
     protected const PAYMENT_METHOD = 'CC';
     protected const PAYMENT_INSTRUMENT_ID = '3DQ0kvzLkDQJ18Th5n-8Gg';
@@ -263,7 +269,13 @@ class CrefoPayApiZedTester extends Actor
             ->setBasketItemCount(static::BASKET_ITEM_COUNT)
             ->setBasketItemAmount($this->createCrefoPayApiAmountTransfer());
 
-        return new ArrayObject([$item]);
+        $shippingCost = (new CrefoPayApiBasketItemTransfer())
+            ->setBasketItemType(static::BASKET_ITEM_SHIPPING_TYPE)
+            ->setBasketItemText(static::BASKET_ITEM_SHIPPING_TEXT)
+            ->setBasketItemCount(static::BASKET_ITEM_SHIPPING_COUNT)
+            ->setBasketItemAmount($this->createShippingCrefoPayApiAmountTransfer());
+
+        return new ArrayObject([$item, $shippingCost]);
     }
 
     /**
@@ -275,5 +287,16 @@ class CrefoPayApiZedTester extends Actor
             ->setAmount(static::AMOUNT_AMOUNT)
             ->setVatRate(static::AMOUNT_VAT_RATE)
             ->setVatAmount(static::AMOUNT_VAT_AMOUNT);
+    }
+
+    /**
+     * @return \Generated\Shared\Transfer\CrefoPayApiAmountTransfer
+     */
+    protected function createShippingCrefoPayApiAmountTransfer(): CrefoPayApiAmountTransfer
+    {
+        return (new CrefoPayApiAmountTransfer())
+            ->setAmount(static::BASKET_ITEM_SHIPPING_AMOUNT)
+            ->setVatRate(static::BASKET_ITEM_SHIPPING_VAT_RATE)
+            ->setVatAmount(static::BASKET_ITEM_SHIPPING_VAT_AMOUNT);
     }
 }
