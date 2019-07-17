@@ -41,9 +41,9 @@ class CrefoPayApiDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addUtilEncodingService(Container $container): Container
     {
-        $container[static::SERVICE_UTIL_ENCODING] = function (Container $container) {
+        $container->set(static::SERVICE_UTIL_ENCODING, function (Container $container) {
             return new CrefoPayApiToUtilEncodingServiceBridge($container->getLocator()->utilEncoding()->service());
-        };
+        });
 
         return $container;
     }
@@ -55,9 +55,9 @@ class CrefoPayApiDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addCrefoPayApiService(Container $container): Container
     {
-        $container[static::SERVICE_CREFO_PAY_API] = function (Container $container) {
+        $container->set(static::SERVICE_CREFO_PAY_API, function (Container $container) {
             return $container->getLocator()->crefoPayApi()->service();
-        };
+        });
 
         return $container;
     }
@@ -69,9 +69,9 @@ class CrefoPayApiDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addCrefoPayApiHttpClient(Container $container): Container
     {
-        $container[static::CREFO_PAY_API_HTTP_CLIENT] = function () {
+        $container->set(static::CREFO_PAY_API_HTTP_CLIENT, function () {
             return new CrefoPayApiGuzzleHttpClientAdapter();
-        };
+        });
 
         return $container;
     }
