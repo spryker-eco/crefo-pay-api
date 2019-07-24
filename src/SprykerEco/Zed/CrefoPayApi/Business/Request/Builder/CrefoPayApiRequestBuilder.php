@@ -73,6 +73,7 @@ class CrefoPayApiRequestBuilder implements CrefoPayApiRequestBuilderInterface
             if ($item instanceof ArrayObject) {
                 return $item->count() !== 0;
             }
+            
             return $item !== null;
         });
 
