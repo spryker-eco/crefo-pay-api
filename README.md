@@ -1,10 +1,11 @@
 # CrefoPayApi Module
-[![Build Status](https://travis-ci.org/spryker-eco/crefo-pay-api.svg)](https://travis-ci.org/spryker-eco/crefo-pay-api)
+[![CI](https://github.com/spryker-eco/crefo-pay-api/actions/workflows/ci.yml/badge.svg)](https://github.com/spryker-eco/crefo-pay-api/actions/workflows/ci.yml)
+[![Latest Stable Version](https://poser.pugx.org/spryker-eco/crefo-pay-api/v/stable.svg)](https://packagist.org/packages/spryker-eco/crefo-pay-api)
 [![License](https://img.shields.io/github/license/spryker-eco/crefo-pay-api.svg?b=master)](https://github.com/spryker-eco/crefo-pay-api)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/spryker-eco/crefo-pay-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/spryker-eco/crefo-pay-api/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/spryker-eco/crefo-pay-api/badges/build.png?b=master)](https://scrutinizer-ci.com/g/spryker-eco/crefo-pay-api/build-status/master)
+[![CI](https://scrutinizer-ci.com/g/spryker-eco/crefo-pay-api/badges/build.png?b=master)](https://scrutinizer-ci.com/g/spryker-eco/crefo-pay-api/build-status/master)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.3-8892BF.svg)](https://php.net/)
 
-CrefoPayApi Module provides a collection of calls to CrefoPay API system for processing payments. 
+CrefoPayApi Module provides a collection of calls to CrefoPay API system for processing payments.
 
 ## Installation
 
