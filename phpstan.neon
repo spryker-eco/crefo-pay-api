@@ -11,5 +11,4 @@ parameters:
         - '#Call to static method .+\(\)+ on an unknown class Orm\\.+#'
         - '#.+Transfer.+#'
     excludePaths:
-        - src/SprykerEco/Zed/CrefoPay/Persistence/Propel/Abstract*.php
-        - src/SprykerEco/Zed/CrefoPay/Persistence/Base/*.php
+        - src/SprykerEco/Zed/CrefoPayApi/Persistence/Propel/*.php
