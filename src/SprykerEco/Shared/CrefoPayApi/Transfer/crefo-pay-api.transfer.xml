@@ -6,82 +6,82 @@
     <!--- Request Transfers -->
 
     <transfer name="CrefoPayApiRequest">
-        <property name="createTransactionRequest" type="CrefoPayApiCreateTransactionRequest" />
-        <property name="reserveRequest" type="CrefoPayApiReserveRequest" />
-        <property name="captureRequest" type="CrefoPayApiCaptureRequest" />
-        <property name="cancelRequest" type="CrefoPayApiCancelRequest" />
-        <property name="refundRequest" type="CrefoPayApiRefundRequest" />
-        <property name="finishRequest" type="CrefoPayApiFinishRequest" />
+        <property name="createTransactionRequest" type="CrefoPayApiCreateTransactionRequest"/>
+        <property name="reserveRequest" type="CrefoPayApiReserveRequest"/>
+        <property name="captureRequest" type="CrefoPayApiCaptureRequest"/>
+        <property name="cancelRequest" type="CrefoPayApiCancelRequest"/>
+        <property name="refundRequest" type="CrefoPayApiRefundRequest"/>
+        <property name="finishRequest" type="CrefoPayApiFinishRequest"/>
     </transfer>
 
     <transfer name="CrefoPayApiCreateTransactionRequest">
-        <property name="merchantID" type="int" />
-        <property name="storeID" type="string" />
-        <property name="orderID" type="string" />
-        <property name="userID" type="string" />
-        <property name="integrationType" type="string" />
-        <property name="autoCapture" type="string" />
-        <property name="merchantReference" type="string" />
-        <property name="context" type="string" />
-        <property name="userType" type="string" />
-        <property name="userRiskClass" type="int" />
-        <property name="userIpAddress" type="string" />
-        <property name="companyData" type="CrefoPayApiCompany" />
-        <property name="userData" type="CrefoPayApiPerson" />
-        <property name="billingRecipient" type="string" />
-        <property name="billingAddress" type="CrefoPayApiAddress" />
-        <property name="shippingRecipient" type="string" />
-        <property name="shippingAddress" type="CrefoPayApiAddress" />
-        <property name="amount" type="CrefoPayApiAmount" />
-        <property name="basketItems" type="CrefoPayApiBasketItem[]" singular="basketItem" />
-        <property name="basketValidity" type="string" />
-        <property name="locale" type="string" />
+        <property name="merchantID" type="int"/>
+        <property name="storeID" type="string"/>
+        <property name="orderID" type="string"/>
+        <property name="userID" type="string"/>
+        <property name="integrationType" type="string"/>
+        <property name="autoCapture" type="string"/>
+        <property name="merchantReference" type="string"/>
+        <property name="context" type="string"/>
+        <property name="userType" type="string"/>
+        <property name="userRiskClass" type="int"/>
+        <property name="userIpAddress" type="string"/>
+        <property name="companyData" type="CrefoPayApiCompany"/>
+        <property name="userData" type="CrefoPayApiPerson"/>
+        <property name="billingRecipient" type="string"/>
+        <property name="billingAddress" type="CrefoPayApiAddress"/>
+        <property name="shippingRecipient" type="string"/>
+        <property name="shippingAddress" type="CrefoPayApiAddress"/>
+        <property name="amount" type="CrefoPayApiAmount"/>
+        <property name="basketItems" type="CrefoPayApiBasketItem[]" singular="basketItem"/>
+        <property name="basketValidity" type="string"/>
+        <property name="locale" type="string"/>
     </transfer>
 
     <transfer name="CrefoPayApiReserveRequest">
-        <property name="merchantID" type="int" />
-        <property name="storeID" type="string" />
-        <property name="orderID" type="string" />
-        <property name="paymentMethod" type="string" />
-        <property name="paymentInstrumentID" type="string" />
-        <property name="additionalInformation" type="CrefoPayApiReserveInformationRequest" />
-        <property name="amount" type="CrefoPayApiAmount" />
-        <property name="basketItems" type="CrefoPayApiBasketItem[]" singular="basketItem" />
-        <property name="cvv" type="string" />
+        <property name="merchantID" type="int"/>
+        <property name="storeID" type="string"/>
+        <property name="orderID" type="string"/>
+        <property name="paymentMethod" type="string"/>
+        <property name="paymentInstrumentID" type="string"/>
+        <property name="additionalInformation" type="CrefoPayApiReserveInformationRequest"/>
+        <property name="amount" type="CrefoPayApiAmount"/>
+        <property name="basketItems" type="CrefoPayApiBasketItem[]" singular="basketItem"/>
+        <property name="cvv" type="string"/>
     </transfer>
 
     <transfer name="CrefoPayApiReserveInformationRequest">
-        <property name="salutation" type="string" />
-        <property name="dateOfBirth" type="string" />
+        <property name="salutation" type="string"/>
+        <property name="dateOfBirth" type="string"/>
     </transfer>
 
     <transfer name="CrefoPayApiCaptureRequest">
-        <property name="merchantID" type="int" />
-        <property name="storeID" type="string" />
-        <property name="orderID" type="string" />
-        <property name="captureID" type="string" />
-        <property name="amount" type="CrefoPayApiAmount" />
+        <property name="merchantID" type="int"/>
+        <property name="storeID" type="string"/>
+        <property name="orderID" type="string"/>
+        <property name="captureID" type="string"/>
+        <property name="amount" type="CrefoPayApiAmount"/>
     </transfer>
 
     <transfer name="CrefoPayApiCancelRequest">
-        <property name="merchantID" type="int" />
-        <property name="storeID" type="string" />
-        <property name="orderID" type="string" />
+        <property name="merchantID" type="int"/>
+        <property name="storeID" type="string"/>
+        <property name="orderID" type="string"/>
     </transfer>
 
     <transfer name="CrefoPayApiRefundRequest">
-        <property name="merchantID" type="int" />
-        <property name="storeID" type="string" />
-        <property name="orderID" type="string" />
-        <property name="captureID" type="string" />
-        <property name="refundDescription" type="string" />
-        <property name="amount" type="CrefoPayApiAmount" />
+        <property name="merchantID" type="int"/>
+        <property name="storeID" type="string"/>
+        <property name="orderID" type="string"/>
+        <property name="captureID" type="string"/>
+        <property name="refundDescription" type="string"/>
+        <property name="amount" type="CrefoPayApiAmount"/>
     </transfer>
 
     <transfer name="CrefoPayApiFinishRequest">
-        <property name="merchantID" type="int" />
-        <property name="storeID" type="string" />
-        <property name="orderID" type="string" />
+        <property name="merchantID" type="int"/>
+        <property name="storeID" type="string"/>
+        <property name="orderID" type="string"/>
     </transfer>
 
     <!--- End of Request Transfers -->
@@ -89,145 +89,145 @@
     <!--- Response Transfers -->
 
     <transfer name="CrefoPayApiResponse">
-        <property name="isSuccess" type="bool" />
-        <property name="crefoPayApiLogId" type="int" />
-        <property name="error" type="CrefoPayApiErrorResponse" />
-        <property name="createTransactionResponse" type="CrefoPayApiCreateTransactionResponse" />
-        <property name="reserveResponse" type="CrefoPayApiReserveResponse" />
-        <property name="captureResponse" type="CrefoPayApiCaptureResponse" />
-        <property name="cancelResponse" type="CrefoPayApiCancelResponse" />
-        <property name="refundResponse" type="CrefoPayApiRefundResponse" />
-        <property name="finishResponse" type="CrefoPayApiFinishResponse" />
+        <property name="isSuccess" type="bool"/>
+        <property name="crefoPayApiLogId" type="int"/>
+        <property name="error" type="CrefoPayApiErrorResponse"/>
+        <property name="createTransactionResponse" type="CrefoPayApiCreateTransactionResponse"/>
+        <property name="reserveResponse" type="CrefoPayApiReserveResponse"/>
+        <property name="captureResponse" type="CrefoPayApiCaptureResponse"/>
+        <property name="cancelResponse" type="CrefoPayApiCancelResponse"/>
+        <property name="refundResponse" type="CrefoPayApiRefundResponse"/>
+        <property name="finishResponse" type="CrefoPayApiFinishResponse"/>
     </transfer>
 
     <transfer name="CrefoPayApiCreateTransactionResponse">
-        <property name="resultCode" type="int" />
-        <property name="message" type="string" />
-        <property name="userData" type="CrefoPayApiPerson" />
-        <property name="billingAddress" type="CrefoPayApiAddress" />
-        <property name="companyData" type="CrefoPayApiCompany" />
-        <property name="allowedPaymentMethods" type="string[]" singular="paymentMethod" />
-        <property name="redirectUrl" type="string" />
-        <property name="errorDetails" type="CrefoPayApiErrorDetails[]" singular="error" />
-        <property name="salt" type="string" />
+        <property name="resultCode" type="int"/>
+        <property name="message" type="string"/>
+        <property name="userData" type="CrefoPayApiPerson"/>
+        <property name="billingAddress" type="CrefoPayApiAddress"/>
+        <property name="companyData" type="CrefoPayApiCompany"/>
+        <property name="allowedPaymentMethods" type="string[]" singular="paymentMethod"/>
+        <property name="redirectUrl" type="string"/>
+        <property name="errorDetails" type="CrefoPayApiErrorDetails[]" singular="error"/>
+        <property name="salt" type="string"/>
     </transfer>
 
     <transfer name="CrefoPayApiReserveResponse">
-        <property name="resultCode" type="int" />
-        <property name="message" type="string" />
-        <property name="redirectUrl" type="string" />
-        <property name="additionalData" type="CrefoPayApiReserveInformationResponse" />
-        <property name="errorDetails" type="CrefoPayApiErrorDetails[]" singular="error" />
-        <property name="salt" type="string" />
+        <property name="resultCode" type="int"/>
+        <property name="message" type="string"/>
+        <property name="redirectUrl" type="string"/>
+        <property name="additionalData" type="CrefoPayApiReserveInformationResponse"/>
+        <property name="errorDetails" type="CrefoPayApiErrorDetails[]" singular="error"/>
+        <property name="salt" type="string"/>
     </transfer>
 
     <transfer name="CrefoPayApiReserveInformationResponse">
-        <property name="bankname" type="string" />
-        <property name="bic" type="string" />
-        <property name="iban" type="string" />
-        <property name="bankAccountHolder" type="string" />
-        <property name="paymentReference" type="string" />
+        <property name="bankname" type="string"/>
+        <property name="bic" type="string"/>
+        <property name="iban" type="string"/>
+        <property name="bankAccountHolder" type="string"/>
+        <property name="paymentReference" type="string"/>
     </transfer>
 
     <transfer name="CrefoPayApiCaptureResponse">
-        <property name="resultCode" type="int" />
-        <property name="message" type="string" />
-        <property name="status" type="string" />
-        <property name="errorDetails" type="CrefoPayApiErrorDetails[]" singular="error" />
-        <property name="salt" type="string" />
+        <property name="resultCode" type="int"/>
+        <property name="message" type="string"/>
+        <property name="status" type="string"/>
+        <property name="errorDetails" type="CrefoPayApiErrorDetails[]" singular="error"/>
+        <property name="salt" type="string"/>
     </transfer>
 
     <transfer name="CrefoPayApiCancelResponse">
-        <property name="resultCode" type="int" />
-        <property name="message" type="string" />
-        <property name="errorDetails" type="CrefoPayApiErrorDetails[]" singular="error" />
-        <property name="salt" type="string" />
+        <property name="resultCode" type="int"/>
+        <property name="message" type="string"/>
+        <property name="errorDetails" type="CrefoPayApiErrorDetails[]" singular="error"/>
+        <property name="salt" type="string"/>
     </transfer>
 
     <transfer name="CrefoPayApiRefundResponse">
-        <property name="resultCode" type="int" />
-        <property name="message" type="string" />
-        <property name="errorDetails" type="CrefoPayApiErrorDetails[]" singular="error" />
-        <property name="salt" type="string" />
+        <property name="resultCode" type="int"/>
+        <property name="message" type="string"/>
+        <property name="errorDetails" type="CrefoPayApiErrorDetails[]" singular="error"/>
+        <property name="salt" type="string"/>
     </transfer>
 
     <transfer name="CrefoPayApiFinishResponse">
-        <property name="resultCode" type="int" />
-        <property name="message" type="string" />
-        <property name="errorDetails" type="CrefoPayApiErrorDetails[]" singular="error" />
-        <property name="salt" type="string" />
+        <property name="resultCode" type="int"/>
+        <property name="message" type="string"/>
+        <property name="errorDetails" type="CrefoPayApiErrorDetails[]" singular="error"/>
+        <property name="salt" type="string"/>
     </transfer>
 
     <!--- End of Response Transfers -->
 
     <transfer name="CrefoPayApiBasketItem">
-        <property name="basketItemText" type="string" />
-        <property name="basketItemID" type="string" />
-        <property name="basketItemCount" type="int" />
-        <property name="basketItemAmount" type="CrefoPayApiAmount" />
-        <property name="basketItemRiskClass" type="int" />
-        <property name="basketItemType" type="string" />
+        <property name="basketItemText" type="string"/>
+        <property name="basketItemID" type="string"/>
+        <property name="basketItemCount" type="int"/>
+        <property name="basketItemAmount" type="CrefoPayApiAmount"/>
+        <property name="basketItemRiskClass" type="int"/>
+        <property name="basketItemType" type="string"/>
     </transfer>
 
     <transfer name="CrefoPayApiAddress">
-        <property name="street" type="string" />
-        <property name="no" type="string" />
-        <property name="additional" type="string" />
-        <property name="zip" type="string" />
-        <property name="city" type="string" />
-        <property name="state" type="string" />
-        <property name="country" type="string" />
+        <property name="street" type="string"/>
+        <property name="no" type="string"/>
+        <property name="additional" type="string"/>
+        <property name="zip" type="string"/>
+        <property name="city" type="string"/>
+        <property name="state" type="string"/>
+        <property name="country" type="string"/>
     </transfer>
 
     <transfer name="CrefoPayApiAmount">
-        <property name="amount" type="int" />
-        <property name="vatAmount" type="int" />
-        <property name="vatRate" type="float" />
+        <property name="amount" type="int"/>
+        <property name="vatAmount" type="int"/>
+        <property name="vatRate" type="float"/>
     </transfer>
 
     <transfer name="CrefoPayApiPerson">
-        <property name="salutation" type="string" />
-        <property name="name" type="string" />
-        <property name="surname" type="string" />
-        <property name="dateOfBirth" type="string" />
-        <property name="email" type="string" />
-        <property name="phoneNumber" type="string" />
-        <property name="faxNumber" type="string" />
+        <property name="salutation" type="string"/>
+        <property name="name" type="string"/>
+        <property name="surname" type="string"/>
+        <property name="dateOfBirth" type="string"/>
+        <property name="email" type="string"/>
+        <property name="phoneNumber" type="string"/>
+        <property name="faxNumber" type="string"/>
     </transfer>
 
     <transfer name="CrefoPayApiCompany">
-        <property name="companyName" type="string" />
-        <property name="email" type="string" />
-        <property name="companyRegisterType" type="string" />
-        <property name="companyRegistrationID" type="string" />
-        <property name="companyVatID" type="string" />
-        <property name="companyTaxID" type="string" />
+        <property name="companyName" type="string"/>
+        <property name="email" type="string"/>
+        <property name="companyRegisterType" type="string"/>
+        <property name="companyRegistrationID" type="string"/>
+        <property name="companyVatID" type="string"/>
+        <property name="companyTaxID" type="string"/>
     </transfer>
 
     <transfer name="CrefoPayApiErrorDetails">
-        <property name="message" type="string" />
-        <property name="field" type="string" />
-        <property name="number" type="int" />
-        <property name="description" type="string" />
+        <property name="message" type="string"/>
+        <property name="field" type="string"/>
+        <property name="number" type="int"/>
+        <property name="description" type="string"/>
     </transfer>
 
     <transfer name="CrefoPayApiErrorResponse">
-        <property name="resultCode" type="int" />
-        <property name="message" type="string" />
-        <property name="errorType" type="string" />
-        <property name="salt" type="string" />
+        <property name="resultCode" type="int"/>
+        <property name="message" type="string"/>
+        <property name="errorType" type="string"/>
+        <property name="salt" type="string"/>
     </transfer>
 
     <transfer name="PaymentCrefoPayApiLog">
-        <property name="idPaymentCrefoPayApiLog" type="int" />
-        <property name="requestType" type="string" />
-        <property name="crefoPayOrderId" type="string" />
-        <property name="resultCode" type="int" />
-        <property name="message" type="string" />
-        <property name="salt" type="string" />
-        <property name="isSuccess" type="bool" />
-        <property name="request" type="string" />
-        <property name="response" type="string" />
+        <property name="idPaymentCrefoPayApiLog" type="int"/>
+        <property name="requestType" type="string"/>
+        <property name="crefoPayOrderId" type="string"/>
+        <property name="resultCode" type="int"/>
+        <property name="message" type="string"/>
+        <property name="salt" type="string"/>
+        <property name="isSuccess" type="bool"/>
+        <property name="request" type="string"/>
+        <property name="response" type="string"/>
     </transfer>
 
 </transfers>
