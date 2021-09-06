@@ -10,6 +10,6 @@ parameters:
         - '#Return typehint of method .+ has invalid type Orm\\.+#'
         - '#Call to static method .+\(\)+ on an unknown class Orm\\.+#'
         - '#.+Transfer.+#'
-        - '#Class Orm\\.+ not found#'
     excludePaths:
         - src/SprykerEco/Zed/CrefoPay/Persistence/Propel/Abstract*.php
+        - src/SprykerEco/Zed/CrefoPay/Persistence/Base/*.php
