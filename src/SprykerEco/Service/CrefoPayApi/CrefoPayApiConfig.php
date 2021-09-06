@@ -16,6 +16,8 @@ use SprykerEco\Shared\CrefoPayApi\CrefoPayApiConstants;
 class CrefoPayApiConfig extends AbstractBundleConfig
 {
     /**
+     * @api
+     *
      * @return string
      */
     public function getPrivateKey(): string

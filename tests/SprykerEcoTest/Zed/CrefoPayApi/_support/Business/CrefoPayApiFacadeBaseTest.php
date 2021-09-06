@@ -77,8 +77,6 @@ class CrefoPayApiFacadeBaseTest extends Test
     }
 
     /**
-     * @throws \Exception
-     *
      * @return \SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\CrefoPayApiGuzzleHttpClientAdapterInterface|object
      */
     protected function createCrefoPayApiGuzzleHttpClientAdapterMock(): CrefoPayApiGuzzleHttpClientAdapterInterface
@@ -90,8 +88,6 @@ class CrefoPayApiFacadeBaseTest extends Test
     }
 
     /**
-     * @throws \Exception
-     *
      * @return \GuzzleHttp\ClientInterface|object
      */
     protected function createGuzzleHttpClientMock(): ClientInterface

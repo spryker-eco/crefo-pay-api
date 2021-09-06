@@ -25,9 +25,8 @@ class CrefoPayApiResponseValidator implements CrefoPayApiResponseValidatorInterf
     /**
      * @param \SprykerEco\Service\CrefoPayApi\CrefoPayApiServiceInterface $service
      */
-    public function __construct(
-        CrefoPayApiServiceInterface $service
-    ) {
+    public function __construct(CrefoPayApiServiceInterface $service)
+    {
         $this->service = $service;
     }
 
