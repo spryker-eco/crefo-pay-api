@@ -19,7 +19,13 @@ use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
  */
 class FinishApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
 {
+    /**
+     * @var array
+     */
     protected const RESPONSE_HEADERS = ['X-Payco-HMAC' => 'abc7158aa79611969a151bba81c289f1c3b81fef'];
+    /**
+     * @var string
+     */
     protected const FIXTURE_FILE_NAME = 'finishResponseBody.json';
 
     /**

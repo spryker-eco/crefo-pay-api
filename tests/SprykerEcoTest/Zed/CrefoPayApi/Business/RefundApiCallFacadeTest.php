@@ -19,7 +19,13 @@ use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
  */
 class RefundApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
 {
+    /**
+     * @var array
+     */
     protected const RESPONSE_HEADERS = ['X-Payco-HMAC' => 'e3de34925fde2e18735fdf99863ed7d38c933ae5'];
+    /**
+     * @var string
+     */
     protected const FIXTURE_FILE_NAME = 'refundResponseBody.json';
 
     /**

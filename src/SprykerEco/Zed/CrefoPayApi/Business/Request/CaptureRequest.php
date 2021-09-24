@@ -13,6 +13,9 @@ use SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig;
 
 class CaptureRequest implements CrefoPayApiRequestInterface
 {
+    /**
+     * @var string
+     */
     protected const REQUEST_TYPE = 'capture';
 
     /**

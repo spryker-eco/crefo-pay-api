@@ -17,8 +17,17 @@ use SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\Response\CrefoPayApiGu
 
 class CrefoPayApiGuzzleHttpClientAdapter implements CrefoPayApiGuzzleHttpClientAdapterInterface
 {
+    /**
+     * @var int
+     */
     protected const DEFAULT_TIMEOUT = 45;
+    /**
+     * @var string
+     */
     protected const HEADER_CONTENT_TYPE_KEY = 'Content-Type';
+    /**
+     * @var string
+     */
     protected const HEADER_CONTENT_TYPE_VALUE = 'application/x-www-form-urlencoded';
 
     /**

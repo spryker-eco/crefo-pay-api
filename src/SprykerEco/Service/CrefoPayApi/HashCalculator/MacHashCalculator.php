@@ -11,7 +11,13 @@ use SprykerEco\Service\CrefoPayApi\CrefoPayApiConfig;
 
 class MacHashCalculator implements MacHashCalculatorInterface
 {
+    /**
+     * @var string
+     */
     protected const HASHING_ALGORITHM = 'sha1';
+    /**
+     * @var array
+     */
     protected const CHARS_TO_REPLACE = [' ', "\t", "\s", "\r", "\n"];
 
     /**

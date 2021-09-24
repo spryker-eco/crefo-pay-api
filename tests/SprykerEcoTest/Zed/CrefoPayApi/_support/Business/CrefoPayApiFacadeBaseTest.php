@@ -19,9 +19,21 @@ use SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\CrefoPayApiGuzzleHttpC
 
 class CrefoPayApiFacadeBaseTest extends Test
 {
+    /**
+     * @var int
+     */
     protected const SUCCESS_RESPONSE_STATUS = 200;
+    /**
+     * @var string
+     */
     protected const FIXTURES_FOLDER_NAME = 'Fixtures';
+    /**
+     * @var array
+     */
     protected const RESPONSE_HEADERS = [];
+    /**
+     * @var string
+     */
     protected const FIXTURE_FILE_NAME = '';
 
     /**
@@ -111,7 +123,7 @@ class CrefoPayApiFacadeBaseTest extends Test
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     protected function getResponseHeaders(): array
     {

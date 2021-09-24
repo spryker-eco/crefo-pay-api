@@ -13,6 +13,9 @@ use SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig;
 
 class CancelRequest implements CrefoPayApiRequestInterface
 {
+    /**
+     * @var string
+     */
     protected const REQUEST_TYPE = 'cancel';
 
     /**

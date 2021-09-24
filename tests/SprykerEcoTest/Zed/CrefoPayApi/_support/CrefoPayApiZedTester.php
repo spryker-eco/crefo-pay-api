@@ -50,44 +50,161 @@ class CrefoPayApiZedTester extends Actor
 {
     use _generated\CrefoPayApiZedTesterActions;
 
+    /**
+     * @var int
+     */
     protected const MERCHANT_ID = 265;
+    /**
+     * @var string
+     */
     protected const STORE_ID = 'SprykerDevTestEUR';
+    /**
+     * @var string
+     */
     protected const ORDER_ID = 'DE--22-5c9098f724af27.85915877';
+    /**
+     * @var string
+     */
     protected const USER_ID = 'DE--22';
+    /**
+     * @var string
+     */
     protected const INTEGRATION_TYPE = 'SecureFields';
+    /**
+     * @var string
+     */
     protected const AUTO_CAPTURE = 'false';
+    /**
+     * @var string
+     */
     protected const CONTEXT = 'ONLINE';
+    /**
+     * @var string
+     */
     protected const USER_TYPE = 'PRIVATE';
+    /**
+     * @var int
+     */
     protected const USER_RISK_CLASS = 1;
+    /**
+     * @var string
+     */
     protected const USER_IP_ADDRESS = '10.10.0.1';
+    /**
+     * @var string
+     */
     protected const PERSON_SALUTATION = 'M';
+    /**
+     * @var string
+     */
     protected const PERSON_NAME = 'John';
+    /**
+     * @var string
+     */
     protected const PERSON_SURNAME = 'Doe';
+    /**
+     * @var string
+     */
     protected const PERSON_EMAIL = 'john.doe@mail.com';
+    /**
+     * @var string
+     */
     protected const ADDRESS_STREET = 'Street';
+    /**
+     * @var string
+     */
     protected const ADDRESS_NO = '130';
+    /**
+     * @var string
+     */
     protected const ADDRESS_ADDITIONAL = 'Additional';
+    /**
+     * @var string
+     */
     protected const ADDRESS_ZIP = '20537';
+    /**
+     * @var string
+     */
     protected const ADDRESS_CITY = 'Hamburg';
+    /**
+     * @var string
+     */
     protected const ADDRESS_COUNTRY = 'DE';
+    /**
+     * @var int
+     */
     protected const AMOUNT_AMOUNT = 26772;
+    /**
+     * @var int
+     */
     protected const AMOUNT_VAT_RATE = 19;
+    /**
+     * @var int
+     */
     protected const AMOUNT_VAT_AMOUNT = 4275;
+    /**
+     * @var string
+     */
     protected const BASKET_ITEM_TYPE = 'DEFAULT';
+    /**
+     * @var int
+     */
     protected const BASKET_ITEM_RISK_CLASS = 1;
+    /**
+     * @var string
+     */
     protected const BASKET_ITEM_TEXT = 'Canon PowerShot N';
+    /**
+     * @var string
+     */
     protected const BASKET_ITEM_ID = '035_17360369';
+    /**
+     * @var int
+     */
     protected const BASKET_ITEM_COUNT = 2;
+    /**
+     * @var string
+     */
     protected const BASKET_ITEM_SHIPPING_TYPE = 'SHIPPINGCOSTS';
+    /**
+     * @var string
+     */
     protected const BASKET_ITEM_SHIPPING_TEXT = 'Shipping Costs';
+    /**
+     * @var int
+     */
     protected const BASKET_ITEM_SHIPPING_COUNT = 1;
+    /**
+     * @var int
+     */
     protected const BASKET_ITEM_SHIPPING_AMOUNT = 1000;
+    /**
+     * @var int
+     */
     protected const BASKET_ITEM_SHIPPING_VAT_RATE = 19;
+    /**
+     * @var int
+     */
     protected const BASKET_ITEM_SHIPPING_VAT_AMOUNT = 160;
+    /**
+     * @var string
+     */
     protected const LOCALE = 'EN';
+    /**
+     * @var string
+     */
     protected const PAYMENT_METHOD = 'CC';
+    /**
+     * @var string
+     */
     protected const PAYMENT_INSTRUMENT_ID = '3DQ0kvzLkDQJ18Th5n-8Gg';
+    /**
+     * @var string
+     */
     protected const CAPTURE_ID = '64c8a11132f11d5cd3ed83bf89f64b';
+    /**
+     * @var string
+     */
     protected const REFUND_DESCRIPTION = 'Refund description';
 
     /**

@@ -18,8 +18,17 @@ class CrefoPayApiLogger implements CrefoPayApiLoggerInterface
 {
     use TransactionTrait;
 
+    /**
+     * @var string
+     */
     protected const GET_REQUEST_METHOD = 'get%sRequest';
+    /**
+     * @var string
+     */
     protected const GET_RESPONSE_METHOD = 'get%sResponse';
+    /**
+     * @var string
+     */
     protected const INVALID_REQUEST_TYPE_ERROR_MESSAGE = 'Request type "%s" is not supported';
 
     /**

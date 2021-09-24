@@ -14,9 +14,18 @@ use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServi
 
 class CrefoPayApiDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const SERVICE_UTIL_ENCODING = 'SERVICE_UTIL_ENCODING';
+    /**
+     * @var string
+     */
     public const SERVICE_CREFO_PAY_API = 'SERVICE_CREFO_PAY_API';
 
+    /**
+     * @var string
+     */
     public const CREFO_PAY_API_HTTP_CLIENT = 'CREFO_PAY_API_HTTP_CLIENT';
 
     /**

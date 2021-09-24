@@ -12,9 +12,21 @@ use SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\Response\CrefoPayApiGu
 
 class CrefoPayApiResponseValidator implements CrefoPayApiResponseValidatorInterface
 {
+    /**
+     * @var string
+     */
     protected const API_HEADER_MAC = 'X-Payco-HMAC';
+    /**
+     * @var string
+     */
     protected const API_RESPONSE_FIELD_RESULT_CODE = 'resultCode';
+    /**
+     * @var int
+     */
     protected const RESULT_CODE_OK = 0;
+    /**
+     * @var int
+     */
     protected const RESULT_CODE_REDIRECT = 1;
 
     /**
