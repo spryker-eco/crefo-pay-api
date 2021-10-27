@@ -15,6 +15,7 @@ class MacHashCalculator implements MacHashCalculatorInterface
      * @var string
      */
     protected const HASHING_ALGORITHM = 'sha1';
+
     /**
      * @var array
      */

@@ -20,6 +20,7 @@ class CrefoPayApiResponseConverter implements CrefoPayApiResponseConverterInterf
      * @var string
      */
     protected const API_ERROR_TYPE_EXTERNAL = 'EXTERNAL';
+
     /**
      * @var string
      */

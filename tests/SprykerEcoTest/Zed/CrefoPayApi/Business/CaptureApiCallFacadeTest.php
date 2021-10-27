@@ -23,6 +23,7 @@ class CaptureApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
      * @var array
      */
     protected const RESPONSE_HEADERS = ['X-Payco-HMAC' => '615389a9a284bb6974826bea38c351e0a296dad5'];
+
     /**
      * @var string
      */

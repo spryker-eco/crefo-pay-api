@@ -21,10 +21,12 @@ class CrefoPayApiGuzzleHttpClientAdapter implements CrefoPayApiGuzzleHttpClientA
      * @var int
      */
     protected const DEFAULT_TIMEOUT = 45;
+
     /**
      * @var string
      */
     protected const HEADER_CONTENT_TYPE_KEY = 'Content-Type';
+
     /**
      * @var string
      */
