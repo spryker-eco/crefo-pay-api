@@ -23,7 +23,7 @@ class CancelResponseMapper implements CrefoPayApiResponseMapperInterface
         CrefoPayApiResponseTransfer $responseTransfer
     ): CrefoPayApiResponseTransfer {
         $responseTransfer->setCancelResponse(
-            (new CrefoPayApiCancelResponseTransfer())->fromArray($responseData, true)
+            (new CrefoPayApiCancelResponseTransfer())->fromArray($responseData, true),
         );
 
         return $responseTransfer;

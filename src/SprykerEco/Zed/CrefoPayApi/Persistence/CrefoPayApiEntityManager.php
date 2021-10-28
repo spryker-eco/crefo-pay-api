@@ -32,14 +32,14 @@ class CrefoPayApiEntityManager extends AbstractEntityManager implements CrefoPay
             ->findOneOrCreate();
 
         $paymentCrefoPayApiLogEntity->fromArray(
-            $paymentCrefoPayApiLogTransfer->modifiedToArray()
+            $paymentCrefoPayApiLogTransfer->modifiedToArray(),
         );
         $paymentCrefoPayApiLogEntity->save();
 
         return $this->getMapper()
             ->mapEntityToPaymentCrefoPayApiLogTransfer(
                 $paymentCrefoPayApiLogEntity,
-                $paymentCrefoPayApiLogTransfer
+                $paymentCrefoPayApiLogTransfer,
             );
     }
 

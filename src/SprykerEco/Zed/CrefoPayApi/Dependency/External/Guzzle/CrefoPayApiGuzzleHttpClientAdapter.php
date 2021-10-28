@@ -67,7 +67,7 @@ class CrefoPayApiGuzzleHttpClientAdapter implements CrefoPayApiGuzzleHttpClientA
                 $this->createCrefoPayApiGuzzleResponse($requestException->getResponse()),
                 $requestException->getMessage(),
                 $requestException->getCode(),
-                $requestException
+                $requestException,
             );
         }
 
@@ -87,7 +87,7 @@ class CrefoPayApiGuzzleHttpClientAdapter implements CrefoPayApiGuzzleHttpClientA
 
         return new CrefoPayApiGuzzleResponse(
             $response->getBody(),
-            $response->getHeaders()
+            $response->getHeaders(),
         );
     }
 }

@@ -23,7 +23,7 @@ class FinishResponseMapper implements CrefoPayApiResponseMapperInterface
         CrefoPayApiResponseTransfer $responseTransfer
     ): CrefoPayApiResponseTransfer {
         $responseTransfer->setFinishResponse(
-            (new CrefoPayApiFinishResponseTransfer())->fromArray($responseData, true)
+            (new CrefoPayApiFinishResponseTransfer())->fromArray($responseData, true),
         );
 
         return $responseTransfer;

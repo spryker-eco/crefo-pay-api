@@ -23,14 +23,17 @@ class CrefoPayApiFacadeBaseTest extends Test
      * @var int
      */
     protected const SUCCESS_RESPONSE_STATUS = 200;
+
     /**
      * @var string
      */
     protected const FIXTURES_FOLDER_NAME = 'Fixtures';
+
     /**
      * @var array
      */
     protected const RESPONSE_HEADERS = [];
+
     /**
      * @var string
      */
@@ -70,7 +73,7 @@ class CrefoPayApiFacadeBaseTest extends Test
                 'getUtilEncodingService',
                 'getCrefoPayApiService',
                 'getCrefoPayApiHttpClient',
-            ]
+            ],
         );
 
         $stub = $builder->getMock();
@@ -95,7 +98,7 @@ class CrefoPayApiFacadeBaseTest extends Test
     {
         return $this->make(
             CrefoPayApiGuzzleHttpClientAdapter::class,
-            ['guzzleHttpClient' => $this->createGuzzleHttpClientMock()]
+            ['guzzleHttpClient' => $this->createGuzzleHttpClientMock()],
         );
     }
 
@@ -106,7 +109,7 @@ class CrefoPayApiFacadeBaseTest extends Test
     {
         return $this->makeEmpty(
             Client::class,
-            ['__call' => $this->createResponseMock()]
+            ['__call' => $this->createResponseMock()],
         );
     }
 
@@ -118,7 +121,7 @@ class CrefoPayApiFacadeBaseTest extends Test
         return new Response(
             static::SUCCESS_RESPONSE_STATUS,
             $this->getResponseHeaders(),
-            $this->getResponseBody()
+            $this->getResponseBody(),
         );
     }
 

@@ -51,7 +51,7 @@ class ReserveApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
         $reserveResponseTransfer = $responseTransfer->getReserveResponse();
         $this->assertInstanceOf(
             CrefoPayApiReserveResponseTransfer::class,
-            $reserveResponseTransfer
+            $reserveResponseTransfer,
         );
 
         $this->assertEquals(0, $reserveResponseTransfer->getResultCode());

@@ -79,7 +79,7 @@ class ReserveRequestConverter implements CrefoPayApiRequestConverterInterface
             function (CrefoPayApiBasketItemTransfer $basketItem) {
                 return $this->convertBasketItemTransferToArray($basketItem);
             },
-            $basketItems->getArrayCopy()
+            $basketItems->getArrayCopy(),
         );
     }
 

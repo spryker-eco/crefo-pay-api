@@ -269,7 +269,6 @@ interface CrefoPayApiRequestFields
      */
     public const API_OBJECT_PERSON_FIELD_FAX_NUMBER = 'faxNumber';
 
-
     /**
      * @var string
      */

@@ -51,7 +51,7 @@ class CancelApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
         $cancelResponseTransfer = $responseTransfer->getCancelResponse();
         $this->assertInstanceOf(
             CrefoPayApiCancelResponseTransfer::class,
-            $cancelResponseTransfer
+            $cancelResponseTransfer,
         );
 
         $this->assertEquals(0, $cancelResponseTransfer->getResultCode());

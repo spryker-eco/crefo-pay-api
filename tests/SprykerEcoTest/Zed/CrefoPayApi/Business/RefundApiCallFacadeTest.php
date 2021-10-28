@@ -23,6 +23,7 @@ class RefundApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
      * @var array
      */
     protected const RESPONSE_HEADERS = ['X-Payco-HMAC' => 'e3de34925fde2e18735fdf99863ed7d38c933ae5'];
+
     /**
      * @var string
      */
@@ -50,7 +51,7 @@ class RefundApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
         $refundResponseTransfer = $responseTransfer->getRefundResponse();
         $this->assertInstanceOf(
             CrefoPayApiRefundResponseTransfer::class,
-            $refundResponseTransfer
+            $refundResponseTransfer,
         );
 
         $this->assertEquals(0, $refundResponseTransfer->getResultCode());

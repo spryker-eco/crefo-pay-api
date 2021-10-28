@@ -51,7 +51,7 @@ class FinishApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
         $finishResponseTransfer = $responseTransfer->getFinishResponse();
         $this->assertInstanceOf(
             CrefoPayApiFinishResponseTransfer::class,
-            $finishResponseTransfer
+            $finishResponseTransfer,
         );
 
         $this->assertEquals(0, $finishResponseTransfer->getResultCode());

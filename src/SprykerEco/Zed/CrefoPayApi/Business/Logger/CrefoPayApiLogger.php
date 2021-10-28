@@ -22,10 +22,12 @@ class CrefoPayApiLogger implements CrefoPayApiLoggerInterface
      * @var string
      */
     protected const GET_REQUEST_METHOD = 'get%sRequest';
+
     /**
      * @var string
      */
     protected const GET_RESPONSE_METHOD = 'get%sResponse';
+
     /**
      * @var string
      */
@@ -59,7 +61,7 @@ class CrefoPayApiLogger implements CrefoPayApiLoggerInterface
         $paymentCrefoPayApiLog = $this->createPaymentCrefoPayApiLogTransfer(
             $requestTransfer,
             $responseTransfer,
-            $requestType
+            $requestType,
         );
 
         return $this->getTransactionHandler()->handleTransaction(function () use ($paymentCrefoPayApiLog) {
@@ -104,7 +106,7 @@ class CrefoPayApiLogger implements CrefoPayApiLoggerInterface
 
         if (!method_exists($requestTransfer, $method)) {
             throw new InvalidRequestTypeException(
-                sprintf(static::INVALID_REQUEST_TYPE_ERROR_MESSAGE, $requestType)
+                sprintf(static::INVALID_REQUEST_TYPE_ERROR_MESSAGE, $requestType),
             );
         }
 

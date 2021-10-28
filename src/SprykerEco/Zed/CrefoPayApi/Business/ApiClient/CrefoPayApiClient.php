@@ -67,7 +67,7 @@ class CrefoPayApiClient implements CrefoPayApiClientInterface
         try {
             $response = $this->httpClient->post(
                 $this->request->getUrl(),
-                $this->request->getFormParams($requestTransfer)
+                $this->request->getFormParams($requestTransfer),
             );
         } catch (CrefoPayApiGuzzleRequestException $requestException) {
             $isSuccess = false;
@@ -81,7 +81,7 @@ class CrefoPayApiClient implements CrefoPayApiClientInterface
             ->logApiCall(
                 $requestTransfer,
                 $responseTransfer,
-                $this->request->getRequestType()
+                $this->request->getRequestType(),
             );
 
         $responseTransfer->setCrefoPayApiLogId($paymentCrefoPayApiLogTransfer->getIdPaymentCrefoPayApiLog());

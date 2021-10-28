@@ -51,7 +51,7 @@ class CaptureApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
         $captureResponseTransfer = $responseTransfer->getCaptureResponse();
         $this->assertInstanceOf(
             CrefoPayApiCaptureResponseTransfer::class,
-            $captureResponseTransfer
+            $captureResponseTransfer,
         );
 
         $this->assertEquals(0, $captureResponseTransfer->getResultCode());

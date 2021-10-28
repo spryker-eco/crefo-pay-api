@@ -110,7 +110,7 @@ class CreateTransactionRequestConverter implements CrefoPayApiRequestConverterIn
             function (CrefoPayApiBasketItemTransfer $basketItem) {
                 return $this->convertBasketItemTransferToArray($basketItem);
             },
-            $basketItems->getArrayCopy()
+            $basketItems->getArrayCopy(),
         );
     }
 
