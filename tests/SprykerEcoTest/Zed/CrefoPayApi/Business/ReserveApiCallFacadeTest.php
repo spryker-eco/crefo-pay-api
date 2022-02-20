@@ -20,7 +20,7 @@ use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
 class ReserveApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
 {
     /**
-     * @var array
+     * @var array<string, string>
      */
     protected const RESPONSE_HEADERS = ['X-Payco-HMAC' => '8d1561c83ad00a8bc695b8e69baebb06b5e1c68e'];
 
