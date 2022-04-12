@@ -23,7 +23,7 @@ class CaptureResponseMapper implements CrefoPayApiResponseMapperInterface
         CrefoPayApiResponseTransfer $responseTransfer
     ): CrefoPayApiResponseTransfer {
         $responseTransfer->setCaptureResponse(
-            (new CrefoPayApiCaptureResponseTransfer())->fromArray($responseData, true)
+            (new CrefoPayApiCaptureResponseTransfer())->fromArray($responseData, true),
         );
 
         return $responseTransfer;

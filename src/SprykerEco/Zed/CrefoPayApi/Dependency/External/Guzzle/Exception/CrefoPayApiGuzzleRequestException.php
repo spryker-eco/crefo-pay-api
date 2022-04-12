@@ -26,7 +26,7 @@ class CrefoPayApiGuzzleRequestException extends Exception
      */
     public function __construct(
         CrefoPayApiGuzzleResponseInterface $response,
-        $message = "",
+        $message = '',
         $code = 0,
         ?Throwable $previous = null
     ) {

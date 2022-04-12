@@ -13,6 +13,8 @@ use SprykerEco\Shared\CrefoPayApi\CrefoPayApiConstants;
 class CrefoPayApiConfig extends AbstractBundleConfig
 {
     /**
+     * @api
+     *
      * @return string
      */
     public function getCreateTransactionApiEndpoint(): string
@@ -21,6 +23,8 @@ class CrefoPayApiConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getReserveApiEndpoint(): string
@@ -29,6 +33,8 @@ class CrefoPayApiConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getCaptureApiEndpoint(): string
@@ -37,6 +43,8 @@ class CrefoPayApiConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getCancelApiEndpoint(): string
@@ -45,6 +53,8 @@ class CrefoPayApiConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getRefundApiEndpoint(): string
@@ -53,6 +63,8 @@ class CrefoPayApiConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getFinishApiEndpoint(): string

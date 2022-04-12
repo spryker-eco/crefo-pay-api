@@ -24,7 +24,7 @@ class CrefoPayApiPersistenceMapper
     ): PaymentCrefoPayApiLogTransfer {
         $paymentCrefoPayApiLogTransfer->fromArray(
             $paymentCrefoPayApiLogEntity->toArray(),
-            true
+            true,
         );
 
         return $paymentCrefoPayApiLogTransfer;

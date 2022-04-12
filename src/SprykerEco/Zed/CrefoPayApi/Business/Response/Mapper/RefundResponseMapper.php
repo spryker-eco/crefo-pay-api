@@ -23,7 +23,7 @@ class RefundResponseMapper implements CrefoPayApiResponseMapperInterface
         CrefoPayApiResponseTransfer $responseTransfer
     ): CrefoPayApiResponseTransfer {
         $responseTransfer->setRefundResponse(
-            (new CrefoPayApiRefundResponseTransfer())->fromArray($responseData, true)
+            (new CrefoPayApiRefundResponseTransfer())->fromArray($responseData, true),
         );
 
         return $responseTransfer;

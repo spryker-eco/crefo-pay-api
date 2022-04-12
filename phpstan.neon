@@ -1,5 +1,15 @@
 parameters:
-    bootstrap: %rootDir%/../../../phpstan-bootstrap.php
-
+    level: 7
+    checkGenericClassInNonGenericObjectType: false
+    checkMissingIterableValueType: false
     ignoreErrors:
-    - '#Call to an undefined method .+LocatorLocatorInterface::.+\(\).#'
+        - '#Call to method .+\(\) on an unknown class Generated\\.+#'
+        - '#Call to method .+\(\) on an unknown class Orm\\.+#'
+        - '#Parameter \$.+ of method .+ has invalid typehint type Generated\\.+#'
+        - '#Parameter \$.+ of method .+ has invalid typehint type Orm\\.+#'
+        - '#Return typehint of method .+ has invalid type Generated\\.+#'
+        - '#Return typehint of method .+ has invalid type Orm\\.+#'
+        - '#Call to static method .+\(\)+ on an unknown class Orm\\.+#'
+        - '#.+Transfer.+#'
+    excludePaths:
+        - src/SprykerEco/Zed/CrefoPayApi/Persistence/Propel/*.php

@@ -9,6 +9,9 @@ namespace SprykerEco\Service\CrefoPayApi;
 
 use Spryker\Service\Kernel\AbstractBundleDependencyProvider;
 
+/**
+ * @method \SprykerEco\Service\CrefoPayApi\CrefoPayApiConfig getConfig()
+ */
 class CrefoPayApiDependencyProvider extends AbstractBundleDependencyProvider
 {
 }

@@ -65,7 +65,7 @@ class ReserveRequestConverter implements CrefoPayApiRequestConverterInterface
     }
 
     /**
-     * @param \ArrayObject|\Generated\Shared\Transfer\CrefoPayApiBasketItemTransfer[] $basketItems
+     * @param \ArrayObject|array<\Generated\Shared\Transfer\CrefoPayApiBasketItemTransfer> $basketItems
      *
      * @return array|null
      */
@@ -79,7 +79,7 @@ class ReserveRequestConverter implements CrefoPayApiRequestConverterInterface
             function (CrefoPayApiBasketItemTransfer $basketItem) {
                 return $this->convertBasketItemTransferToArray($basketItem);
             },
-            $basketItems->getArrayCopy()
+            $basketItems->getArrayCopy(),
         );
     }
 

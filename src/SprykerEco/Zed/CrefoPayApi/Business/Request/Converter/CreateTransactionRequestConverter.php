@@ -96,7 +96,7 @@ class CreateTransactionRequestConverter implements CrefoPayApiRequestConverterIn
     }
 
     /**
-     * @param \ArrayObject|\Generated\Shared\Transfer\CrefoPayApiBasketItemTransfer[] $basketItems
+     * @param \ArrayObject|array<\Generated\Shared\Transfer\CrefoPayApiBasketItemTransfer> $basketItems
      *
      * @return array|null
      */
@@ -110,7 +110,7 @@ class CreateTransactionRequestConverter implements CrefoPayApiRequestConverterIn
             function (CrefoPayApiBasketItemTransfer $basketItem) {
                 return $this->convertBasketItemTransferToArray($basketItem);
             },
-            $basketItems->getArrayCopy()
+            $basketItems->getArrayCopy(),
         );
     }
 

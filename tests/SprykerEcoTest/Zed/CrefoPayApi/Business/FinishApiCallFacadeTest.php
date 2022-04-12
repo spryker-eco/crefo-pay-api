@@ -19,7 +19,14 @@ use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
  */
 class FinishApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
 {
+    /**
+     * @var array<string, string>
+     */
     protected const RESPONSE_HEADERS = ['X-Payco-HMAC' => 'abc7158aa79611969a151bba81c289f1c3b81fef'];
+
+    /**
+     * @var string
+     */
     protected const FIXTURE_FILE_NAME = 'finishResponseBody.json';
 
     /**
@@ -44,7 +51,7 @@ class FinishApiCallFacadeTest extends CrefoPayApiFacadeBaseTest
         $finishResponseTransfer = $responseTransfer->getFinishResponse();
         $this->assertInstanceOf(
             CrefoPayApiFinishResponseTransfer::class,
-            $finishResponseTransfer
+            $finishResponseTransfer,
         );
 
         $this->assertEquals(0, $finishResponseTransfer->getResultCode());

@@ -12,11 +12,24 @@ use Spryker\Zed\Kernel\Container;
 use SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\CrefoPayApiGuzzleHttpClientAdapter;
 use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServiceBridge;
 
+/**
+ * @method \SprykerEco\Zed\CrefoPayApi\CrefoPayApiConfig getConfig()
+ */
 class CrefoPayApiDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const SERVICE_UTIL_ENCODING = 'SERVICE_UTIL_ENCODING';
+
+    /**
+     * @var string
+     */
     public const SERVICE_CREFO_PAY_API = 'SERVICE_CREFO_PAY_API';
 
+    /**
+     * @var string
+     */
     public const CREFO_PAY_API_HTTP_CLIENT = 'CREFO_PAY_API_HTTP_CLIENT';
 
     /**

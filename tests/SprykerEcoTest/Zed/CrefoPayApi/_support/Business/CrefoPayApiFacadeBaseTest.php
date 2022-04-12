@@ -19,9 +19,24 @@ use SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\CrefoPayApiGuzzleHttpC
 
 class CrefoPayApiFacadeBaseTest extends Test
 {
+    /**
+     * @var int
+     */
     protected const SUCCESS_RESPONSE_STATUS = 200;
+
+    /**
+     * @var string
+     */
     protected const FIXTURES_FOLDER_NAME = 'Fixtures';
+
+    /**
+     * @var array
+     */
     protected const RESPONSE_HEADERS = [];
+
+    /**
+     * @var string
+     */
     protected const FIXTURE_FILE_NAME = '';
 
     /**
@@ -58,7 +73,7 @@ class CrefoPayApiFacadeBaseTest extends Test
                 'getUtilEncodingService',
                 'getCrefoPayApiService',
                 'getCrefoPayApiHttpClient',
-            ]
+            ],
         );
 
         $stub = $builder->getMock();
@@ -77,28 +92,24 @@ class CrefoPayApiFacadeBaseTest extends Test
     }
 
     /**
-     * @throws \Exception
-     *
      * @return \SprykerEco\Zed\CrefoPayApi\Dependency\External\Guzzle\CrefoPayApiGuzzleHttpClientAdapterInterface|object
      */
     protected function createCrefoPayApiGuzzleHttpClientAdapterMock(): CrefoPayApiGuzzleHttpClientAdapterInterface
     {
         return $this->make(
             CrefoPayApiGuzzleHttpClientAdapter::class,
-            ['guzzleHttpClient' => $this->createGuzzleHttpClientMock()]
+            ['guzzleHttpClient' => $this->createGuzzleHttpClientMock()],
         );
     }
 
     /**
-     * @throws \Exception
-     *
      * @return \GuzzleHttp\ClientInterface|object
      */
     protected function createGuzzleHttpClientMock(): ClientInterface
     {
         return $this->makeEmpty(
             Client::class,
-            ['__call' => $this->createResponseMock()]
+            ['__call' => $this->createResponseMock()],
         );
     }
 
@@ -110,12 +121,12 @@ class CrefoPayApiFacadeBaseTest extends Test
         return new Response(
             static::SUCCESS_RESPONSE_STATUS,
             $this->getResponseHeaders(),
-            $this->getResponseBody()
+            $this->getResponseBody(),
         );
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     protected function getResponseHeaders(): array
     {

@@ -23,7 +23,7 @@ class CreateTransactionResponseMapper implements CrefoPayApiResponseMapperInterf
         CrefoPayApiResponseTransfer $responseTransfer
     ): CrefoPayApiResponseTransfer {
         $responseTransfer->setCreateTransactionResponse(
-            (new CrefoPayApiCreateTransactionResponseTransfer())->fromArray($responseData, true)
+            (new CrefoPayApiCreateTransactionResponseTransfer())->fromArray($responseData, true),
         );
 
         return $responseTransfer;

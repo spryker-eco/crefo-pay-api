@@ -23,7 +23,7 @@ class ReserveResponseMapper implements CrefoPayApiResponseMapperInterface
         CrefoPayApiResponseTransfer $responseTransfer
     ): CrefoPayApiResponseTransfer {
         $responseTransfer->setReserveResponse(
-            (new CrefoPayApiReserveResponseTransfer())->fromArray($responseData, true)
+            (new CrefoPayApiReserveResponseTransfer())->fromArray($responseData, true),
         );
 
         return $responseTransfer;

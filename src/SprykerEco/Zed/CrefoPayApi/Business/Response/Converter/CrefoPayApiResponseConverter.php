@@ -16,7 +16,14 @@ use SprykerEco\Zed\CrefoPayApi\Dependency\Service\CrefoPayApiToUtilEncodingServi
 
 class CrefoPayApiResponseConverter implements CrefoPayApiResponseConverterInterface
 {
+    /**
+     * @var string
+     */
     protected const API_ERROR_TYPE_EXTERNAL = 'EXTERNAL';
+
+    /**
+     * @var string
+     */
     protected const EXTERNAL_ERROR_MESSAGE = 'CrefoPay service temporarily unavailable.';
 
     /**
